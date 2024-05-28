@@ -26,19 +26,19 @@ export default function Result() {
     );
   };
 
-const SaveClick = async (event: React.MouseEvent<HTMLDivElement>) => {
+  const SaveClick = async (id: string, event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation(); // 이벤트 전파 중단
     try {
-        // await saveMyPerfume(id);
-        setSaveComplete(true);
-        setSaveAlert(true);
-        setTimeout(() => {
-            setSaveAlert(false);
-        }, 2000);
+      // await saveMyPerfume(id);
+      setSaveComplete(true);
+      setSaveAlert(true);
+      setTimeout(() => {
+        setSaveAlert(false);
+      }, 2000);
     } catch (error) {
-        console.error("Error saving perfume:", error);
+      console.error("Error saving perfume:", error);
     }
-};
+  };
 
   return (
     <div className="w-screen h-[1600px] flex flex-col bg-result-bg bg-center bg-cover font-pretendard">
@@ -63,7 +63,7 @@ const SaveClick = async (event: React.MouseEvent<HTMLDivElement>) => {
                 </div>
                 <div
                   className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[100px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
-                  onClick={SaveClick(mainPerfume.id)}
+                  onClick={(event) => SaveClick(mainPerfume.id.toString(), event)}
                 >
                   <div className="flex items-center justify-between">
                     {saveComplete ? (
