@@ -1,0 +1,63 @@
+.scent-container-wrapper>div:first-child {
+    margin-top: 39px;
+}
+
+.scent-container-wrapper>div:last-child {
+    margin-bottom: 83px;
+}
+
+.gender-container {
+    margin-top: 150px;
+    margin-bottom: 218px;
+}
+
+.weather-grid {
+    margin-top: 92px;
+    margin-bottom: 152px;
+}
+
+.times-container {
+    margin-top: 140px;
+    margin-bottom: 208px;
+}
+
+.age-container-wrapper>div:first-child {
+    margin-top: 92px;
+}
+
+.age-container-wrapper>div:last-child {
+    margin-bottom: 152px;
+}
+
+.brand-container-wrapper>div:first-child {
+    margin-top: 92px;
+}
+
+.brand-container-wrapper>div:last-child {
+    margin-bottom: 152px;
+}
+
+
+.scent-button {
+    margin: 16px 15px;
+}
+
+.gender-button {
+    margin: 15px;
+}
+
+.weather-button {
+    margin: 16px 25px;
+}
+
+.times-button {
+    margin: 25px 25px;
+}
+
+.age-button {
+    margin: 16px 25px;
+}
+
+.brand-button {
+    margin: 16px 25px;
+}
