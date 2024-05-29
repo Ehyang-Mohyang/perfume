@@ -9,33 +9,13 @@ const NaverLogin = () => {
   const [isHover, setIsHover] = useState(false);
   const nav = useNavigate();
 
-  const loginNaver = async () => {
-    try {
-      const response = await axios.get(
-        apiUrl.apiUrl + 'oauth2/authorization/naver',
-        {
-          withCredentials: true,
-          maxRedirects: 0, // 리디렉션을 거부
-        },
-      );
+  const loginNaver = () => {
+    const clientId = apiUrl.clientID;
+    const redirectUri = encodeURI(apiUrl.apiUrl + 'naver-callback');
+    const state = Math.random().toString(36).substr(2);
 
-      // 수동으로 location 헤더에서 URL을 가져와 리디렉션
-      const redirectUrl = response.headers.location;
-      if (redirectUrl) {
-        window.location.href = redirectUrl;
-      }
-    } catch (error) {
-      const err = error as any; // 타입 변환
-      if (err.response && err.response.status === 302) {
-        // 302 응답의 location 헤더에서 URL을 가져와 리디렉션
-        const redirectUrl = err.response.headers.location;
-        if (redirectUrl) {
-          window.location.href = redirectUrl;
-        }
-      } else {
-        console.error('Error fetching login URL', err);
-      }
-    }
+    const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+    window.location.href = naverAuthUrl;
   };
 
   useEffect(() => {
