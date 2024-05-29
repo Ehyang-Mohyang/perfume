@@ -12,25 +12,25 @@ import MatchingPage from './pages/matchingpage';
 import MatchFail from './pages/matchfail';
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout/>}>
-                    <Route index element={<Home/>}/>
-                    <Route path="main" element={<Main/>}/>
-                    <Route path="mypage" element={<Mypage/>}/>
-                    <Route path="callback" element={<NaverCallback/>}/>
-                    <Route path="match" element={<MatchingPage/>}/>
-                    <Route path="matchfail" element={<MatchFail/>}/>
-                    <Route path="/result" element={<Result />}/>
-                    <Route path="/perfumeInfo/:id" element={<PerfumeInfo/>}/>
-                </Route>
-                <Route path="*" element={<NoHeaderLayout/>}>
-                    <Route path="*" element={<NotFound/>}/>
-                </Route>
-            </Routes>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="main" element={<Main />} />
+          <Route path="mypage" element={<Mypage />} />
+          <Route path="naver-callback" element={<NaverCallback />} />
+          <Route path="match" element={<MatchingPage />} />
+          <Route path="matchfail" element={<MatchFail />} />
+          <Route path="/result" element={<Result />} />
+          <Route path="/perfumeInfo/:id" element={<PerfumeInfo />} />
+        </Route>
+        <Route path="*" element={<NoHeaderLayout />}>
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
