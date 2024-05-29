@@ -16,8 +16,11 @@ export default function NaverCallback() {
       .then((response) => {
         //spring에서 발급된 jwt 반환 localStorage 저장
         localStorage.setItem('accessToken', response.headers.accesstoken);
-        //메인 페이지로 이동
-        window.location.href = '/';
+        // / 페이지에 메시지 보내기
+        window.opener.postMessage('loginSuccess', window.location.origin);
+
+        // 팝업창 닫기
+        window.close();
       })
       .catch((err) => {
         //에러발생 시 경고처리 후 login 페이지로 전환
