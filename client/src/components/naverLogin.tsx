@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import naverDefault from '../assets/images/logo_green.png';
 import naverHover from '../assets/images/logo_white.png';
 import axios from 'axios';
@@ -35,6 +35,27 @@ const NaverLogin = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const handleLogin = (event: MessageEvent) => {
+      console.log('Received message:', event);
+      if (
+        event.origin === window.location.origin &&
+        event.data === 'loginSuccess'
+      ) {
+        console.log('Login successful, redirecting to /main');
+        // 메인 페이지로 이동
+        window.location.href = '/main';
+      }
+    };
+    // 메시지 수신 등록
+    window.addEventListener('message', handleLogin);
+
+    // 메시지 수신 해제
+    return () => {
+      window.removeEventListener('message', handleLogin);
+    };
+  }, []);
 
   return (
     <div className={'flex justify-center items-center mb-[15px]'}>
