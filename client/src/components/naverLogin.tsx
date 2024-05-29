@@ -2,6 +2,7 @@ import { useState } from 'react';
 import naverDefault from '../assets/images/logo_green.png';
 import naverHover from '../assets/images/logo_white.png';
 import axios from 'axios';
+import apiUrl from '../config';
 
 const NaverLogin = () => {
   const [isHover, setIsHover] = useState(false);
@@ -9,7 +10,7 @@ const NaverLogin = () => {
   const loginNaver = async () => {
     try {
       const response = await axios.get(
-        process.env.REACT_APP_API_URL + 'oauth2/authorization/naver',
+        apiUrl.apiUrl + 'oauth2/authorization/naver',
         {
           withCredentials: true,
           maxRedirects: 0, // 리디렉션을 거부
