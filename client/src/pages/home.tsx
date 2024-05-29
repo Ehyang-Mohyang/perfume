@@ -4,10 +4,12 @@ import { useEffect } from 'react';
 export default function Home() {
   useEffect(() => {
     const handleLogin = (event: MessageEvent) => {
+      console.log('Received message:', event);
       if (
-        event.data === 'loginSuccess' &&
-        event.origin === window.location.origin
+        event.origin === window.location.origin &&
+        event.data === 'loginSuccess'
       ) {
+        console.log('Login successful, redirecting to /main');
         // 메인 페이지로 이동
         window.location.href = '/main';
       }
