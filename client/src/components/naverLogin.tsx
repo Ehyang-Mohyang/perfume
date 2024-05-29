@@ -1,12 +1,39 @@
 import { useState } from 'react';
 import naverDefault from '../assets/images/logo_green.png';
 import naverHover from '../assets/images/logo_white.png';
-import {postLogin} from '../api/postLogin';
+import axios from 'axios';
+import apiUrl from '../config';
 
 const NaverLogin = () => {
   const [isHover, setIsHover] = useState(false);
+
   const loginNaver = async () => {
-      postLogin();
+    try {
+      const response = await axios.get(
+        apiUrl.apiUrl + 'oauth2/authorization/naver',
+        {
+          withCredentials: true,
+          maxRedirects: 0, // 리디렉션을 거부
+        },
+      );
+
+      // 수동으로 location 헤더에서 URL을 가져와 리디렉션
+      const redirectUrl = response.headers.location;
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      }
+    } catch (error) {
+      const err = error as any; // 타입 변환
+      if (err.response && err.response.status === 302) {
+        // 302 응답의 location 헤더에서 URL을 가져와 리디렉션
+        const redirectUrl = err.response.headers.location;
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        }
+      } else {
+        console.error('Error fetching login URL', err);
+      }
+    }
   };
 
   return (
@@ -42,5 +69,4 @@ const NaverLogin = () => {
     </div>
   );
 };
-
 export default NaverLogin;
