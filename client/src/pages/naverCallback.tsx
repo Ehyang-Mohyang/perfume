@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function NaverCallback() {
+  const nav = useNavigate();
+
   useEffect(() => {
+    const url = new URL(window.location.href);
     const code = new URL(window.location.href).searchParams.get('code');
     const state = new URL(window.location.href).searchParams.get('state');
     console.log('Authorization code:', code);
@@ -41,7 +45,7 @@ export default function NaverCallback() {
         console.log('Login status set to fail');
         window.close();
       });
-  }, []);
+  }, [nav]);
 
   return <div>네이버 로그인 처리 중...</div>;
 }

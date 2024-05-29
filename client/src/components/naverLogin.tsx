@@ -3,9 +3,11 @@ import naverDefault from '../assets/images/logo_green.png';
 import naverHover from '../assets/images/logo_white.png';
 import axios from 'axios';
 import apiUrl from '../config';
+import { useNavigate } from 'react-router-dom';
 
 const NaverLogin = () => {
   const [isHover, setIsHover] = useState(false);
+  const nav = useNavigate();
 
   const loginNaver = async () => {
     try {
@@ -45,7 +47,7 @@ const NaverLogin = () => {
       ) {
         console.log('Login successful, redirecting to /main');
         // 메인 페이지로 이동
-        window.location.href = '/main';
+        nav('/main');
       }
     };
     // 메시지 수신 등록
@@ -55,7 +57,7 @@ const NaverLogin = () => {
     return () => {
       window.removeEventListener('message', handleLogin);
     };
-  }, []);
+  }, [nav]);
 
   return (
     <div className={'flex justify-center items-center mb-[15px]'}>
