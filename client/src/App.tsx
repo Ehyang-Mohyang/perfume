@@ -19,7 +19,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="main" element={<Main />} />
           <Route path="mypage" element={<Mypage />} />
-          <Route path="naver-callback" element={<NaverCallback />} />
+          <Route path="navercallback" element={<NaverCallback />} />
           <Route path="match" element={<MatchingPage />} />
           <Route path="matchfail" element={<MatchFail />} />
           <Route path="/result" element={<Result />} />

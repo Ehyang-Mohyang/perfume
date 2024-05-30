@@ -11,7 +11,7 @@ const NaverLogin = () => {
 
   const loginNaver = () => {
     const clientId = apiUrl.clientID;
-    const redirectUri = encodeURI(apiUrl.apiUrl + 'naver-callback');
+    const redirectUri = encodeURI(apiUrl.apiUrl + 'navercallback');
     const state = Math.random().toString(36).substr(2);
 
     const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
