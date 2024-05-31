@@ -7,37 +7,39 @@ import { useNavigate } from 'react-router-dom';
 
 const NaverLogin = () => {
   const [isHover, setIsHover] = useState(false);
-  const nav = useNavigate();
+  // const nav = useNavigate();
 
   const loginNaver = () => {
-    const clientId = apiUrl.clientID;
-    const redirectUri = encodeURI(apiUrl.apiUrl + 'navercallback');
-    const state = Math.random().toString(36).substr(2);
-
-    const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
-    window.location.href = naverAuthUrl;
+    console.log('loginNaver');
   };
+  //   const clientId = apiUrl.clientID;
+  //   const redirectUri = encodeURI(apiUrl.apiUrl + 'navercallback');
+  //   const state = Math.random().toString(36).substr(2);
 
-  useEffect(() => {
-    const handleLogin = (event: MessageEvent) => {
-      console.log('Received message:', event);
-      if (
-        event.origin === window.location.origin &&
-        event.data === 'loginSuccess'
-      ) {
-        console.log('Login successful, redirecting to /main');
-        // 메인 페이지로 이동
-        nav('/main');
-      }
-    };
-    // 메시지 수신 등록
-    window.addEventListener('message', handleLogin);
+  //   const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+  //   window.location.href = naverAuthUrl;
+  // };
 
-    // 메시지 수신 해제
-    return () => {
-      window.removeEventListener('message', handleLogin);
-    };
-  }, [nav]);
+  // useEffect(() => {
+  //   const handleLogin = (event: MessageEvent) => {
+  //     console.log('Received message:', event);
+  //     if (
+  //       event.origin === window.location.origin &&
+  //       event.data === 'loginSuccess'
+  //     ) {
+  //       console.log('Login successful, redirecting to /main');
+  //       // 메인 페이지로 이동
+  //       nav('/main');
+  //     }
+  //   };
+  //   // 메시지 수신 등록
+  //   window.addEventListener('message', handleLogin);
+
+  //   // 메시지 수신 해제
+  //   return () => {
+  //     window.removeEventListener('message', handleLogin);
+  //   };
+  // }, [nav]);
 
   return (
     <div className={'flex justify-center items-center mb-[15px]'}>
