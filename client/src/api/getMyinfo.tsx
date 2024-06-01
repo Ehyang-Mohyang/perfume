@@ -1,6 +1,6 @@
 import axiosInstance from './axiosConfig';
 
-export const getMyinfo = async (page: number, size: number) => {
+export const getMyinfo = async () => {
   try {
     // const token = localStorage.getItem('naverToken');
     // if (!token) {

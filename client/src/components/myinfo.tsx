@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Button from './button';
 import LogoutIcon from '../assets/icons/icon_logout.svg';
 import Logo from '../assets/icons/naver_circle.svg';
@@ -8,12 +8,36 @@ import { useNavigate } from 'react-router-dom';
 import useLogout from '../hooks/useLogout';
 import Spinner from '../util/spinner';
 import { cancelAccount } from '../api/cancelAccount';
+import { getMyinfo } from '../api/getMyinfo';
+
+interface userInfo {
+  userId: number;
+  name: string;
+  email: string;
+}
 
 export default function Myinfo() {
   const logout = useLogout();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isCanceling, setIsCanceling] = useState(false);
+  const [userInfo, setUserInfo] = useState<userInfo | null>(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const data = await getMyinfo();
+        setUserInfo(data);
+      } catch (error) {
+        console.error('Error fetching user info:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   const handleCancleClick = useCallback(() => {
     setIsModalVisible(true);
@@ -39,14 +63,21 @@ export default function Myinfo() {
   const handleLogoutButtonClick = useCallback(() => {
     logout();
   }, [logout]);
+
+  if (loading) {
+    return <Spinner loading />;
+  }
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row mx-auto items-center mt-[80px] w-[1180px] h-[200px] backdrop-blur-sm bg-album-card shadow-info-card rounded-[30px]">
         <img src={Logo} className="ml-[100px] mr-[60px]" alt="네이버로고" />
         {''}
-        <div className="text-[28px] font-semibold mr-[102px]">장원영</div>
+        <div className="text-[28px] font-semibold mr-[102px]">
+          {userInfo?.name}
+        </div>
         <div className="text-[26px] ml-[82px] mr-[227px] text-nowrap font-normal text-gray60">
-          abcdefg@naver.com
+          {userInfo?.email}
         </div>
         <Button
           text={'로그아웃'}
