@@ -1,13 +1,8 @@
-// src/api/deletePerfumes.ts
 import axios from 'axios';
 
-export const deletePerfumes = async (accessToken: string, ids: number[]) => {
+export const deletePerfumes = async (ids: number[]) => {
   try {
     const response = await axios.delete('/api/myPage/perfumes', {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
       data: { ids },
     });
     return response.data;

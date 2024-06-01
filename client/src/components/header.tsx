@@ -1,14 +1,30 @@
-import { useRecoilValue } from 'recoil';
-import { Link } from 'react-router-dom';
-import { naverTokenState } from '../recoil/recoilState';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { naverTokenState, isLoggedInState } from '../recoil/recoilState';
 import useLogout from '../hooks/useLogout';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoginModal from './loginModal';
+import axiosInstance from '../api/axiosConfig';
 
 const Header = () => {
-  const naverToken = useRecoilValue(naverTokenState);
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const logout = useLogout();
+  const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axiosInstance.get('/api/login/check');
+        setIsLoggedIn(response.status === 200);
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkLoginStatus();
+  }, [setIsLoggedIn]);
 
   const handleLogout = () => {
     logout();
@@ -23,12 +39,12 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 z-10 w-[1920px] font-pretendard h-[100px]">
+    <header className="fixed top-0 z-10 w-full font-pretendard h-[100px]">
       <nav>
         <ul className="flex items-center justify-between p-0 m-0">
           <li>
-            <Link
-              to="/"
+            <button
+              onClick={() => navigate('/')}
               className="no-underline text-header-default text-[20px]"
             >
               <img
@@ -36,20 +52,20 @@ const Header = () => {
                 alt="Logo"
                 className="h-auto w-[130px] py-[11.1px] ml-[78px]"
               />
-            </Link>
+            </button>
           </li>
           <ul className="mr-[90px] py-[20px]">
-            {naverToken && (
+            {isLoggedIn && (
               <li>
-                <Link
-                  to="/mypage"
-                  className="no-underline text-header-default text-[20px] font-normal"
+                <button
+                  onClick={() => navigate('/mypage')}
+                  className="no-underline text-header-default text-[20px] font-normal bg-transparent border-none cursor-pointer"
                 >
                   MY PAGE
-                </Link>
+                </button>
               </li>
             )}
-            {naverToken ? (
+            {isLoggedIn ? (
               <li>
                 <button
                   onClick={handleLogout}
