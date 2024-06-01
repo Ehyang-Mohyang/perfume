@@ -25,7 +25,6 @@ export default function Album() {
   const [error, setError] = useState<string | null>(null);
   const perfumesPerPage = 6;
   const maxDeletableItems = 8; // 최대 삭제 가능한 개수
-  const accessToken = 'YOUR_ACCESS_TOKEN'; // 실제 액세스 토큰으로 교체
 
   useEffect(() => {
     const fetchPerfumes = async () => {
@@ -64,7 +63,7 @@ export default function Album() {
 
   const handleConfirmDelete = async () => {
     try {
-      await deletePerfumes(accessToken, selectedPerfumes);
+      await deletePerfumes(selectedPerfumes);
       setPerfumes(
         perfumes.filter(
           (perfume) => !selectedPerfumes.includes(perfume.myPerfumeId),

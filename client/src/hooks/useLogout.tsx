@@ -1,17 +1,19 @@
-import { useSetRecoilState } from 'recoil';
+import axiosInstance from '../api/axiosConfig';
 import { useNavigate } from 'react-router-dom';
-import { naverTokenState } from '../recoil/recoilState';
 
 const useLogout = () => {
-  const setNaverToken = useSetRecoilState(naverTokenState);
   const navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem('naverToken');
-    setNaverToken(null);
-    navigate('/');
-  };
+  const logout = async () => {
+    try {
+      await axiosInstance.post('/api/logout');
 
+      navigate('/');
+      console.log('Logout successful');
+    } catch (error) {
+      console.error('Failed to logout', error);
+    }
+  };
   return logout;
 };
 

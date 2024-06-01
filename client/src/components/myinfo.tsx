@@ -29,6 +29,7 @@ export default function Myinfo() {
       try {
         const data = await getMyinfo();
         setUserInfo(data);
+        console.log(data);
       } catch (error) {
         console.error('Error fetching user info:', error);
       } finally {

@@ -1,5 +1,6 @@
 import { atom, selector } from 'recoil';
 import { getCookie } from '../util/getCookie';
+import axiosInstance from '../api/axiosConfig';
 export interface Perfume {
   id: number;
   name: string;
@@ -50,3 +51,18 @@ export const naverTokenState = atom({
   key: 'naverTokenState',
   default: getNaverTokenFromCookie(),
 });
+
+export const isLoggedInState = atom<boolean>({
+  key: 'isLoggedInState',
+  default: false,
+});
+
+// 로그인 상태 체크 함수
+export const checkLoginStatus = async () => {
+  try {
+    const response = await axiosInstance.get('/api/login/check');
+    return response.status === 200;
+  } catch (error) {
+    return false;
+  }
+};
