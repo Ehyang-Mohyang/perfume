@@ -19,7 +19,7 @@ export default function Main() {
   const naverToken = useRecoilValue(naverTokenState);
 
   useEffect(() => {
-    console.log('네이버 토큰 값: ' + naverToken);
+    console.log('1네이버 토큰 값: ' + naverToken);
   }, [naverToken]);
 
   const categoryImages: { [key: string]: string } = {
