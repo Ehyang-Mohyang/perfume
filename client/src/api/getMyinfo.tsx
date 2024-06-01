@@ -6,7 +6,7 @@ export const getMyinfo = async (page: number, size: number) => {
     // if (!token) {
     //   throw new Error('No token found');
     // }
-    const response = await axiosInstance.get(`api/myPage/account`, {
+    const response = await axiosInstance.get(`/api/myPage/account`, {
       headers: {
         /*
                           Authorization: `Bearer ${token}`,
