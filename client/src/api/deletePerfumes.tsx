@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axiosInstance from './axiosConfig';
 
 export const deletePerfumes = async (ids: number[]) => {
   try {
-    const response = await axios.delete('/api/myPage/perfumes', {
+    const response = await axiosInstance.delete('/api/myPage/perfumes', {
       data: { ids },
     });
     return response.data;
