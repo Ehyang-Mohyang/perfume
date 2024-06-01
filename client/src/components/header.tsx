@@ -1,6 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { naverTokenState, isLoggedInState } from '../recoil/recoilState';
+import { isLoggedInState } from '../recoil/recoilState';
 import useLogout from '../hooks/useLogout';
 import { useState, useEffect } from 'react';
 import LoginModal from './loginModal';
