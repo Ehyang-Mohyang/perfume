@@ -32,7 +32,12 @@ export default function Album() {
       try {
         setIsLoading(true);
         const data = await getPerfumes(currentPage, perfumesPerPage);
-        setPerfumes(data.content);
+        console.log(data);
+        if (Array.isArray(data.content)) {
+          setPerfumes(data.content);
+        } else {
+          throw new Error('Invalid data structure');
+        }
       } catch (error) {
         setError('Failed to fetch perfumes');
         console.error('Error fetching perfumes:', error);
@@ -79,17 +84,15 @@ export default function Album() {
       prevState.includes(id)
         ? prevState.filter((perfumeId) => perfumeId !== id)
         : prevState.length < maxDeletableItems
-          ? [...prevState, id]
-          : prevState,
+        ? [...prevState, id]
+        : prevState,
     );
   };
 
   const indexOfLastPerfume = currentPage * perfumesPerPage;
   const indexOfFirstPerfume = indexOfLastPerfume - perfumesPerPage;
-  const currentPerfumes = perfumes.slice(
-    indexOfFirstPerfume,
-    indexOfLastPerfume,
-  );
+  const currentPerfumes =
+    perfumes?.slice(indexOfFirstPerfume, indexOfLastPerfume) || [];
 
   const handlePageChange = (pageNumber: SetStateAction<number>) => {
     setCurrentPage(pageNumber);
