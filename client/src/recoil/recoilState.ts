@@ -14,9 +14,9 @@ export interface MatchedPerfumes {
   mainPerfume: Perfume;
   subPerfumes: Perfume[];
 }
-export const selectedItemsState = atom<Map<string, string>>({
+export const selectedItemsState = atom<Map<string, string[]>>({
   key: 'selectedItemsState',
-  default: new Map(),
+  default: new Map<string, string[]>(),
 });
 
 export const hashtagListState = selector({

@@ -19,8 +19,18 @@ const CarouselItems: React.FC<CarouselItemsProps> = ({ category }) => {
   const items = categoryData.items;
 
   const handleItemClick = (item: string) => {
-    const newSelectedItems = new Map(selectedItems);
-    newSelectedItems.set(category, item);
+    const newSelectedItems = new Map<string, string[]>(selectedItems);
+    const currentSelectedItems = newSelectedItems.get(category) || [];
+
+    if (currentSelectedItems.includes(item)) {
+      newSelectedItems.set(
+        category,
+        currentSelectedItems.filter((selectedItem) => selectedItem !== item),
+      );
+    } else {
+      newSelectedItems.set(category, [...currentSelectedItems, item]);
+    }
+
     setSelectedItems(newSelectedItems);
   };
 
@@ -29,8 +39,13 @@ const CarouselItems: React.FC<CarouselItemsProps> = ({ category }) => {
       className={`flex flex-wrap items-center justify-center ${category}-container`}
     >
       {items.map((item) => {
-        const isActive = selectedItems.get(category) === item;
-        const buttonClass = `h-[90px] w-[300px] text-main-button font-medium border border-white border-2 rounded-[15px] shadow-main-button ${isActive ? 'bg-white text-black' : 'shadow-mypage-tap bg-mainbutton-bg text-mainbutton-default'} ${category}-button`;
+        const currentSelectedItems = selectedItems.get(category) || [];
+        const isActive = currentSelectedItems.includes(item);
+        const buttonClass = `h-[90px] w-[300px] text-main-button font-medium border border-white border-2 rounded-[15px] shadow-main-button ${
+          isActive
+            ? 'bg-white text-black'
+            : 'shadow-mypage-tap bg-mainbutton-bg text-mainbutton-default'
+        } ${category}-button`;
         return (
           <Button
             key={item}
@@ -46,8 +61,13 @@ const CarouselItems: React.FC<CarouselItemsProps> = ({ category }) => {
   const renderGrid = (items: string[]) => (
     <div className={`grid grid-cols-2 ${category}-grid`}>
       {items.map((item) => {
-        const isActive = selectedItems.get(category) === item;
-        const buttonClass = `h-[90px] w-[300px] text-main-button font-medium border border-white border-2 rounded-[15px] shadow-main-button ${isActive ? 'bg-white text-black' : 'bg-mainbutton-bg text-mainbutton-default'} ${category}-button`;
+        const currentSelectedItems = selectedItems.get(category) || [];
+        const isActive = currentSelectedItems.includes(item);
+        const buttonClass = `h-[90px] w-[300px] text-main-button font-medium border border-white border-2 rounded-[15px] shadow-main-button ${
+          isActive
+            ? 'bg-white text-black'
+            : 'bg-mainbutton-bg text-mainbutton-default'
+        } ${category}-button`;
         return (
           <Button
             key={item}

@@ -4,7 +4,10 @@ import { perfumeCategories, getCategoryMessage } from '../data/perfumeData';
 import CarouselButtons from './carouselButtons';
 import CarouselItems from './carouselItems';
 import PickHashtagSentence from './pickHashtagSentence';
-import { hashtagListState, matchedPerfumesState } from '../recoil/recoilState';
+import {
+  matchedPerfumesState,
+  selectedItemsState,
+} from '../recoil/recoilState';
 import { postHashtags } from '../api/perfumeMatching';
 import useCarousel from '../hooks/useCarousel';
 import { useNavigate } from 'react-router-dom';
@@ -23,20 +26,21 @@ const Carousel: React.FC<CarouselProps> = ({
   const categories = perfumeCategories.map((cat) => cat.category);
   const { activeIndex, handlePrev, handleNext, handleIndicatorClick } =
     useCarousel(categories);
-  const hashtagList = useRecoilValue(hashtagListState);
+  const selectedItems = useRecoilValue(selectedItemsState);
 
   useEffect(() => {
     onCategoryChange(categories[activeIndex]);
   }, [activeIndex, onCategoryChange, categories]);
 
   const handleSubmit = async () => {
-    if (hashtagList.length === 0) {
+    const hashtagsToSend = Array.from(selectedItems.values()).flat();
+    if (hashtagsToSend.length === 0) {
       onShowModal();
       return;
     }
 
     try {
-      const response = await postHashtags(hashtagList);
+      const response = await postHashtags(hashtagsToSend);
       console.log('Submission successful:', response);
       setMatchedPerfumes(response); // Assuming response.data contains the matched perfumes
       console.log('Updated matchedPerfumes:', response); // 상태가 업데이트된 후의 값을 로그에 출력
