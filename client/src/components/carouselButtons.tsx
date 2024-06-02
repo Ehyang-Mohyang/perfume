@@ -35,11 +35,16 @@ const CarouselButtons: React.FC<CarouselButtonsProps> = ({
         imgSrc={NextIcon}
         imgClassName="rotate-180 ml-[10px] my"
       />
-      <Button
-        type="flex items-center text-modal-button justify-center w-[190px] h-[62px] rounded-30 text-gray176"
-        text="Skip"
-        onClick={onNext}
-      />
+
+      {!isLastPage ? (
+        <Button
+          type="flex items-center text-modal-button justify-center w-[190px] h-[62px] rounded-30 text-gray176"
+          text="Skip"
+          onClick={onNext}
+        />
+      ) : (
+        <div className="w-[190px] h-[62px]"></div>
+      )}
     </div>
   );
 };
