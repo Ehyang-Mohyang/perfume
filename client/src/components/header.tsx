@@ -26,10 +26,6 @@ const Header = () => {
     checkLoginStatus();
   }, [setIsLoggedIn]);
 
-  const handleLogout = () => {
-    logout();
-  };
-
   const handleLogin = () => {
     setIsModalVisible(true);
   };
@@ -67,14 +63,11 @@ const Header = () => {
             )}
             {isLoggedIn ? (
               <li>
-                <button
-                  onClick={handleLogout}
+                <a
+                  href="https://perfume-bside.site/logout"
                   className="no-underline text-header-default text-[20px] font-normal bg-transparent border-none cursor-pointer"
                 >
                   LOGOUT
-                </button>
-                <a id="logout-link" href="/" style={{ display: 'none' }}>
-                  Redirect
                 </a>
               </li>
             ) : (
