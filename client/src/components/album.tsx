@@ -30,7 +30,7 @@ export default function Album() {
     const fetchPerfumes = async () => {
       try {
         setIsLoading(true);
-        const data = await getPerfumes(currentPage, perfumesPerPage);
+        const data = await getPerfumes(currentPage - 1, perfumesPerPage);
         console.log(data);
         if (Array.isArray(data.content)) {
           setPerfumes(data.content);
