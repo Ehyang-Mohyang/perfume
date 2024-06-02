@@ -54,7 +54,7 @@ const Header = () => {
               />
             </button>
           </li>
-          <ul className="mr-[90px] py-[20px]">
+          <ul className="mr-[90px] py-[20px] flex flex-row gap-[42px]">
             {isLoggedIn && (
               <li>
                 <button
