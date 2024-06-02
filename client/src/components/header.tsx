@@ -73,6 +73,9 @@ const Header = () => {
                 >
                   LOGOUT
                 </button>
+                <a id="logout-link" href="/" style={{ display: 'none' }}>
+                  Redirect
+                </a>
               </li>
             ) : (
               <li>
