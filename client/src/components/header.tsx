@@ -1,7 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { isLoggedInState } from '../recoil/recoilState';
-import useLogout from '../hooks/useLogout';
 import { useState, useEffect } from 'react';
 import LoginModal from './loginModal';
 import axiosInstance from '../api/axiosConfig';
@@ -9,7 +8,6 @@ import axiosInstance from '../api/axiosConfig';
 const Header = () => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const logout = useLogout();
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
 

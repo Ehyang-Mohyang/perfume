@@ -22,7 +22,7 @@ const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
   checked,
 }) => {
   return (
-    <div className="relative flex flex-col items-center bg-white w-[282px] h-[382px] shadow-perfume-card border border-white rounded-[30px]">
+    <div className="relative flex flex-col items-center mx-[20px] my-[25px] bg-white w-[282px] h-[382px] shadow-perfume-card border border-white rounded-[20px]">
       {isEditing && (
         <input
           type="checkbox"
@@ -32,20 +32,20 @@ const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
           checked={checked}
         />
       )}
-      <div className="flex flex-col items-center mt-5">
+      <div className="flex flex-col items-center mt-10">
         <img
-          src={perfumImg}
-          className="h-[200px] w-[85px]"
+          src={perfume.imageURL}
+          className="h-[200px] w-auto"
           alt={perfume.name}
         />
         <ul className="flex flex-col p-0 m-0 text-center">
           <li className="text-[14px] my-2 text-header-default font-medium">
             {perfume.brand}
           </li>
-          <li className="text-[18px] text-center text-nowrap">
+          <li className="text-[18px] text-center text-nowrap font-medium">
             {perfume.name}
           </li>
-          <li className="text-[18px] text-gray150 font-normal text-center text-nowrap">
+          <li className="text-[16px] text-gray150 font-normal text-center text-nowrap mb-10">
             {perfume.eName}
           </li>
         </ul>
