@@ -5,7 +5,6 @@ import Logo from '../assets/icons/naver_circle.svg';
 import Modal from './modal';
 import DeleteLogo from '../assets/icons/icon_delete.svg';
 import { useNavigate } from 'react-router-dom';
-import useLogout from '../hooks/useLogout';
 import Spinner from '../util/spinner';
 import { cancelAccount } from '../api/cancelAccount';
 import { getMyinfo } from '../api/getMyinfo';
@@ -17,7 +16,6 @@ interface userInfo {
 }
 
 export default function Myinfo() {
-  const logout = useLogout();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isCanceling, setIsCanceling] = useState(false);
   const [userInfo, setUserInfo] = useState<userInfo | null>(null);
@@ -58,11 +56,7 @@ export default function Myinfo() {
     } finally {
       setIsCanceling(false);
     }
-  }, [logout, navigate]);
-
-  const handleLogoutButtonClick = useCallback(() => {
-    logout();
-  }, [logout]);
+  }, [navigate]);
 
   if (loading) {
     return <Spinner loading />;
@@ -80,7 +74,7 @@ export default function Myinfo() {
           {userInfo?.email}
         </div>
         <a
-          href="https://perfume-bside.site/logout"
+          href="https://perfume-bside.site/api/logout"
           className="no-underline text-header-default text-[20px] font-normal bg-transparent border-none cursor-pointer"
         >
           <Button
@@ -89,7 +83,6 @@ export default function Myinfo() {
               'bg-black text-white w-[160px] h-[62px] rounded-[30px] text-[18px] font-medium'
             }
             imgSrc={LogoutIcon}
-            onClick={handleLogoutButtonClick}
           />
         </a>
       </div>
