@@ -7,6 +7,7 @@ import { useState } from "react";
 import SaveAlert from "../components/saveAlert";
 import { useRecoilValue } from "recoil";
 import { matchedPerfumesState } from "../recoil/recoilState";
+import {saveMyPerfume} from '../api/saveMyPerfume';
 
 const subPerfumePerPage = 3;
 export default function Result() {
@@ -26,10 +27,11 @@ export default function Result() {
     );
   };
 
-  const SaveClick = async (id: string, event: React.MouseEvent<HTMLDivElement>) => {
+  const SaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
+    console.log('click id: ', id);
     event.stopPropagation(); // 이벤트 전파 중단
     try {
-      // await saveMyPerfume(id);
+      await saveMyPerfume(id);
       setSaveComplete(true);
       setSaveAlert(true);
       setTimeout(() => {
@@ -63,7 +65,7 @@ export default function Result() {
                 </div>
                 <div
                   className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[100px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
-                  onClick={(event) => SaveClick(mainPerfume.id.toString(), event)}
+                  onClick={(event) => SaveClick(mainPerfume.id, event)}
                 >
                   <div className="flex items-center justify-between">
                     {saveComplete ? (
