@@ -7,9 +7,7 @@ const useLogout = () => {
   const logout = async () => {
     try {
       await axiosInstance.post('/api/logout');
-      // window.location.href = '/';
-
-      // // navigate('/');
+      navigate('/');
       console.log('Logout successful');
     } catch (error) {
       console.error('Failed to logout', error);
