@@ -52,7 +52,7 @@ export default function Myinfo() {
     try {
       await cancelAccount();
       setIsModalVisible(false);
-      logout();
+      // logout();
       navigate('/');
     } catch (error) {
       console.error('Account deletion failed:', error);
