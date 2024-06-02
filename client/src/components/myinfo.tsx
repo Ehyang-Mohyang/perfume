@@ -52,7 +52,7 @@ export default function Myinfo() {
     try {
       await cancelAccount();
       setIsModalVisible(false);
-      // logout();
+      logout();
       navigate('/');
     } catch (error) {
       console.error('Account deletion failed:', error);
@@ -88,6 +88,9 @@ export default function Myinfo() {
           imgSrc={LogoutIcon}
           onClick={handleLogoutButtonClick}
         />
+        <a id="logout-link" href="/" style={{ display: 'none' }}>
+          Redirect
+        </a>
       </div>
       <div className="flex items-center justify-center mt-[323px]">
         <Button
