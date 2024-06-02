@@ -64,7 +64,7 @@ const Header = () => {
             {isLoggedIn ? (
               <li>
                 <a
-                  href="https://perfume-bside.site/logout"
+                  href="https://perfume-bside.site/api/logout"
                   className="no-underline text-header-default text-[20px] font-normal bg-transparent border-none cursor-pointer"
                 >
                   LOGOUT
