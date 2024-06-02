@@ -52,7 +52,6 @@ export default function Myinfo() {
     try {
       await cancelAccount();
       setIsModalVisible(false);
-      logout();
       navigate('/');
     } catch (error) {
       console.error('Account deletion failed:', error);
@@ -80,16 +79,18 @@ export default function Myinfo() {
         <div className="text-[26px] ml-[82px] mr-[227px] text-nowrap font-normal text-gray60">
           {userInfo?.email}
         </div>
-        <Button
-          text={'로그아웃'}
-          type={
-            'bg-black text-white w-[160px] h-[62px] rounded-[30px] text-[18px] font-medium'
-          }
-          imgSrc={LogoutIcon}
-          onClick={handleLogoutButtonClick}
-        />
-        <a id="logout-link" href="/" style={{ display: 'none' }}>
-          Redirect
+        <a
+          href="https://perfume-bside.site/logout"
+          className="no-underline text-header-default text-[20px] font-normal bg-transparent border-none cursor-pointer"
+        >
+          <Button
+            text={'로그아웃'}
+            type={
+              'bg-black text-white w-[160px] h-[62px] rounded-[30px] text-[18px] font-medium'
+            }
+            imgSrc={LogoutIcon}
+            onClick={handleLogoutButtonClick}
+          />
         </a>
       </div>
       <div className="flex items-center justify-center mt-[323px]">
