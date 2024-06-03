@@ -49,7 +49,7 @@ export default function Myinfo() {
     try {
       await cancelAccount();
       setIsModalVisible(false);
-      navigate('/');
+      window.location.href = 'https://perfume-bside.site/api/logout';
     } catch (error) {
       console.error('Account deletion failed:', error);
     }
