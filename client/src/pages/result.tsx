@@ -9,6 +9,8 @@ import {useRecoilValue} from "recoil";
 import {matchedPerfumesState} from "../recoil/recoilState";
 import {saveMyPerfume} from '../api/saveMyPerfume';
 import {getSavedCheck} from '../api/getSavedCheck';
+import {useNavigate} from 'react-router-dom';
+import {resultPerfumeData} from '../data/resultPerfumeData';
 
 interface perfumesSavedType {
     id: number,
@@ -23,6 +25,7 @@ export default function Result() {
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
     const [perfumesSaved, setPerfumesSaved] = useState<[perfumesSavedType]>();
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
+    const navigate = useNavigate();
 
     const prevClick = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
@@ -33,6 +36,11 @@ export default function Result() {
             Math.min(prevPage + 1, subPerfumes.length - 3)
         );
     };
+
+    const toInfo = (data: resultPerfumeData) => () => {
+        navigate(`/perfumeInfo/${data.id}`, { state: { perfume: data } });
+    }
+
     const savedCheck = async (ids: number[]) => {
         try {
             const isSaved = await getSavedCheck(ids);
@@ -133,6 +141,7 @@ export default function Result() {
                                     <div
                                         key={data.id}
                                         className="relative group mx-[21px] w-[360px] h-[360px] flex-shrink-0 rounded-[20px] bg-white shadow-subPerfume-div flex justify-center items-center"
+                                        onClick={toInfo(data)}
                                     >
                                         <img className="" src={data.imageURL} alt={data.name}/>
                                         <div
@@ -143,20 +152,20 @@ export default function Result() {
                                                         perfumesSaved && perfumesSaved.slice(1)[index].exists ?
                                                             <img src={saveAfter} className='cursor-pointer' onClick={(event) => SaveClick(data.id, event)} />
                                                             :
-                                                            <img src={subDef} className='cursor-pointer' onClick={(event) => SaveClick(data.id, event)} />
+                                                            <img src={subDef} className='cursor-pointer'
+                                                                 onClick={(event) => SaveClick(data.id, event)}/>
                                                     }
                                                 </div>
-                                                <div
-                                                    className="flex flex-col items-center justify-center mt-12 text-white">
-                          <span className="font-bold text-center text-sub-brand">
-                            {data.brand}
-                          </span>
+                                                <div className="flex flex-col items-center justify-center mt-12 text-white">
+                                                  <span className="font-bold text-center text-sub-brand">
+                                                    {data.brand}
+                                                  </span>
                                                     <span className="mt-4 font-bold text-center text-sub-name">
-                            {data.name}
-                          </span>
+                                                    {data.name}
+                                                  </span>
                                                     <span className="font-medium text-center text-sub-eName">
-                            {data.ename}
-                          </span>
+                                                    {data.ename}
+                                                  </span>
                                                 </div>
                                             </div>
                                         </div>

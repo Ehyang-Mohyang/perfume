@@ -5,8 +5,7 @@ export interface resultPerfumeData {
     id: number,
     brand: string,
     name: string,
-    eName: string,
-    content: string,
+    ename: string,
     imageURL: string,
 }
 
