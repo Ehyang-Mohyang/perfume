@@ -51,7 +51,7 @@ export default function Result() {
     };
     useEffect(() => {
         mainSavedCheck();
-    }, [mainPerfume.id]);
+    }, [mainPerfume, subPerfumes]);
 
     return (
         <div className="w-screen h-[1600px] flex flex-col bg-result-bg bg-center bg-cover font-pretendard">
@@ -129,7 +129,7 @@ export default function Result() {
                                         <div
                                             className="absolute inset-0 hidden justify-center group-hover:flex group-hover:bg-black group-hover:bg-opacity-40 rounded-[20px] flex justify-center items-center">
                                             <div className="w-[290px] h-[290px]">
-                                                <div className="flex justify-end" onClick={(event) => SaveClick(mainPerfume.id, event)} >
+                                                <div className="flex justify-end" onClick={(event) => SaveClick(data.id, event)} >
                                                     <img src={subDef}/>
                                                 </div>
                                                 <div
