@@ -97,8 +97,13 @@ export default function Album() {
     setCurrentPage(pageNumber);
   };
 
+  const containerHeightClass = perfumes.length > 0 ? 'h-[1023px]' : 'h-[622px]';
+
   return (
-    <div className="flex flex-col mt-[40px] mx-auto bg-album-card bg-opacity-70 shadow-album-card rounded-30 border w-[1180px] h-[622px] max-h-[1023px] border-white backdrop-blur-sm">
+    <div
+      className={`flex flex-col mt-[40px] mx-auto bg-album-card bg-opacity-70 shadow-album-card rounded-30 border w-[1180px] ${containerHeightClass} border-white backdrop-blur-sm`}
+    >
+      {' '}
       <div className="flex flex-row cursor-pointer justify-between pt-[42px]">
         {''}
         <div>
@@ -148,7 +153,7 @@ export default function Album() {
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
       />
-      <div className="flex flex-row flex-wrap justify-center">
+      <div className="flex flex-row flex-wrap justify-start">
         {isLoading ? (
           <Spinner loading />
         ) : currentPerfumes.length > 0 ? (

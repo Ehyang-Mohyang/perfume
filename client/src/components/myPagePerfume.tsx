@@ -33,11 +33,11 @@ const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
         />
       )}
       <div className="flex flex-col items-center mt-10">
-        <img
-          src={perfume.imageURL}
-          className="h-[200px] w-auto"
-          alt={perfume.name}
-        />
+        <div className="w-[280px]">
+          <div className="flex items-center justify-center h-full">
+            <img src={perfume.imageURL} className="max-w-full max-h-full" />
+          </div>
+        </div>
         <ul className="flex flex-col p-0 m-0 text-center">
           <li className="text-[14px] my-2 text-header-default font-medium">
             {perfume.brand}
