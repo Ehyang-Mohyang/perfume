@@ -17,7 +17,8 @@
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.23.1",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
