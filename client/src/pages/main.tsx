@@ -51,25 +51,27 @@ export default function Main() {
   console.log('Hashtag List:', hashtagList);
 
   return (
-    <div
-      className="flex flex-col flex-1 w-[1920px] h-[1080px] bg-center bg-cover font-pretendard"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      <Carousel
-        onCategoryChange={handleCategoryChange}
-        onShowModal={handleShowModal}
-      />
-      <PickItemModal
-        title="취향을 선택해주세요!"
-        content={
-          <div>
-            <strong>1개 이상의 취향을</strong> 반드시 선택해주세요.
-          </div>
-        }
-        positiveAnswer="확인"
-        isVisible={isModalVisible}
-        onConfirm={handleConfirmModal}
-      />
+    <div className="w-[1920px] h-[1080px]">
+      <div
+        className="flex flex-col flex-1 bg-center bg-cover w-dvw h-dvh"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <Carousel
+          onCategoryChange={handleCategoryChange}
+          onShowModal={handleShowModal}
+        />
+        <PickItemModal
+          title="취향을 선택해주세요!"
+          content={
+            <div>
+              <strong>1개 이상의 취향을</strong> 반드시 선택해주세요.
+            </div>
+          }
+          positiveAnswer="확인"
+          isVisible={isModalVisible}
+          onConfirm={handleConfirmModal}
+        />
+      </div>
     </div>
   );
 }

@@ -9,23 +9,19 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   onPageChange,
 }) => {
-  const pageNumbers = [];
-
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <nav className="flex justify-center">
+    <nav className="flex justify-center mb-12 mt-[22px]">
       <ul className="flex">
         {pageNumbers.map((number) => (
           <li
             key={number}
             className={`${
               currentPage === number
-                ? ' text-black font-medium'
-                : ' text-gray150 font-normal'
-            }  text-[18px] cursor-pointer`}
+                ? 'text-black font-medium'
+                : 'text-gray150 font-normal'
+            } text-[18px] cursor-pointer`}
           >
             <button onClick={() => onPageChange(number)} className="page-link">
               {number}

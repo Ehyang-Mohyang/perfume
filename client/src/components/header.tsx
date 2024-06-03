@@ -1,7 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { isLoggedInState } from '../recoil/recoilState';
-import useLogout from '../hooks/useLogout';
 import { useState, useEffect } from 'react';
 import LoginModal from './loginModal';
 import axiosInstance from '../api/axiosConfig';
@@ -9,7 +8,6 @@ import axiosInstance from '../api/axiosConfig';
 const Header = () => {
   const isLoggedIn = useRecoilValue(isLoggedInState);
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
-  const logout = useLogout();
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -26,10 +24,6 @@ const Header = () => {
     checkLoginStatus();
   }, [setIsLoggedIn]);
 
-  const handleLogout = () => {
-    logout();
-  };
-
   const handleLogin = () => {
     setIsModalVisible(true);
   };
@@ -39,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 z-10 w-full font-pretendard h-[100px]">
+    <header className="fixed top-0 z-10 w-full h-[100px]">
       <nav>
         <ul className="flex items-center justify-between p-0 m-0">
           <li>
@@ -67,14 +61,11 @@ const Header = () => {
             )}
             {isLoggedIn ? (
               <li>
-                <button
-                  onClick={handleLogout}
+                <a
+                  href="https://perfume-bside.site/api/logout"
                   className="no-underline text-header-default text-[20px] font-normal bg-transparent border-none cursor-pointer"
                 >
                   LOGOUT
-                </button>
-                <a id="logout-link" href="/" style={{ display: 'none' }}>
-                  Redirect
                 </a>
               </li>
             ) : (

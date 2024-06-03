@@ -61,10 +61,8 @@ export const isLoggedInState = atom<boolean>({
 export const checkLoginStatus = async () => {
   try {
     const response = await axiosInstance.get('/api/login/check');
-    console.log('Login check response:', response);
     return response.status === 200;
   } catch (error) {
-    console.error('Login check error:', error);
     return false;
   }
 };
