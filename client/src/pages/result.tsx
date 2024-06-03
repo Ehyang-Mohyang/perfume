@@ -11,6 +11,7 @@ import {saveMyPerfume} from '../api/saveMyPerfume';
 import {getSavedCheck} from '../api/getSavedCheck';
 import {useNavigate} from 'react-router-dom';
 import {resultPerfumeData} from '../data/resultPerfumeData';
+import ResultPagination from '../components/resultPagination';
 
 interface perfumesSavedType {
     id: number,
@@ -127,13 +128,7 @@ export default function Result() {
                 <div className="h-full mx-auto ">
                     {/* 서브 향수 리스트 */}
                     <div className="flex justify-between mt-14">
-                        <button
-                            className="mr-[42px]"
-                            onClick={prevClick}
-                            disabled={currentPage === 0}
-                        >
-                            <img src={left}/>
-                        </button>
+                        <ResultPagination style="mr-[42px]" onClick={prevClick} imgSrc={left} currentPage={currentPage} disabledCondition={currentPage === 0}/>
                         <div className="flex justify-center w-[1180px]">
                             {subPerfumes
                                 .slice(currentPage, currentPage + subPerfumePerPage)
@@ -172,14 +167,7 @@ export default function Result() {
                                     </div>
                                 ))}
                         </div>
-                        {/* 서브 향수 아이템 */}
-                        <button
-                            className="ml-[42px]"
-                            onClick={nextClick}
-                            disabled={currentPage >= subPerfumes.length - 3}
-                        >
-                            <img src={right}/>
-                        </button>
+                        <ResultPagination style="ml-[42px]" onClick={nextClick} imgSrc={right} currentPage={currentPage} disabledCondition={currentPage >= subPerfumes.length - 3} />
                     </div>
                 </div>
             </div>
