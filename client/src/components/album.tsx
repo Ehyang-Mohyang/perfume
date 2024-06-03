@@ -153,7 +153,7 @@ export default function Album() {
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
       />
-      <div className="flex flex-row flex-wrap justify-center">
+      <div className="flex flex-row flex-wrap justify-start">
         {isLoading ? (
           <Spinner loading />
         ) : currentPerfumes.length > 0 ? (
