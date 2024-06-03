@@ -10,12 +10,18 @@ import {matchedPerfumesState} from "../recoil/recoilState";
 import {saveMyPerfume} from '../api/saveMyPerfume';
 import {getSavedCheck} from '../api/getSavedCheck';
 
+interface perfumesSavedType {
+    id: number,
+    exists: boolean,
+}
+
 const subPerfumePerPage = 3;
 export default function Result() {
     const [saveAlert, setSaveAlert] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const [savedMainPerfume, setSavedMainPerfume] = useState(false);
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
+    const [perfumesSaved, setPerfumesSaved] = useState<[perfumesSavedType]>();
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
 
     const prevClick = () => {
@@ -30,7 +36,8 @@ export default function Result() {
     const savedCheck = async (ids: number[]) => {
         try {
             const isSaved = await getSavedCheck(ids);
-            setSavedMainPerfume(isSaved);
+            setPerfumesSaved(isSaved);
+            console.log('result page perfumesSaved: ', perfumesSaved)
         } catch (error) {
             console.error("Error fetching saved check:", error);
         }
@@ -82,7 +89,7 @@ export default function Result() {
                                     onClick={(event) => SaveClick(mainPerfume.id, event)}
                                 >
                                     <div className="flex items-center justify-between">
-                                        {savedMainPerfume ? (
+                                        {perfumesSaved && perfumesSaved[0].exists ? (
                                             <img src={saveDef}/>
                                         ) : (
                                             <img src={saveAfter}/>
@@ -122,7 +129,7 @@ export default function Result() {
                         <div className="flex justify-center w-[1180px]">
                             {subPerfumes
                                 .slice(currentPage, currentPage + subPerfumePerPage)
-                                .map((data) => (
+                                .map((data, index) => (
                                     <div
                                         key={data.id}
                                         className="relative group mx-[21px] w-[360px] h-[360px] flex-shrink-0 rounded-[20px] bg-white shadow-subPerfume-div flex justify-center items-center"
@@ -132,7 +139,12 @@ export default function Result() {
                                             className="absolute inset-0 hidden justify-center group-hover:flex group-hover:bg-black group-hover:bg-opacity-40 rounded-[20px] flex justify-center items-center">
                                             <div className="w-[290px] h-[290px]">
                                                 <div className="flex justify-end" onClick={(event) => SaveClick(data.id, event)} >
-                                                    <img src={subDef}/>
+                                                    {
+                                                        perfumesSaved && perfumesSaved.slice(1)[index].exists ?
+                                                            <img src={saveAfter}/>
+                                                            :
+                                                            <img src={subDef}/>
+                                                    }
                                                 </div>
                                                 <div
                                                     className="flex flex-col items-center justify-center mt-12 text-white">
