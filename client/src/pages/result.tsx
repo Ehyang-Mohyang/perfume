@@ -15,6 +15,7 @@ export default function Result() {
     const [saveAlert, setSaveAlert] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const [savedMainPerfume, setSavedMainPerfume] = useState(false);
+    const [perfumesIds, setPerfumesIds] = useState([0]);
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
 
     const prevClick = () => {
@@ -26,10 +27,10 @@ export default function Result() {
             Math.min(prevPage + 1, subPerfumes.length - 3)
         );
     };
-    const mainSavedCheck = async () => {
+    const savedCheck = async () => {
         try {
-            const mainSaved = await getSavedCheck(mainPerfume.id);
-            setSavedMainPerfume(mainSaved);
+            const isSaved = await getSavedCheck(perfumesIds);
+            setSavedMainPerfume(isSaved);
         } catch (error) {
             console.error("Error fetching saved check:", error);
         }
@@ -40,7 +41,7 @@ export default function Result() {
         event.stopPropagation(); // 이벤트 전파 중단
         try {
             await saveMyPerfume(id);
-            mainSavedCheck();
+            savedCheck();
             setSaveAlert(true);
             setTimeout(() => {
                 setSaveAlert(false);
@@ -50,7 +51,9 @@ export default function Result() {
         }
     };
     useEffect(() => {
-        mainSavedCheck();
+        const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
+        setPerfumesIds(ids);
+        savedCheck();
     }, [mainPerfume, subPerfumes]);
 
     return (
