@@ -38,7 +38,7 @@ export default function MatchingPage() {
   }, [matchSuccess, navigate]);
 
   return (
-    <div className="flex flex-col items-center w-[1920px] h-[1080px] bg-center bg-cover bg-matching-bg font-pretendard">
+    <div className="flex flex-col items-center w-[1920px] h-[1080px] bg-center bg-cover bg-matching-bg">
       <span className="text-header-default text-pick-subtitle2 mt-[196px] font-medium">
         탕탕탕!
       </span>
