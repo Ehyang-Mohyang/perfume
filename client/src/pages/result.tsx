@@ -138,12 +138,12 @@ export default function Result() {
                                         <div
                                             className="absolute inset-0 hidden justify-center group-hover:flex group-hover:bg-black group-hover:bg-opacity-40 rounded-[20px] flex justify-center items-center">
                                             <div className="w-[290px] h-[290px]">
-                                                <div className="flex justify-end cursor-pointer" onClick={(event) => SaveClick(data.id, event)} >
+                                                <div className="flex justify-end" >
                                                     {
                                                         perfumesSaved && perfumesSaved.slice(1)[index].exists ?
-                                                            <img src={saveAfter}/>
+                                                            <img src={saveAfter} className='cursor-pointer' onClick={(event) => SaveClick(data.id, event)} />
                                                             :
-                                                            <img src={subDef}/>
+                                                            <img src={subDef} className='cursor-pointer' onClick={(event) => SaveClick(data.id, event)} />
                                                     }
                                                 </div>
                                                 <div
