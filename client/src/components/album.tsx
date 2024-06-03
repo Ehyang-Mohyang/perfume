@@ -15,7 +15,7 @@ export default function Album() {
     {
       myPerfumeId: number;
       name: string;
-      eName: string;
+      ename: string;
       brand: string;
       imageURL: string;
     }[]
@@ -153,7 +153,7 @@ export default function Album() {
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
       />
-      <div className="flex flex-row flex-wrap justify-start">
+      <div className="flex flex-row flex-wrap justify-start px-[120px]">
         {isLoading ? (
           <Spinner loading />
         ) : currentPerfumes.length > 0 ? (
