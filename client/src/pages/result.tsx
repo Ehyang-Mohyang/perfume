@@ -90,9 +90,9 @@ export default function Result() {
                                 >
                                     <div className="flex items-center justify-between">
                                         {perfumesSaved && perfumesSaved[0].exists ? (
-                                            <img src={saveDef}/>
-                                        ) : (
                                             <img src={saveAfter}/>
+                                        ) : (
+                                            <img src={saveDef}/>
                                         )}
                                         <p className="mb-0 text-2xl text-save-button">
                                             내 향수 저장하기
@@ -138,7 +138,7 @@ export default function Result() {
                                         <div
                                             className="absolute inset-0 hidden justify-center group-hover:flex group-hover:bg-black group-hover:bg-opacity-40 rounded-[20px] flex justify-center items-center">
                                             <div className="w-[290px] h-[290px]">
-                                                <div className="flex justify-end" onClick={(event) => SaveClick(data.id, event)} >
+                                                <div className="flex justify-end cursor-pointer" onClick={(event) => SaveClick(data.id, event)} >
                                                     {
                                                         perfumesSaved && perfumesSaved.slice(1)[index].exists ?
                                                             <img src={saveAfter}/>
