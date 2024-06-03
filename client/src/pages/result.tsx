@@ -12,7 +12,6 @@ import {getSavedCheck} from '../api/getSavedCheck';
 
 const subPerfumePerPage = 3;
 export default function Result() {
-    const [saveComplete, setSaveComplete] = useState(false);
     const [saveAlert, setSaveAlert] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const [savedMainPerfume, setSavedMainPerfume] = useState(false);
@@ -27,13 +26,21 @@ export default function Result() {
             Math.min(prevPage + 1, subPerfumes.length - 3)
         );
     };
+    const mainSavedCheck = async () => {
+        try {
+            const mainSaved = await getSavedCheck(mainPerfume.id);
+            setSavedMainPerfume(mainSaved);
+        } catch (error) {
+            console.error("Error fetching saved check:", error);
+        }
+    };
 
     const SaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
         console.log('click id: ', id);
         event.stopPropagation(); // 이벤트 전파 중단
         try {
             await saveMyPerfume(id);
-            setSaveComplete(true);
+            mainSavedCheck();
             setSaveAlert(true);
             setTimeout(() => {
                 setSaveAlert(false);
@@ -42,16 +49,7 @@ export default function Result() {
             console.error("Error saving perfume:", error);
         }
     };
-
     useEffect(() => {
-        const mainSavedCheck = async () => {
-            try {
-                const mainSaved = await getSavedCheck(mainPerfume.id);
-                setSavedMainPerfume(mainSaved);
-            } catch (error) {
-                console.error("Error fetching saved check:", error);
-            }
-        };
         mainSavedCheck();
     }, [mainPerfume.id]);
 
@@ -82,7 +80,7 @@ export default function Result() {
                                     onClick={(event) => SaveClick(mainPerfume.id, event)}
                                 >
                                     <div className="flex items-center justify-between">
-                                        {saveComplete ? (
+                                        {savedMainPerfume ? (
                                             <img src={saveDef}/>
                                         ) : (
                                             <img src={saveAfter}/>
