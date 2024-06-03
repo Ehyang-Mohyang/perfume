@@ -15,7 +15,7 @@ export default function Album() {
     {
       myPerfumeId: number;
       name: string;
-      eName: string;
+      ename: string;
       brand: string;
       imageURL: string;
     }[]
