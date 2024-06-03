@@ -46,7 +46,7 @@ const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
         </label>
       )}
       <div className="flex flex-col items-center">
-        <div className="w-[280px]">
+        <div className="w-[260px]">
           <div className="flex items-center justify-center h-full">
             <img src={perfume.imageURL} className="max-w-full max-h-full" />
           </div>

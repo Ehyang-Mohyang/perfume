@@ -5,7 +5,6 @@ import DeleteLogo from '../assets/icons/icon_delete.svg';
 import Pagination from './pagenation';
 import { getPerfumes } from '../api/getPerfumes';
 import { deletePerfumes } from '../api/deletePerfumes';
-import Spinner from '../util/spinner';
 
 export default function Album() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -21,7 +20,6 @@ export default function Album() {
     }[]
   >([]);
   const [selectedPerfumes, setSelectedPerfumes] = useState<number[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const perfumesPerPage = 6;
   const maxDeletableItems = 8; // 최대 삭제 가능한 개수
@@ -29,7 +27,6 @@ export default function Album() {
   useEffect(() => {
     const fetchPerfumes = async () => {
       try {
-        setIsLoading(true);
         const data = await getPerfumes(currentPage - 1, perfumesPerPage);
         console.log(data);
         if (Array.isArray(data.content)) {
@@ -40,8 +37,6 @@ export default function Album() {
       } catch (error) {
         setError('Failed to fetch perfumes');
         console.error('Error fetching perfumes:', error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -98,7 +93,6 @@ export default function Album() {
   };
 
   const containerHeightClass = perfumes.length > 0 ? 'h-[1023px]' : 'h-[622px]';
-
   return (
     <div
       className={`flex flex-col mt-[40px] mx-auto bg-album-card bg-opacity-70 shadow-album-card rounded-30 border w-[1180px] ${containerHeightClass} border-white backdrop-blur-sm`}
@@ -153,11 +147,9 @@ export default function Album() {
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
       />
-      <div className="flex flex-row flex-wrap justify-start px-[120px]">
-        {isLoading ? (
-          <Spinner loading />
-        ) : currentPerfumes.length > 0 ? (
-          currentPerfumes.map((perfume) => (
+      {currentPerfumes.length > 0 ? (
+        <div className="flex flex-row flex-wrap justify-start pl-[120px]">
+          {currentPerfumes.map((perfume) => (
             <MyPagePerfume
               key={perfume.myPerfumeId}
               perfume={perfume}
@@ -165,15 +157,17 @@ export default function Album() {
               onCheckboxChange={handleCheckboxChange}
               checked={selectedPerfumes.includes(perfume.myPerfumeId)}
             />
-          ))
-        ) : (
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-row flex-wrap justify-center">
           <div className="flex items-center h-[550px] text-center">
             <span className="text-gray150 text-[32px] font-normal pb-[30px]">
               내 향수를 <span className="font-semibold">저장</span>해보세요!
             </span>
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <Pagination
         currentPage={currentPage}
         totalPages={Math.ceil(perfumes.length / perfumesPerPage)}
