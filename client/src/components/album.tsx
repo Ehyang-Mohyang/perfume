@@ -143,7 +143,7 @@ export default function Album() {
         onConfirm={handleConfirmDelete}
       />
       {perfumes.length > 0 ? (
-        <div className="flex flex-row flex-wrap justify-start pl-[120px]">
+        <div className="flex flex-row flex-wrap justify-start pl-[110px]">
           {perfumes.map((perfume) => (
             <MyPagePerfume
               key={perfume.myPerfumeId}

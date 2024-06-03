@@ -15,7 +15,7 @@ const NaverLogin = () => {
         {isHover ? (
           <a
             href="https://perfume-bside.site/oauth2/authorization/naver"
-            className="cursor-pointer inline-flex flex-col w-[460px] h-[94px] px-[103px] py-[27px] items-start gap-2.5 rounded-[15px] bg-naver-default border-2 border-naver-default"
+            className="no-underline cursor-pointer inline-flex flex-col w-[460px] h-[94px] px-[103px] py-[27px] items-start gap-2.5 rounded-[15px] bg-naver-default border-2 border-naver-default"
           >
             <div className="flex flex-row justify-between w-full h-full">
               <img
