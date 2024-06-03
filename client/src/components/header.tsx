@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 z-10 w-full font-pretendard h-[100px]">
+    <header className="fixed top-0 z-10 w-full h-[100px]">
       <nav>
         <ul className="flex items-center justify-between p-0 m-0">
           <li>

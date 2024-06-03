@@ -2,12 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import LoginModal from './loginModal';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { naverTokenState } from '../recoil/recoilState';
+import { isLoggedInState } from '../recoil/recoilState';
 
 const GoToMain = () => {
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const naverToken = useRecoilValue(naverTokenState);
+  const isLoggedIn = useRecoilValue(isLoggedInState);
 
   const toMain = () => {
     navigate('/main');
@@ -42,7 +42,7 @@ const GoToMain = () => {
     </>
   );
 
-  return <>{naverToken ? isLogin : isNotLogin}</>;
+  return <>{isLoggedIn ? isLogin : isNotLogin}</>;
 };
 
 export default GoToMain;
