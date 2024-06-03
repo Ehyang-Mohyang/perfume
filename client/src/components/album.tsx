@@ -25,24 +25,24 @@ export default function Album() {
   const perfumesPerPage = 6;
   const maxDeletableItems = 8; // 최대 삭제 가능한 개수
 
-  useEffect(() => {
-    const fetchPerfumes = async () => {
-      try {
-        const data = await getPerfumes(currentPage - 1, perfumesPerPage);
-        console.log(data);
-        if (Array.isArray(data.content)) {
-          setPerfumes(data.content);
-          setTotalPages(data.totalPages); // 데이터에 기반하여 총 페이지 수 조정
-        } else {
-          throw new Error('Invalid data structure');
-        }
-      } catch (error) {
-        setError('Failed to fetch perfumes');
-        console.error('Error fetching perfumes:', error);
+  const fetchPerfumes = async (page: number) => {
+    try {
+      const data = await getPerfumes(page - 1, perfumesPerPage);
+      console.log(data);
+      if (Array.isArray(data.content)) {
+        setPerfumes(data.content);
+        setTotalPages(data.totalPages); // 데이터에 기반하여 총 페이지 수 조정
+      } else {
+        throw new Error('Invalid data structure');
       }
-    };
+    } catch (error) {
+      setError('Failed to fetch perfumes');
+      console.error('Error fetching perfumes:', error);
+    }
+  };
 
-    fetchPerfumes();
+  useEffect(() => {
+    fetchPerfumes(currentPage);
   }, [currentPage]);
 
   const handleEditClick = () => {
@@ -61,14 +61,17 @@ export default function Album() {
   const handleConfirmDelete = async () => {
     try {
       await deletePerfumes(selectedPerfumes);
-      setPerfumes(
-        perfumes.filter(
-          (perfume) => !selectedPerfumes.includes(perfume.myPerfumeId),
-        ),
-      );
       setSelectedPerfumes([]);
       setIsModalVisible(false);
       setIsEditing(false);
+
+      // 현재 페이지의 향수를 다시 가져옴
+      fetchPerfumes(currentPage);
+
+      // 현재 페이지가 비어 있으면 이전 페이지로 이동
+      if (perfumes.length === 0 && currentPage > 1) {
+        setCurrentPage((prevPage) => prevPage - 1);
+      }
     } catch (error) {
       setError('Failed to delete perfumes');
       console.error('Error deleting perfumes:', error);
@@ -143,7 +146,7 @@ export default function Album() {
         onConfirm={handleConfirmDelete}
       />
       {perfumes.length > 0 ? (
-        <div className="flex flex-row flex-wrap justify-start pl-[110px]">
+        <div className="flex flex-row flex-wrap justify-start pl-[110px] h-[864px]">
           {perfumes.map((perfume) => (
             <MyPagePerfume
               key={perfume.myPerfumeId}
