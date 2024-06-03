@@ -1,9 +1,8 @@
 import {useLocation, useNavigate} from 'react-router-dom';
-import saveDef from '../assets/images/save_complete.png';
 import saveAfter from '../assets/images/save_default.png';
 import iconBack from '../assets/icons/icon_back.png';
 import {mainPerMockData} from '../data/resultPerfumeData';
-export default function PerfumeInfo() {
+export default function Detail() {
     const location = useLocation();
     const navigation = useNavigate();
     const {perfume} = location.state;
