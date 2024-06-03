@@ -1,6 +1,10 @@
 import { atom, selector } from 'recoil';
 import { getCookie } from '../util/getCookie';
 import axiosInstance from '../api/axiosConfig';
+import {recoilPersist} from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
+
 export interface Perfume {
   id: number;
   name: string;
@@ -40,6 +44,7 @@ export const matchedPerfumesState = atom<MatchedPerfumes>({
     },
     subPerfumes: [],
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 const getNaverTokenFromCookie = () => {
