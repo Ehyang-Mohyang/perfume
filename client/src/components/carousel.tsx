@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { perfumeCategories, getCategoryMessage } from '../data/perfumeData';
 import CarouselButtons from './carouselButtons';
@@ -23,6 +23,7 @@ const Carousel: React.FC<CarouselProps> = ({
 }) => {
   const nav = useNavigate();
   const setMatchedPerfumes = useSetRecoilState(matchedPerfumesState);
+  const setSelectedItems = useSetRecoilState(selectedItemsState);
   const categories = perfumeCategories.map((cat) => cat.category);
   const { activeIndex, handlePrev, handleNext, handleIndicatorClick } =
     useCarousel(categories);
@@ -44,6 +45,7 @@ const Carousel: React.FC<CarouselProps> = ({
       console.log('Submission successful:', response);
       setMatchedPerfumes(response); // Assuming response.data contains the matched perfumes
       console.log('Updated matchedPerfumes:', response); // 상태가 업데이트된 후의 값을 로그에 출력
+      setSelectedItems(new Map());
     } catch (error) {
       console.error('Error submitting hashtags:', error);
     } finally {

@@ -5,6 +5,7 @@ import DeleteLogo from '../assets/icons/icon_delete.svg';
 import Pagination from './pagination';
 import { getPerfumes } from '../api/getPerfumes';
 import { deletePerfumes } from '../api/deletePerfumes';
+import CheckIcon from '../assets/icons/icon_check.svg';
 
 export default function Album() {
   const [isModalVisible, setIsModalVisible] = useState(false);

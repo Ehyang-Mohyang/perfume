@@ -15,6 +15,11 @@ interface MyPagePerfumeProps {
   checked: boolean;
 }
 
+const checkedStyle = {
+  backgroundImage: `url(${CheckIcon})`,
+  backgroundSize: '99.9%',
+};
+
 const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
   perfume,
   isEditing,
@@ -24,26 +29,15 @@ const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
   return (
     <div className="relative flex flex-col items-center mx-[20px] my-[25px] bg-white w-[282px] h-[382px] shadow-perfume-card border border-white rounded-[20px]">
       {isEditing && (
-        <label
-          id={perfume.myPerfumeId.toString()}
-          className="absolute top-4 left-6"
-        >
-          <input
-            id={perfume.myPerfumeId.toString()}
-            type="checkbox"
-            className="hidden"
-            onChange={() => onCheckboxChange(perfume.myPerfumeId)}
-            checked={checked}
-          />
-          <span
-            className={`block w-6 h-6 border-2 rounded-full ${
-              checked ? 'bg-black bg-no-repeat bg-center' : 'bg-white'
-            }`}
-            style={{
-              backgroundImage: checked ? `url(${CheckIcon})` : 'none',
-            }}
-          ></span>
-        </label>
+        <input
+          type="checkbox"
+          className={`absolute w-6 h-6 border-2 rounded-full appearance-none top-4 left-6 border-gray229 ${
+            checked ? 'bg-black bg-no-repeat bg-center' : ''
+          }`}
+          style={checked ? checkedStyle : {}}
+          onChange={() => onCheckboxChange(perfume.myPerfumeId)}
+          checked={checked}
+        />
       )}
       <div className="flex flex-col items-center">
         <div className="w-[260px]">
