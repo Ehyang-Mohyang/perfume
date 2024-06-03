@@ -46,15 +46,12 @@ export default function Myinfo() {
     setIsModalVisible(false);
   }, []);
   const handleConfirmCancel = useCallback(async () => {
-    setIsCanceling(true);
     try {
       await cancelAccount();
       setIsModalVisible(false);
       navigate('/');
     } catch (error) {
       console.error('Account deletion failed:', error);
-    } finally {
-      setIsCanceling(false);
     }
   }, [navigate]);
 
