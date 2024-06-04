@@ -2,14 +2,16 @@ import React, {FC} from 'react';
 import saveAfter from '../assets/images/save_complete.png';
 import saveDef from '../assets/images/save_default.png';
 import {resultPerfumeData} from '../data/resultPerfumeData';
-import {perfumesSavedType} from '../hooks/useSavePerfume';
+import {useRecoilValue} from 'recoil';
+import {saveClickState} from '../recoil/recoilState';
 
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
-    perfumesSaved:  [perfumesSavedType] | undefined,
-    saveClick: (id: number, event: React.MouseEvent<HTMLDivElement>) => Promise<void>;
+    isSaved: boolean | undefined,
 }
-const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, perfumesSaved, saveClick}) => {
+const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved}) => {
+    const saveClick = useRecoilValue(saveClickState);
+
     return (
         <div className="w-[1180px] mx-auto">
             <div
@@ -30,7 +32,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, perfumesSaved, saveClic
                             onClick={(event) => saveClick(perfumeData.id, event)}
                         >
                             <div className="flex items-center justify-between">
-                                {perfumesSaved && perfumesSaved[0].exists ? (
+                                {isSaved ? (
                                     <img src={saveAfter}/>
                                 ) : (
                                     <img src={saveDef}/>

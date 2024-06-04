@@ -10,20 +10,20 @@ export interface perfumesSavedType {
 export const useSavePerfume = (ids: number[]) => {
     const [saveClick, setSaveClick] = useRecoilState(saveClickState);
     const [saveAlert, setSaveAlert] = useState(false);
-    const [perfumesSaved, setPerfumesSaved] = useState<[perfumesSavedType]>();
+    const [perfumesSaved, setPerfumesSaved] = useState<perfumesSavedType[]>([]);
 
     const savedCheck = async (ids: number[]) => {
         try {
             const isSaved = await getSavedCheck(ids);
             setPerfumesSaved(isSaved);
-            console.log('result page perfumesSaved: ', perfumesSaved);
+            console.log('result page perfumesSaved: ', isSaved);
         } catch (error) {
             console.error("Error fetching saved check:", error);
         }
     };
     const handleSaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
         console.log('click id: ', id);
-        event.stopPropagation(); // 이벤트 전파 중단
+        event.stopPropagation();
         try {
             await saveMyPerfume(id);
             await savedCheck(ids);
@@ -37,7 +37,7 @@ export const useSavePerfume = (ids: number[]) => {
     };
     useEffect(() => {
         setSaveClick(() => handleSaveClick);
-    }, [handleSaveClick, setSaveClick]);
+    }, [setSaveClick]);
 
     return {
         saveAlert,
