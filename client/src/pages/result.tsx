@@ -12,10 +12,7 @@ import ResultPagination from '../components/resultPagination';
 import PerfumeInfo from '../components/perfumeInfo';
 import {useSavePerfume} from '../hooks/useSavePerfume';
 
-export interface perfumesSavedType {
-    id: number,
-    exists: boolean,
-}
+
 const subPerfumePerPage = 3;
 export default function Result() {
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
@@ -23,7 +20,6 @@ export default function Result() {
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
     const navigate = useNavigate();
     const { saveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
-
 
     const prevClick = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));

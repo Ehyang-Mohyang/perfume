@@ -3,12 +3,14 @@ import {getSavedCheck} from '../api/getSavedCheck';
 import {saveMyPerfume} from '../api/saveMyPerfume';
 import {useRecoilState} from 'recoil';
 import {saveClickState} from '../recoil/recoilState';
-import {perfumesSavedType} from '../pages/result';
-
+export interface perfumesSavedType {
+    id: number,
+    exists: boolean,
+}
 export const useSavePerfume = (ids: number[]) => {
     const [saveClick, setSaveClick] = useRecoilState(saveClickState);
     const [saveAlert, setSaveAlert] = useState(false);
-    const [perfumesSaved, setPerfumesSaved] = useState<perfumesSavedType[]>([]);
+    const [perfumesSaved, setPerfumesSaved] = useState<[perfumesSavedType]>();
 
     const savedCheck = async (ids: number[]) => {
         try {
