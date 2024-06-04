@@ -12,8 +12,9 @@ import {getSavedCheck} from '../api/getSavedCheck';
 import {useNavigate} from 'react-router-dom';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import ResultPagination from '../components/resultPagination';
+import PerfumeInfo from '../components/perfumeInfo';
 
-interface perfumesSavedType {
+export interface perfumesSavedType {
     id: number,
     exists: boolean,
 }
@@ -22,7 +23,6 @@ const subPerfumePerPage = 3;
 export default function Result() {
     const [saveAlert, setSaveAlert] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const [savedMainPerfume, setSavedMainPerfume] = useState(false);
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
     const [perfumesSaved, setPerfumesSaved] = useState<[perfumesSavedType]>();
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
@@ -39,7 +39,7 @@ export default function Result() {
     };
 
     const toInfo = (data: resultPerfumeData) => () => {
-        navigate(`/perfumeInfo/${data.id}`, { state: { perfume: data } });
+        navigate(`/detail/${data.id}`, { state: { perfume: data, perfumesSaved: perfumesSaved, saveClick: saveClick } });
     }
 
     const savedCheck = async (ids: number[]) => {
@@ -52,7 +52,7 @@ export default function Result() {
         }
     };
 
-    const SaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
+    const saveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
         console.log('click id: ', id);
         event.stopPropagation(); // 이벤트 전파 중단
         try {
@@ -79,52 +79,12 @@ export default function Result() {
                     이 <span className="font-bold">향수</span>를{" "}
                     <span className="font-bold">추천</span>드려요!
                 </div>
-                <div className="w-[1180px] mx-auto">
-                    <div
-                        className="flex mx-auto h-[532px] mt-[52px] shadow-main-div border border-white rounded-[30px] bg-white-70">
-                        <div className="flex justify-between w-full">
-                            <div className="ml-[100px]">
-                                <div className="ml-1 mt-[85px] text-2xl font-medium text-caption1 tracking-caption1">
-                                    {mainPerfume.brand}
-                                </div>
-                                <div className="mt-4 ml-1 text-5xl font-semibold leading-tight">
-                                    {mainPerfume.name}
-                                </div>
-                                <div className="ml-1 mt-1.5 text-caption1 font-normal leading-tight text-[28px]">
-                                    {mainPerfume.ename}
-                                </div>
-                                <div
-                                    className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[100px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
-                                    onClick={(event) => SaveClick(mainPerfume.id, event)}
-                                >
-                                    <div className="flex items-center justify-between">
-                                        {perfumesSaved && perfumesSaved[0].exists ? (
-                                            <img src={saveAfter}/>
-                                        ) : (
-                                            <img src={saveDef}/>
-                                        )}
-                                        <p className="mb-0 text-2xl text-save-button">
-                                            내 향수 저장하기
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[578px]">
-                                <div className="flex items-center justify-center h-full">
-                                    <img
-                                        src={mainPerfume.imageURL}
-                                        className="max-w-full max-h-full"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <PerfumeInfo perfumeData={mainPerfume} perfumesSaved={perfumesSaved} saveClick={saveClick} />
+
                 {/* 비슷한 제품*/}
                 <div className="mt-0.5 text-left mx-auto w-[1180px] text-result-subtitle mt-40">
                     내 향수와 <span className="font-semibold">비슷한 제품</span>들이에요
                 </div>
-
                 <div className="h-full mx-auto ">
                     {/* 서브 향수 리스트 */}
                     <div className="flex justify-between mt-14">
@@ -145,10 +105,10 @@ export default function Result() {
                                                 <div className="flex justify-end" >
                                                     {
                                                         perfumesSaved && perfumesSaved.slice(1)[index].exists ?
-                                                            <img src={saveAfter} className='cursor-pointer' onClick={(event) => SaveClick(data.id, event)} />
+                                                            <img src={saveAfter} className='cursor-pointer' onClick={(event) => saveClick(data.id, event)} />
                                                             :
                                                             <img src={subDef} className='cursor-pointer'
-                                                                 onClick={(event) => SaveClick(data.id, event)}/>
+                                                                 onClick={(event) => saveClick(data.id, event)}/>
                                                     }
                                                 </div>
                                                 <div className="flex flex-col items-center justify-center mt-12 text-white">
