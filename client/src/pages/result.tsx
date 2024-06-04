@@ -32,7 +32,7 @@ export default function Result() {
     };
 
     const toInfo = (data: resultPerfumeData) => () => {
-        navigate(`/detail/${data.id}`, { state: { perfume: data, perfumesSaved: perfumesSaved} });
+        navigate(`/detail/${data.id}`, { state: { perfume: data, ids: ids} });
     }
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function Result() {
                     이 <span className="font-bold">향수</span>를{" "}
                     <span className="font-bold">추천</span>드려요!
                 </div>
-                <PerfumeInfo perfumeData={mainPerfume} perfumesSaved={perfumesSaved} saveClick={saveClick} />
+                <PerfumeInfo perfumeData={mainPerfume} isSaved={perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists} />
 
                 {/* 비슷한 제품*/}
                 <div className="mt-0.5 text-left mx-auto w-[1180px] text-result-subtitle mt-40">
@@ -72,12 +72,11 @@ export default function Result() {
                                             className="absolute inset-0 hidden justify-center group-hover:flex group-hover:bg-black group-hover:bg-opacity-40 rounded-[20px] flex justify-center items-center">
                                             <div className="w-[290px] h-[290px]">
                                                 <div className="flex justify-end">
-                                                    {perfumesSaved && perfumesSaved.slice(1)[index].exists ?
+                                                    {perfumesSaved && perfumesSaved.slice(1)[index]?.exists ?
                                                         <img src={saveAfter} className='cursor-pointer'
                                                              onClick={(event) => saveClick(data.id, event)}/>
                                                         : <img src={subDef} className='cursor-pointer'
-                                                               onClick={(event) => saveClick(data.id, event)}/>}
-                                                </div>
+                                                               onClick={(event) => saveClick(data.id, event)}/>}                                                </div>
                                                 <div
                                                     className="flex flex-col items-center justify-center mt-12 text-white">
                                                   <span className="font-bold text-center text-sub-brand">
