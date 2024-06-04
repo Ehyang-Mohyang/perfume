@@ -1,8 +1,6 @@
 import React, {FC} from 'react';
 import saveAfter from '../assets/images/save_complete.png';
 import saveDef from '../assets/images/save_default.png';
-import {useRecoilValue} from 'recoil';
-import {matchedPerfumesState} from '../recoil/recoilState';
 import {perfumesSavedType} from '../pages/result';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 

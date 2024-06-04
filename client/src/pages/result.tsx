@@ -1,5 +1,4 @@
 import saveAfter from "../assets/images/save_complete.png";
-import saveDef from "../assets/images/save_default.png";
 import subDef from "../assets/icons/sub_def.png";
 import left from "../assets/icons/icon_left.png";
 import right from "../assets/icons/icon_right.png";
@@ -7,26 +6,24 @@ import {useEffect, useState} from "react";
 import SaveAlert from "../components/saveAlert";
 import {useRecoilValue} from "recoil";
 import {matchedPerfumesState} from "../recoil/recoilState";
-import {saveMyPerfume} from '../api/saveMyPerfume';
-import {getSavedCheck} from '../api/getSavedCheck';
 import {useNavigate} from 'react-router-dom';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import ResultPagination from '../components/resultPagination';
 import PerfumeInfo from '../components/perfumeInfo';
+import {useSavePerfume} from '../hooks/useSavePerfume';
 
 export interface perfumesSavedType {
     id: number,
     exists: boolean,
 }
-
 const subPerfumePerPage = 3;
 export default function Result() {
-    const [saveAlert, setSaveAlert] = useState(false);
-    const [currentPage, setCurrentPage] = useState(0);
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
-    const [perfumesSaved, setPerfumesSaved] = useState<[perfumesSavedType]>();
+    const [currentPage, setCurrentPage] = useState(0);
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
     const navigate = useNavigate();
+    const { saveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
+
 
     const prevClick = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
@@ -39,33 +36,9 @@ export default function Result() {
     };
 
     const toInfo = (data: resultPerfumeData) => () => {
-        navigate(`/detail/${data.id}`, { state: { perfume: data, perfumesSaved: perfumesSaved, saveClick: saveClick } });
+        navigate(`/detail/${data.id}`, { state: { perfume: data, perfumesSaved: perfumesSaved} });
     }
 
-    const savedCheck = async (ids: number[]) => {
-        try {
-            const isSaved = await getSavedCheck(ids);
-            setPerfumesSaved(isSaved);
-            console.log('result page perfumesSaved: ', perfumesSaved)
-        } catch (error) {
-            console.error("Error fetching saved check:", error);
-        }
-    };
-
-    const saveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
-        console.log('click id: ', id);
-        event.stopPropagation(); // 이벤트 전파 중단
-        try {
-            await saveMyPerfume(id);
-            savedCheck(ids);
-            setSaveAlert(true);
-            setTimeout(() => {
-                setSaveAlert(false);
-            }, 2000);
-        } catch (error) {
-            console.error("Error saving perfume:", error);
-        }
-    };
     useEffect(() => {
         console.log('result 페이지 ids: ', ids);
         savedCheck(ids);
@@ -102,16 +75,15 @@ export default function Result() {
                                         <div
                                             className="absolute inset-0 hidden justify-center group-hover:flex group-hover:bg-black group-hover:bg-opacity-40 rounded-[20px] flex justify-center items-center">
                                             <div className="w-[290px] h-[290px]">
-                                                <div className="flex justify-end" >
-                                                    {
-                                                        perfumesSaved && perfumesSaved.slice(1)[index].exists ?
-                                                            <img src={saveAfter} className='cursor-pointer' onClick={(event) => saveClick(data.id, event)} />
-                                                            :
-                                                            <img src={subDef} className='cursor-pointer'
-                                                                 onClick={(event) => saveClick(data.id, event)}/>
-                                                    }
+                                                <div className="flex justify-end">
+                                                    {perfumesSaved && perfumesSaved.slice(1)[index].exists ?
+                                                        <img src={saveAfter} className='cursor-pointer'
+                                                             onClick={(event) => saveClick(data.id, event)}/>
+                                                        : <img src={subDef} className='cursor-pointer'
+                                                               onClick={(event) => saveClick(data.id, event)}/>}
                                                 </div>
-                                                <div className="flex flex-col items-center justify-center mt-12 text-white">
+                                                <div
+                                                    className="flex flex-col items-center justify-center mt-12 text-white">
                                                   <span className="font-bold text-center text-sub-brand">
                                                     {data.brand}
                                                   </span>
