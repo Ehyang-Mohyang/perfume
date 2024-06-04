@@ -32,7 +32,9 @@ const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
         <input
           type="checkbox"
           className={`absolute w-6 h-6 border-2 rounded-full appearance-none top-4 left-6 border-gray229 ${
-            checked ? 'bg-black bg-no-repeat bg-center' : ''
+            checked
+              ? 'bg-black bg-no-repeat bg-center bg-check-icon bg-99.9%'
+              : ''
           }`}
           style={checked ? checkedStyle : {}}
           onChange={() => onCheckboxChange(perfume.myPerfumeId)}

@@ -174,11 +174,15 @@ module.exports = {
         'pick-modal-bg':
           'linear-gradient(178deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.50) 100%)',
         'nochoice-bg': "url('./assets/images/bg_nochoice.png')",
+        'check-icon': "url('./assets/icons/icon_check.svg')",
       },
       backgroundColor: {
         'white-70': 'rgba(255, 255, 255, 0.70)',
         gray50: 'rgba(0, 0, 0, 0.50)',
         'white-50': 'rgba(255, 255, 255, 0.50)',
+      },
+      backgroundSize: {
+        '99.9%': '99.9%',
       },
       boxShadow: {
         'home-button': '0px 0px 30px 4px rgba(219, 212, 223, 0.50)',

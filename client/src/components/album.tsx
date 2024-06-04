@@ -5,7 +5,6 @@ import DeleteLogo from '../assets/icons/icon_delete.svg';
 import Pagination from './pagination';
 import { getPerfumes } from '../api/getPerfumes';
 import { deletePerfumes } from '../api/deletePerfumes';
-import CheckIcon from '../assets/icons/icon_check.svg';
 
 export default function Album() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,6 +24,8 @@ export default function Album() {
   const [error, setError] = useState<string | null>(null);
   const perfumesPerPage = 6;
   const maxDeletableItems = 8; // 최대 삭제 가능한 개수
+
+  const checked = true;
 
   const fetchPerfumes = async (page: number) => {
     try {
