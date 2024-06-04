@@ -72,7 +72,7 @@ export const checkLoginStatus = async () => {
   }
 };
 
-export const saveClickState = atom({
+export const saveClickState = atom<(id: number, event: React.MouseEvent<HTMLDivElement>) => Promise<void>>({
   key: 'saveClickState',
-  default: null,
+  default: async () => {},
 });
