@@ -27,9 +27,6 @@ export default function Myinfo() {
       try {
         const data = await getMyinfo();
         setUserInfo(data);
-        console.log(data);
-      } catch (error) {
-        console.error('Error fetching user info:', error);
       } finally {
         setLoading(false);
       }
@@ -50,9 +47,7 @@ export default function Myinfo() {
       await cancelAccount();
       setIsModalVisible(false);
       window.location.href = 'https://perfume-bside.site/api/logout';
-    } catch (error) {
-      console.error('Account deletion failed:', error);
-    }
+    } catch (error) {}
   }, [navigate]);
 
   if (loading) {

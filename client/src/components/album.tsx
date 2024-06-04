@@ -25,12 +25,9 @@ export default function Album() {
   const perfumesPerPage = 6;
   const maxDeletableItems = 8; // 최대 삭제 가능한 개수
 
-  const checked = true;
-
   const fetchPerfumes = async (page: number) => {
     try {
       const data = await getPerfumes(page - 1, perfumesPerPage);
-      console.log(data);
       if (Array.isArray(data.content)) {
         setPerfumes(data.content);
         setTotalPages(data.totalPages); // 데이터에 기반하여 총 페이지 수 조정
@@ -39,7 +36,6 @@ export default function Album() {
       }
     } catch (error) {
       setError('Failed to fetch perfumes');
-      console.error('Error fetching perfumes:', error);
     }
   };
 
@@ -76,7 +72,6 @@ export default function Album() {
       }
     } catch (error) {
       setError('Failed to delete perfumes');
-      console.error('Error deleting perfumes:', error);
     }
   };
 
