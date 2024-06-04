@@ -76,6 +76,8 @@ module.exports = {
           '33px',
           { lineHeight: '43.56px', letterSpacing: '3px' },
         ],
+        'question-mark': ['18px', { lineHeight: '136.3%', letterSpacing: '-0.36px' }],
+        'question-text': ['22px', { lineHeight: '136.3%', letterSpacing: '-0.44px' }],
       },
       width: {
         1920: '1920px',
@@ -97,6 +99,7 @@ module.exports = {
         242: '242px',
         191: '191px',
         160: '160px',
+        22: '22px',
       },
       maxWidth: {
         242: '242px',
@@ -119,12 +122,15 @@ module.exports = {
         80: '80px',
         52: '52px',
         36: '36px',
+        22: '22px',
       },
       margin: {
         17: '17px',
         21: '21px',
+        41: '41px',
         42: '42px',
         52: '52px',
+        68: '68px',
         70: '70px',
         75: '75px',
         85: '85px',
@@ -179,6 +185,8 @@ module.exports = {
         'white-70': 'rgba(255, 255, 255, 0.70)',
         gray50: 'rgba(0, 0, 0, 0.50)',
         'white-50': 'rgba(255, 255, 255, 0.50)',
+        question: '#BABABA',
+
       },
       boxShadow: {
         'home-button': '0px 0px 30px 4px rgba(219, 212, 223, 0.50)',

@@ -2,8 +2,7 @@ import React, {FC} from 'react';
 import saveAfter from '../assets/images/save_complete.png';
 import saveDef from '../assets/images/save_default.png';
 import {resultPerfumeData} from '../data/resultPerfumeData';
-import {useRecoilValue} from 'recoil';
-import {saveClickState} from '../recoil/recoilState';
+import PerfumeContent from './perfumeContent';
 
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
@@ -27,8 +26,16 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
                         <div className="ml-1 mt-1.5 text-caption1 font-normal leading-tight text-[28px]">
                             {perfumeData.ename}
                         </div>
+                        <div className='mt-[41px] flex items-center'>
+                            <div className='w-[22px] h-[22px] font-semibold rounded-3xl bg-question text-questionmark text-caption1 text-center hover:text-white hover:bg-caption1'>
+                                ?
+                            </div>
+                            <div className='ml-2 text-question-text font-medium'>
+                                어떤 향인지 알고 싶어요
+                            </div>
+                        </div>
                         <div
-                            className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[100px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
+                            className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[68px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
                             onClick={(event) => saveClick(perfumeData.id, event)}
                         >
                             <div className="flex items-center justify-between">
