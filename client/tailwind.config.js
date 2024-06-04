@@ -101,6 +101,12 @@ module.exports = {
         160: '160px',
         22: '22px',
       },
+      minWidth: {
+        520: '520px',
+      },
+      minHeight: {
+        126: '126px',
+      },
       maxWidth: {
         242: '242px',
         346: '346px',
@@ -146,11 +152,13 @@ module.exports = {
         13: '13px',
         18: '18px',
         23: '23px',
+        22: '22px',
         24: '24px',
         27: '27px',
         26: '26px',
         58: '58px',
         32: '32px',
+        43: '43px',
         49: '49px',
         52: '52px',
         65: '65px',
@@ -186,6 +194,7 @@ module.exports = {
         gray50: 'rgba(0, 0, 0, 0.50)',
         'white-50': 'rgba(255, 255, 255, 0.50)',
         question: '#BABABA',
+        chatGPT: '#E9E9E9',
 
       },
       boxShadow: {
@@ -221,6 +230,7 @@ module.exports = {
         body1: '#969696',
       },
       borderRadius: {
+        10: '10px',
         15: '15px',
         20: '20px',
         30: '30px',
