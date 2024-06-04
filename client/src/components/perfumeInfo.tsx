@@ -8,9 +8,9 @@ import {saveClickState} from '../recoil/recoilState';
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
     isSaved: boolean | undefined,
+    saveClick: (id: number, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => Promise<void>,
 }
-const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved}) => {
-    const saveClick = useRecoilValue(saveClickState);
+const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) => {
 
     return (
         <div className="w-[1180px] mx-auto">
