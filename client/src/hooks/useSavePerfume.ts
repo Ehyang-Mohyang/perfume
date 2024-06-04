@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {getSavedCheck} from '../api/getSavedCheck';
 import {saveMyPerfume} from '../api/saveMyPerfume';
 import {useRecoilState} from 'recoil';
@@ -8,7 +8,7 @@ import {perfumesSavedType} from '../pages/result';
 export const useSavePerfume = (ids: number[]) => {
     const [saveClick, setSaveClick] = useRecoilState(saveClickState);
     const [saveAlert, setSaveAlert] = useState(false);
-    const [perfumesSaved, setPerfumesSaved] = useState<[perfumesSavedType]>();
+    const [perfumesSaved, setPerfumesSaved] = useState<perfumesSavedType[]>([]);
 
     const savedCheck = async (ids: number[]) => {
         try {
@@ -33,6 +33,9 @@ export const useSavePerfume = (ids: number[]) => {
             console.error("Error saving perfume:", error);
         }
     };
+    useEffect(() => {
+        setSaveClick(() => handleSaveClick);
+    }, [handleSaveClick, setSaveClick]);
 
     return {
         saveAlert,
