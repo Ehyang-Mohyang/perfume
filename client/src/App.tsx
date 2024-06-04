@@ -5,7 +5,7 @@ import Mypage from './pages/mypage';
 import NaverCallback from './pages/naverCallback';
 import NotFound from './pages/notfound';
 import Result from './pages/result';
-import PerfumeInfo from './pages/perfumeInfo';
+import Detail from './pages/detail';
 import Layout from './layouts/layout';
 import NoHeaderLayout from './layouts/noHeaderLayout';
 import MatchingPage from './pages/matchingpage';
@@ -23,7 +23,7 @@ function App() {
           <Route path="match" element={<MatchingPage />} />
           <Route path="matchfail" element={<MatchFail />} />
           <Route path="/result" element={<Result />} />
-          <Route path="/perfumeInfo/:id" element={<PerfumeInfo />} />
+          <Route path="/detail/:id" element={<Detail />} />
         </Route>
         <Route path="*" element={<NoHeaderLayout />}>
           <Route path="*" element={<NotFound />} />

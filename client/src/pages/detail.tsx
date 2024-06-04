@@ -1,12 +1,12 @@
 import {useLocation, useNavigate} from 'react-router-dom';
-import saveDef from '../assets/images/save_complete.png';
 import saveAfter from '../assets/images/save_default.png';
 import iconBack from '../assets/icons/icon_back.png';
 import {mainPerMockData} from '../data/resultPerfumeData';
-export default function PerfumeInfo() {
+import PerfumeInfo from '../components/perfumeInfo';
+export default function Detail() {
     const location = useLocation();
     const navigation = useNavigate();
-    const {perfume} = location.state;
+    const {perfume, perfumesSaved, saveClick } = location.state;
 
     const backToResult = () => {
         navigation(-1);
@@ -41,6 +41,7 @@ export default function PerfumeInfo() {
                         </div>
                     </div>
                 </div>
+                <PerfumeInfo perfumeData={perfume} perfumesSaved={perfumesSaved} saveClick={saveClick} />
                 <div className='cursor-pointer flex justify-center items-center mx-auto mt-20 text-body1 font-medium text-20' onClick={backToResult}>
                     <img className='w-5 h-5 mr-1.5' src={iconBack} />
                     <p className='mb-0 ml-1.5'>뒤로가기</p>

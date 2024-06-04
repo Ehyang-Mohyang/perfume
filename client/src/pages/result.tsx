@@ -9,8 +9,12 @@ import {useRecoilValue} from "recoil";
 import {matchedPerfumesState} from "../recoil/recoilState";
 import {saveMyPerfume} from '../api/saveMyPerfume';
 import {getSavedCheck} from '../api/getSavedCheck';
+import {useNavigate} from 'react-router-dom';
+import {resultPerfumeData} from '../data/resultPerfumeData';
+import ResultPagination from '../components/resultPagination';
+import PerfumeInfo from '../components/perfumeInfo';
 
-interface perfumesSavedType {
+export interface perfumesSavedType {
     id: number,
     exists: boolean,
 }
@@ -19,10 +23,10 @@ const subPerfumePerPage = 3;
 export default function Result() {
     const [saveAlert, setSaveAlert] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
-    const [savedMainPerfume, setSavedMainPerfume] = useState(false);
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
     const [perfumesSaved, setPerfumesSaved] = useState<[perfumesSavedType]>();
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
+    const navigate = useNavigate();
 
     const prevClick = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
@@ -33,6 +37,11 @@ export default function Result() {
             Math.min(prevPage + 1, subPerfumes.length - 3)
         );
     };
+
+    const toInfo = (data: resultPerfumeData) => () => {
+        navigate(`/detail/${data.id}`, { state: { perfume: data, perfumesSaved: perfumesSaved, saveClick: saveClick } });
+    }
+
     const savedCheck = async (ids: number[]) => {
         try {
             const isSaved = await getSavedCheck(ids);
@@ -43,7 +52,7 @@ export default function Result() {
         }
     };
 
-    const SaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
+    const saveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
         console.log('click id: ', id);
         event.stopPropagation(); // 이벤트 전파 중단
         try {
@@ -70,62 +79,16 @@ export default function Result() {
                     이 <span className="font-bold">향수</span>를{" "}
                     <span className="font-bold">추천</span>드려요!
                 </div>
-                <div className="w-[1180px] mx-auto">
-                    <div
-                        className="flex mx-auto h-[532px] mt-[52px] shadow-main-div border border-white rounded-[30px] bg-white-70">
-                        <div className="flex justify-between w-full">
-                            <div className="ml-[100px]">
-                                <div className="ml-1 mt-[85px] text-2xl font-medium text-caption1 tracking-caption1">
-                                    {mainPerfume.brand}
-                                </div>
-                                <div className="mt-4 ml-1 text-5xl font-semibold leading-tight">
-                                    {mainPerfume.name}
-                                </div>
-                                <div className="ml-1 mt-1.5 text-caption1 font-normal leading-tight text-[28px]">
-                                    {mainPerfume.ename}
-                                </div>
-                                <div
-                                    className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[100px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
-                                    onClick={(event) => SaveClick(mainPerfume.id, event)}
-                                >
-                                    <div className="flex items-center justify-between">
-                                        {perfumesSaved && perfumesSaved[0].exists ? (
-                                            <img src={saveAfter}/>
-                                        ) : (
-                                            <img src={saveDef}/>
-                                        )}
-                                        <p className="mb-0 text-2xl text-save-button">
-                                            내 향수 저장하기
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-[578px]">
-                                <div className="flex items-center justify-center h-full">
-                                    <img
-                                        src={mainPerfume.imageURL}
-                                        className="max-w-full max-h-full"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <PerfumeInfo perfumeData={mainPerfume} perfumesSaved={perfumesSaved} saveClick={saveClick} />
+
                 {/* 비슷한 제품*/}
                 <div className="mt-0.5 text-left mx-auto w-[1180px] text-result-subtitle mt-40">
                     내 향수와 <span className="font-semibold">비슷한 제품</span>들이에요
                 </div>
-
                 <div className="h-full mx-auto ">
                     {/* 서브 향수 리스트 */}
                     <div className="flex justify-between mt-14">
-                        <button
-                            className="mr-[42px]"
-                            onClick={prevClick}
-                            disabled={currentPage === 0}
-                        >
-                            <img src={left}/>
-                        </button>
+                        <ResultPagination style="mr-[42px]" onClick={prevClick} imgSrc={left} currentPage={currentPage} disabledCondition={currentPage === 0}/>
                         <div className="flex justify-center w-[1180px]">
                             {subPerfumes
                                 .slice(currentPage, currentPage + subPerfumePerPage)
@@ -133,44 +96,38 @@ export default function Result() {
                                     <div
                                         key={data.id}
                                         className="relative group mx-[21px] w-[360px] h-[360px] flex-shrink-0 rounded-[20px] bg-white shadow-subPerfume-div flex justify-center items-center"
+                                        onClick={toInfo(data)}
                                     >
                                         <img className="" src={data.imageURL} alt={data.name}/>
                                         <div
                                             className="absolute inset-0 hidden justify-center group-hover:flex group-hover:bg-black group-hover:bg-opacity-40 rounded-[20px] flex justify-center items-center">
                                             <div className="w-[290px] h-[290px]">
-                                                <div className="flex justify-end cursor-pointer" onClick={(event) => SaveClick(data.id, event)} >
+                                                <div className="flex justify-end" >
                                                     {
                                                         perfumesSaved && perfumesSaved.slice(1)[index].exists ?
-                                                            <img src={saveAfter}/>
+                                                            <img src={saveAfter} className='cursor-pointer' onClick={(event) => saveClick(data.id, event)} />
                                                             :
-                                                            <img src={subDef}/>
+                                                            <img src={subDef} className='cursor-pointer'
+                                                                 onClick={(event) => saveClick(data.id, event)}/>
                                                     }
                                                 </div>
-                                                <div
-                                                    className="flex flex-col items-center justify-center mt-12 text-white">
-                          <span className="font-bold text-center text-sub-brand">
-                            {data.brand}
-                          </span>
+                                                <div className="flex flex-col items-center justify-center mt-12 text-white">
+                                                  <span className="font-bold text-center text-sub-brand">
+                                                    {data.brand}
+                                                  </span>
                                                     <span className="mt-4 font-bold text-center text-sub-name">
-                            {data.name}
-                          </span>
+                                                    {data.name}
+                                                  </span>
                                                     <span className="font-medium text-center text-sub-eName">
-                            {data.ename}
-                          </span>
+                                                    {data.ename}
+                                                  </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 ))}
                         </div>
-                        {/* 서브 향수 아이템 */}
-                        <button
-                            className="ml-[42px]"
-                            onClick={nextClick}
-                            disabled={currentPage >= subPerfumes.length - 3}
-                        >
-                            <img src={right}/>
-                        </button>
+                        <ResultPagination style="ml-[42px]" onClick={nextClick} imgSrc={right} currentPage={currentPage} disabledCondition={currentPage >= subPerfumes.length - 3} />
                     </div>
                 </div>
             </div>
