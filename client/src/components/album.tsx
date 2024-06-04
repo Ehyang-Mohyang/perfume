@@ -5,7 +5,6 @@ import DeleteLogo from '../assets/icons/icon_delete.svg';
 import Pagination from './pagination';
 import { getPerfumes } from '../api/getPerfumes';
 import { deletePerfumes } from '../api/deletePerfumes';
-import CheckIcon from '../assets/icons/icon_check.svg';
 
 export default function Album() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -29,7 +28,6 @@ export default function Album() {
   const fetchPerfumes = async (page: number) => {
     try {
       const data = await getPerfumes(page - 1, perfumesPerPage);
-      console.log(data);
       if (Array.isArray(data.content)) {
         setPerfumes(data.content);
         setTotalPages(data.totalPages); // 데이터에 기반하여 총 페이지 수 조정
@@ -38,7 +36,6 @@ export default function Album() {
       }
     } catch (error) {
       setError('Failed to fetch perfumes');
-      console.error('Error fetching perfumes:', error);
     }
   };
 
@@ -75,7 +72,6 @@ export default function Album() {
       }
     } catch (error) {
       setError('Failed to delete perfumes');
-      console.error('Error deleting perfumes:', error);
     }
   };
 
