@@ -71,3 +71,8 @@ export const checkLoginStatus = async () => {
     return false;
   }
 };
+
+export const saveClickState = atom({
+  key: 'saveClickState',
+  default: null,
+});
