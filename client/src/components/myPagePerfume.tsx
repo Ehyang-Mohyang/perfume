@@ -1,6 +1,3 @@
-import perfumImg from '../assets/images/perfumeIMG.png';
-import CheckIcon from '../assets/icons/icon_check.svg';
-
 interface Perfume {
   myPerfumeId: number;
   name: string;
@@ -15,11 +12,6 @@ interface MyPagePerfumeProps {
   checked: boolean;
 }
 
-const checkedStyle = {
-  backgroundImage: `url(${CheckIcon})`,
-  backgroundSize: '99.9%',
-};
-
 const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
   perfume,
   isEditing,
@@ -33,10 +25,9 @@ const MyPagePerfume: React.FC<MyPagePerfumeProps> = ({
           type="checkbox"
           className={`absolute w-6 h-6 border-2 rounded-full appearance-none top-4 left-6 border-gray229 ${
             checked
-              ? 'bg-black bg-no-repeat bg-center bg-check-icon bg-99.9%'
+              ? 'bg-black bg-no-repeat bg-center bg-check-icon bg-99.9% border-black'
               : ''
           }`}
-          style={checked ? checkedStyle : {}}
           onChange={() => onCheckboxChange(perfume.myPerfumeId)}
           checked={checked}
         />
