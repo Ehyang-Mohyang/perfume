@@ -25,7 +25,9 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
     useEffect(() => {
         const getContentData = async () => {
             try {
+                console.log('Fetching data for perfume ID:', perfumeData.id); // 추가 로그
                 const response = await getClovaPerfumeInfo(perfumeData.id);
+                console.log('API response:', response); // 추가 로그
                 const content = response.result.message.content;
                 setContent(content);
                 console.log('getContentData: ', content);
