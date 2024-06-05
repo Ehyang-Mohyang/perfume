@@ -26,7 +26,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
         const getContentData = async () => {
             try {
                 const response = await getClovaPerfumeInfo(perfumeData.id);
-                const content = response.data.result.message.content;
+                const content = response.result.message.content;
                 setContent(content);
                 console.log('getContentData: ', content);
             } catch (error) {
