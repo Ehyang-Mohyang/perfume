@@ -28,7 +28,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
                 const response = await getClovaPerfumeInfo(perfumeData.id);
                 const content = response.data.result.message.content;
                 setContent(content);
-                console.log(content)
+                console.log('getContentData: ', content);
             } catch (error) {
                 console.error('Error fetching perfume info:', error);
             }
@@ -63,7 +63,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
                                     어떤 향인지 알고 싶어요
                                 </div>
                                 {showPerfumeContent &&
-                                    <PerfumeContent />
+                                    <PerfumeContent content={content} />
                                 }
                             </div>
 
