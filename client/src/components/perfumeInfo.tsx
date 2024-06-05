@@ -1,8 +1,9 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import saveAfter from '../assets/images/save_complete.png';
 import saveDef from '../assets/images/save_default.png';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import PerfumeContent from './perfumeContent';
+import {getGptPerfumeInfo} from '../api/getGptPerfumeInfo';
 
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
@@ -11,7 +12,7 @@ interface perfumeInfoProps {
 }
 const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) => {
     const [showPerfumeContent, setShowPerfumeContent] = useState(false);
-
+    const [content, setContent] = useState('');
     const handleQuestionClick = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation()
         setShowPerfumeContent(() => !showPerfumeContent);
@@ -20,6 +21,11 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
     const handleOutsideClick = () => {
         setShowPerfumeContent(false);
     };
+
+    useEffect(() => {
+        const gptContent = getGptPerfumeInfo(perfumeData.id);
+        console.log(gptContent);
+    }, [])
 
     return (
         <div className='w-full h-full' onClick={handleOutsideClick}>
