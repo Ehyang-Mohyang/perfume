@@ -110,6 +110,7 @@ module.exports = {
       maxWidth: {
         242: '242px',
         346: '346px',
+        520: '520px',
       },
       maxHeight: {
         36: '36px',
@@ -122,6 +123,7 @@ module.exports = {
         360: '360px',
         350: '350px',
         290: '390px',
+        241: '241px',
         100: '100px',
         94: '94px',
         90: '90px',
@@ -239,6 +241,10 @@ module.exports = {
       },
       rotate: {
         180: '180deg',
+      },
+      inset: {
+        '755': '755px',
+        '451': '451px',
       },
       letterSpacing: {
         caption1: '-0.6px',
