@@ -4,8 +4,8 @@ import left from "../assets/icons/icon_left.png";
 import right from "../assets/icons/icon_right.png";
 import {useEffect, useState} from "react";
 import SaveAlert from "../components/saveAlert";
-import {useRecoilValue} from "recoil";
-import {matchedPerfumesState} from "../recoil/recoilState";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {matchedPerfumesState, showPerfumeContentState} from "../recoil/recoilState";
 import {useNavigate} from 'react-router-dom';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import ResultPagination from '../components/resultPagination';
@@ -16,6 +16,7 @@ import {useSavePerfume} from '../hooks/useSavePerfume';
 const subPerfumePerPage = 3;
 export default function Result() {
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
+    const setShowPerfumeContent = useSetRecoilState(showPerfumeContentState);
     const [currentPage, setCurrentPage] = useState(0);
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
     const navigate = useNavigate();
@@ -41,7 +42,7 @@ export default function Result() {
     }, [mainPerfume, subPerfumes]);
 
     return (
-        <div className="w-screen h-[1600px] flex flex-col bg-result-bg bg-center bg-cover font-pretendard">
+        <div className="w-screen h-[1600px] flex flex-col bg-result-bg bg-center bg-cover font-pretendard" onClick={()=>setShowPerfumeContent(() => false)}>
             <div className="flex flex-col w-full h-full mx-auto mt-0 border px-auto">
                 {/* 메인 제품 */}
                 <div className="text-center mt-[187px] text-result-title font-normal not-italic">

@@ -76,3 +76,8 @@ export const saveClickState = atom<(id: number, event: React.MouseEvent<HTMLDivE
   key: 'saveClickState',
   default: async () => {},
 });
+
+export const showPerfumeContentState = atom({
+  key: 'showPerfumeContentState',
+  default: false,
+});
