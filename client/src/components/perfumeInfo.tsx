@@ -23,9 +23,18 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
     };
 
     useEffect(() => {
-        const gptContent = getClovaPerfumeInfo(perfumeData.id);
-        console.log(gptContent);
-    }, [])
+        const getContentData = async () => {
+            try {
+                const response = await getClovaPerfumeInfo(perfumeData.id);
+                const content = response.data.result.message.content;
+                setContent(content);
+                console.log(content)
+            } catch (error) {
+                console.error('Error fetching perfume info:', error);
+            }
+        };
+        getContentData();
+    }, [perfumeData.id]);
 
     return (
         <div className='w-full h-full' onClick={handleOutsideClick}>
