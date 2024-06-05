@@ -3,7 +3,7 @@ import saveAfter from '../assets/images/save_complete.png';
 import saveDef from '../assets/images/save_default.png';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import PerfumeContent from './perfumeContent';
-import {getGptPerfumeInfo} from '../api/getGptPerfumeInfo';
+import {getClovaPerfumeInfo} from '../api/getClovaPerfumeInfo';
 
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
@@ -23,7 +23,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
     };
 
     useEffect(() => {
-        const gptContent = getGptPerfumeInfo(perfumeData.id);
+        const gptContent = getClovaPerfumeInfo(perfumeData.id);
         console.log(gptContent);
     }, [])
 
