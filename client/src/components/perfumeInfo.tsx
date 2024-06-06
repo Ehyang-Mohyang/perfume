@@ -15,6 +15,8 @@ interface perfumeInfoProps {
 const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) => {
     const [showPerfumeContent, setShowPerfumeContent] = useRecoilState(showPerfumeContentState);
     const [content, setContent] = useState('');
+    const numOfChar = perfumeData.name.length;
+
     const handleQuestionClick = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation()
         setShowPerfumeContent(() => !showPerfumeContent);
@@ -49,8 +51,10 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
                         <div className="ml-1 mt-[85px] text-2xl font-medium text-caption1 tracking-caption1">
                             {perfumeData.brand}
                         </div>
-                        <div className="mt-4 ml-1 text-5xl font-semibold leading-tight">
-                            {perfumeData.name}
+                        <div className="mt-4 ml-1 font-semibold leading-tight">
+                            <span className={numOfChar >= 16 ? 'text-4xl' : 'text-5xl'}>
+                                {perfumeData.name}
+                            </span>
                         </div>
                         <div className="ml-1 mt-1.5 text-caption1 font-normal leading-tight text-[28px]">
                             {perfumeData.ename}
