@@ -29,10 +29,9 @@ export const getClovaPerfumeInfo = (id: number, onData: (data: string) => void) 
                 result += decoder.decode(value, { stream: true });
                 onData(result);
             }
-
             const parsedResult = JSON.parse(result);
             const content = parsedResult.result.message.content;
-            return content;
+            onData(content);
         } catch (error) {
             console.error('Error getClovaPerfumeInfo', error);
             throw error;
