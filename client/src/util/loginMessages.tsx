@@ -26,4 +26,13 @@ export const loginMessages = {
       </span>
     ),
   },
+  sessionExpired: {
+    title: '세션이 만료되었어요!',
+    description: (
+      <span>
+        다시 로그인하고 <span className="font-semibold">향수 추천</span>을
+        받아보세요
+      </span>
+    ),
+  },
 };

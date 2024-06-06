@@ -6,7 +6,7 @@ import { loginMessages } from '../util/loginMessages';
 
 interface LoginModalProps {
   onClose?: () => void;
-  messageType?: 'home' | 'result' | 'mypage';
+  messageType?: 'home' | 'result' | 'mypage' | 'sessionExpired';
   isLogin?: boolean;
 }
 

@@ -10,19 +10,49 @@ const Header = () => {
   const setIsLoggedIn = useSetRecoilState(isLoggedInState);
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [sessionExpired, setSessionExpired] = useState(false);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const response = await axiosInstance.get('/api/login/check');
         setIsLoggedIn(response.status === 200);
-      } catch (error) {
-        setIsLoggedIn(false);
+      } catch (error: any) {
+        if (error.response.status === 401) {
+          setIsLoggedIn(false);
+          navigate('/');
+        } else if (error.response.status === 403) {
+          setIsLoggedIn(false);
+          setSessionExpired(true);
+          setIsModalVisible(true);
+        }
       }
     };
 
     checkLoginStatus();
-  }, [setIsLoggedIn]);
+  }, [setIsLoggedIn, navigate]);
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      try {
+        const response = await axiosInstance.get('/api/login/check');
+        setIsLoggedIn(response.status === 200);
+      } catch (error: any) {
+        if (error.response) {
+          if (error.response.status === 401) {
+            setIsLoggedIn(false);
+            navigate('/');
+          } else if (error.response.status === 403) {
+            setIsLoggedIn(false);
+            setSessionExpired(true);
+            setIsModalVisible(true);
+          }
+        }
+      }
+    }, 5 * 60 * 1000); // 5분마다 로그인 상태 체크
+
+    return () => clearInterval(interval);
+  }, [setIsLoggedIn, navigate]);
 
   const handleLogin = () => {
     setIsModalVisible(true);
@@ -30,6 +60,7 @@ const Header = () => {
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
+    setSessionExpired(false);
   };
 
   return (
@@ -81,7 +112,12 @@ const Header = () => {
           </ul>
         </ul>
       </nav>
-      {isModalVisible && <LoginModal onClose={handleCloseModal} />}
+      {isModalVisible && (
+        <LoginModal
+          onClose={handleCloseModal}
+          messageType={sessionExpired ? 'sessionExpired' : 'home'}
+        />
+      )}
     </header>
   );
 };
