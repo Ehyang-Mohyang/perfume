@@ -18,10 +18,11 @@ const Header = () => {
         const response = await axiosInstance.get('/api/login/check');
         setIsLoggedIn(response.status === 200);
       } catch (error: any) {
-        if (error.response.status === 401) {
-          setIsLoggedIn(false);
-          navigate('/');
-        } else if (error.response.status === 403) {
+        // if (error.response.status === 401) {
+        //   setIsLoggedIn(false);
+        //   navigate('/');
+        // }
+        if (error.response.status === 403) {
           setIsLoggedIn(false);
           setSessionExpired(true);
           setIsModalVisible(true);
@@ -39,10 +40,11 @@ const Header = () => {
         setIsLoggedIn(response.status === 200);
       } catch (error: any) {
         if (error.response) {
-          if (error.response.status === 401) {
-            setIsLoggedIn(false);
-            navigate('/');
-          } else if (error.response.status === 403) {
+          // if (error.response.status === 401) {
+          //   setIsLoggedIn(false);
+          //   navigate('/');
+          // }
+          if (error.response.status === 403) {
             setIsLoggedIn(false);
             setSessionExpired(true);
             setIsModalVisible(true);
