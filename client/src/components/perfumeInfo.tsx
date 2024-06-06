@@ -15,6 +15,8 @@ interface perfumeInfoProps {
 const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) => {
     const [showPerfumeContent, setShowPerfumeContent] = useRecoilState(showPerfumeContentState);
     const [content, setContent] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+
     const numOfChar = perfumeData.name.length;
 
     const handleQuestionClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -23,23 +25,14 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
     };
 
     useEffect(() => {
+        setIsLoading(true);
         getClovaPerfumeInfo(perfumeData.id).then(content => {
             setContent(content);
+            setIsLoading(false);
         }).catch(error => {
             console.error('Failed to fetch perfume content', error);
+            setIsLoading(false);
         });
-/*        const getContentData = async () => {
-            try {
-                console.log('Fetching data for perfume ID:', perfumeData.id);
-                const streamData = await getClovaPerfumeInfo(perfumeData.id);
-                console.log('API response:', streamData);
-                setContent(streamData);
-                console.log('getContentData: ', content);
-            } catch (error) {
-                console.error('Error fetching perfume info:', error);
-            }
-        };
-        getContentData();*/
     }, [perfumeData.id, content]);
 
     return (
@@ -70,10 +63,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
                                 어떤 향인지 알고 싶어요
                             </div>
                             {showPerfumeContent &&
-                                content === '' ?
-                                <PerfumeContent content='CLOVA X가 향수 설명을 입력하는 중입니다.' />
-                                :
-                                <PerfumeContent content={content}/>
+                                <PerfumeContent content={isLoading ? 'CLOVA X가 향수 설명을 입력하는 중입니다.' : content} />
                             }
                         </div>
 
