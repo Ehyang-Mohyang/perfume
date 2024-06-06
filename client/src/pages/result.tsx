@@ -33,7 +33,7 @@ export default function Result() {
     };
 
     const toInfo = (data: resultPerfumeData) => () => {
-        navigate(`/detail/${data.id}`, { state: { perfume: data, ids: ids} });
+        navigate(`/detail/${data.id}`, { state: { perfume: data, ids: ids, isSaved: perfumesSaved.find(p => p.id === data.id)?.exists} });
     }
 
     useEffect(() => {
