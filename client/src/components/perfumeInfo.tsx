@@ -21,18 +21,22 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
     };
 
     useEffect(() => {
-        const getContentData = async () => {
+        const handleNewData = (data: string) => {
+            setContent(preContent => preContent + data);
+        }
+        getClovaPerfumeInfo(perfumeData.id, handleNewData);
+/*        const getContentData = async () => {
             try {
-                console.log('Fetching data for perfume ID:', perfumeData.id); // 추가 로그
+                console.log('Fetching data for perfume ID:', perfumeData.id);
                 const streamData = await getClovaPerfumeInfo(perfumeData.id);
-                console.log('API response:', streamData); // 추가 로그
+                console.log('API response:', streamData);
                 setContent(streamData);
                 console.log('getContentData: ', content);
             } catch (error) {
                 console.error('Error fetching perfume info:', error);
             }
         };
-        getContentData();
+        getContentData();*/
     }, [perfumeData.id]);
 
     return (
