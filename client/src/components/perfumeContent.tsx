@@ -8,9 +8,7 @@ interface PerfumeContentProps {
 const PerfumeContent: FC<PerfumeContentProps> = ({ content }) => {
     const formattedContent = content.split('\n').map((str, index) => (
         <>
-            {str.split('').map((char,idx) => (
-                <span key={idx}>{char}</span>
-            ))}
+            {str}
             <br />
         </>
     ));
@@ -20,7 +18,12 @@ const PerfumeContent: FC<PerfumeContentProps> = ({ content }) => {
             <div className='flex items-center'>
                 <img src={polygon}/>
                 <div className='flex items-center rounded-[10px] bg-chatGPT py-[22px] px-[43px] min-w-[520px] max-w-[520px] min-h-[126px]'>
-                    {formattedContent}
+                    {formattedContent ?
+                        formattedContent :
+                        <span>
+                            CLOVA X가 향수 설명을 입력하는 중입니다.
+                        </span>
+                    }
                 </div>
             </div>
         </div>
