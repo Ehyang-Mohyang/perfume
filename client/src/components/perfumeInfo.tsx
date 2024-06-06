@@ -24,10 +24,9 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
         const getContentData = async () => {
             try {
                 console.log('Fetching data for perfume ID:', perfumeData.id); // 추가 로그
-                const response = await getClovaPerfumeInfo(perfumeData.id);
-                console.log('API response:', response); // 추가 로그
-                const content = response.result.message.content;
-                setContent(content);
+                const streamData = await getClovaPerfumeInfo(perfumeData.id);
+                console.log('API response:', streamData); // 추가 로그
+                setContent(streamData);
                 console.log('getContentData: ', content);
             } catch (error) {
                 console.error('Error fetching perfume info:', error);
