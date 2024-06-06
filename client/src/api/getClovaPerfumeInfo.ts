@@ -29,7 +29,9 @@ export const getClovaPerfumeInfo = async (id: number) => {
         }
 
         const parsedResult = JSON.parse(result);
-        return parsedResult.result.message.content;
+        const content = parsedResult.result.message.content;
+        console.log('Content', content);
+        return content;
     } catch (error) {
         console.error('Error getClovaPerfumeInfo', error);
         throw error;
