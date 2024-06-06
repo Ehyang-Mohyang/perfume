@@ -33,7 +33,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
             console.error('Failed to fetch perfume content', error);
             setIsLoading(false);
         });
-    }, [perfumeData.id, content]);
+    }, [perfumeData.id]);
 
     return (
         <div className="w-[1180px] mx-auto">
