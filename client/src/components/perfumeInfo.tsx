@@ -21,10 +21,11 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
     };
 
     useEffect(() => {
-        const handleNewData = (data: string) => {
-            setContent(preContent => preContent + data);
-        }
-        getClovaPerfumeInfo(perfumeData.id, handleNewData);
+        getClovaPerfumeInfo(perfumeData.id).then(content => {
+            setContent(content);
+        }).catch(error => {
+            console.error('Failed to fetch perfume content', error);
+        });
 /*        const getContentData = async () => {
             try {
                 console.log('Fetching data for perfume ID:', perfumeData.id);

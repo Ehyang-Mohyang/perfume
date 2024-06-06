@@ -8,7 +8,9 @@ interface PerfumeContentProps {
 const PerfumeContent: FC<PerfumeContentProps> = ({ content }) => {
     const formattedContent = content.split('\n').map((str, index) => (
         <>
-            {str}
+            {str.split('').map((char,idx) => (
+                <span key={idx}>{char}</span>
+            ))}
             <br />
         </>
     ));
