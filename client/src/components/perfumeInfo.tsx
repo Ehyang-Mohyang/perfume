@@ -40,7 +40,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
             }
         };
         getContentData();*/
-    }, [perfumeData.id]);
+    }, [perfumeData.id, content]);
 
     return (
         <div className="w-[1180px] mx-auto">
@@ -71,9 +71,9 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
                             </div>
                             {showPerfumeContent &&
                                 content === '' ?
-                                <PerfumeContent content={content}/>
-                                :
                                 <PerfumeContent content='CLOVA X가 향수 설명을 입력하는 중입니다.' />
+                                :
+                                <PerfumeContent content={content}/>
                             }
                         </div>
 
