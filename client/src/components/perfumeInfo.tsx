@@ -11,8 +11,9 @@ interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
     isSaved: boolean | undefined,
     saveClick: (id: number, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => Promise<void>,
+    _className: string,
 }
-const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) => {
+const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _className}) => {
     const [showPerfumeContent, setShowPerfumeContent] = useRecoilState(showPerfumeContentState);
     const [content, setContent] = useState('');
     const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +39,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
     return (
         <div className="w-[1180px] mx-auto">
             <div
-                className="flex mx-auto h-[532px] mt-[52px] shadow-main-div border border-white rounded-[30px] bg-white-70">
+                className={_className + ' ' +'flex mx-auto h-[532px] shadow-main-div border border-white rounded-[30px] bg-white-70'}>
                 <div className="flex justify-between w-full">
                     <div className="ml-[100px]">
                         <div className="ml-1 mt-[85px] text-2xl font-medium text-caption1 tracking-caption1">
