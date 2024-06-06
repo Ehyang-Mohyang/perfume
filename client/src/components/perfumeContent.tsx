@@ -18,7 +18,7 @@ const PerfumeContent: FC<PerfumeContentProps> = ({ content }) => {
             <div className='flex items-center'>
                 <img src={polygon}/>
                 <div className='flex items-center rounded-[10px] bg-chatGPT py-[22px] px-[43px] min-w-[520px] max-w-[520px] min-h-[126px]'>
-                        formattedContent
+                    {formattedContent}
                 </div>
             </div>
         </div>
