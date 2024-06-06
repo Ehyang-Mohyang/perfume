@@ -1,9 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Album from '../components/album';
 import Myinfo from '../components/myinfo';
+import LoginModal from '../components/loginModal';
+import { isLoggedInState } from '../recoil/recoilState';
+import { useRecoilValue } from 'recoil';
 
 export default function Mypage() {
+  const isLoggedIn = useRecoilValue(isLoggedInState);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [activeTab, setActiveTab] = useState('album');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setIsModalVisible(true);
+    }
+  }, [isLoggedIn]);
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    navigate('/');
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <>
+        {isModalVisible && (
+          <LoginModal
+            onClose={handleCloseModal}
+            isLogin={!isLoggedIn}
+            messageType="mypage"
+          />
+        )}
+      </>
+    );
+  }
 
   const getBackgroundClass = () => {
     return activeTab === 'album' ? 'bg-album-bg' : 'bg-myinfo-bg';

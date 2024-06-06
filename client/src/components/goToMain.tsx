@@ -38,7 +38,13 @@ const GoToMain = () => {
       >
         추천 받으러 가기
       </button>
-      {isModalVisible && <LoginModal onClose={handleCloseModal} />}
+      {isModalVisible && (
+        <LoginModal
+          onClose={handleCloseModal}
+          isLogin={isLoggedIn}
+          messageType="home"
+        />
+      )}
     </>
   );
 
