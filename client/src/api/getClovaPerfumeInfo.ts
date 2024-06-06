@@ -26,10 +26,12 @@ export const getClovaPerfumeInfo = async (id: number) => {
             const { done, value } = await reader?.read() || {};
             if (done) break;
             result += decoder.decode(value, { stream: true });
-            // 부분 데이터를 처리하거나 상태를 업데이트할 수 있습니다.
         }
 
-        return result;
+        const parsedResult = JSON.parse(result);
+        const content = parsedResult.result.message.content;
+        console.log('Content', content);
+        return content;
     } catch (error) {
         console.error('Error getClovaPerfumeInfo', error);
         throw error;
