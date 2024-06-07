@@ -11,41 +11,44 @@ interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
     isSaved: boolean | undefined,
     saveClick: (id: number, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => Promise<void>,
+    _className: string,
 }
-const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) => {
+const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _className}) => {
     const [showPerfumeContent, setShowPerfumeContent] = useRecoilState(showPerfumeContentState);
     const [content, setContent] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+
+    const numOfChar = perfumeData.name.length;
+
     const handleQuestionClick = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation()
         setShowPerfumeContent(() => !showPerfumeContent);
     };
 
     useEffect(() => {
-        const getContentData = async () => {
-            try {
-                console.log('Fetching data for perfume ID:', perfumeData.id); // 추가 로그
-                const streamData = await getClovaPerfumeInfo(perfumeData.id);
-                console.log('API response:', streamData); // 추가 로그
-                setContent(streamData);
-                console.log('getContentData: ', content);
-            } catch (error) {
-                console.error('Error fetching perfume info:', error);
-            }
-        };
-        getContentData();
+        setIsLoading(true);
+        getClovaPerfumeInfo(perfumeData.id).then(content => {
+            setContent(content);
+            setIsLoading(false);
+        }).catch(error => {
+            console.error('Failed to fetch perfume content', error);
+            setIsLoading(false);
+        });
     }, [perfumeData.id]);
 
     return (
         <div className="w-[1180px] mx-auto">
             <div
-                className="flex mx-auto h-[532px] mt-[52px] shadow-main-div border border-white rounded-[30px] bg-white-70">
+                className={_className + ' ' +'flex mx-auto h-[532px] shadow-main-div border border-white rounded-[30px] bg-white-70'}>
                 <div className="flex justify-between w-full">
                     <div className="ml-[100px]">
                         <div className="ml-1 mt-[85px] text-2xl font-medium text-caption1 tracking-caption1">
                             {perfumeData.brand}
                         </div>
-                        <div className="mt-4 ml-1 text-5xl font-semibold leading-tight">
-                            {perfumeData.name}
+                        <div className="mt-4 ml-1 font-semibold leading-tight">
+                            <span className={numOfChar >= 16 ? 'text-4xl' : 'text-5xl'}>
+                                {perfumeData.name}
+                            </span>
                         </div>
                         <div className="ml-1 mt-1.5 text-caption1 font-normal leading-tight text-[28px]">
                             {perfumeData.ename}
@@ -61,7 +64,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick}) =>
                                 어떤 향인지 알고 싶어요
                             </div>
                             {showPerfumeContent &&
-                                <PerfumeContent content={content}/>
+                                <PerfumeContent content={isLoading ? 'CLOVA X가 향수 설명을 입력하는 중입니다.' : content} />
                             }
                         </div>
 
