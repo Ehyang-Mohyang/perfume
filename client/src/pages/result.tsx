@@ -38,6 +38,7 @@ export default function Result() {
 
     useEffect(() => {
         console.log('result 페이지 ids: ', ids);
+        console.log('result 페이지 perfumesSaved: ', perfumesSaved);
         savedCheck(ids);
     }, [mainPerfume, subPerfumes]);
 
