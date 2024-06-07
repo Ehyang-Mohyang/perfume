@@ -27,13 +27,19 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
 
     useEffect(() => {
         setIsLoading(true);
-        getClovaPerfumeInfo(perfumeData.id).then(content => {
-            setContent(content);
+
+        const handleNewData = (data: string) => {
+            setContent(prevContent => prevContent + data);
             setIsLoading(false);
-        }).catch(error => {
-            console.error('Failed to fetch perfume content', error);
+        };
+
+        const cleanup = getClovaPerfumeInfo(perfumeData.id, handleNewData);
+
+        // Cleanup the SSE connection on component unmount or when perfumeData.id changes
+        return () => {
+            if (cleanup) cleanup();
             setIsLoading(false);
-        });
+        };
     }, [perfumeData.id]);
 
     return (
