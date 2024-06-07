@@ -47,6 +47,7 @@ export default function Result() {
 
     const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
         if (!isLogged) {
+            event.stopPropagation();
             setShowLoginModal(true);
         } else {
             saveClick(id, event);
