@@ -4,20 +4,20 @@ import saveDef from '../assets/images/save_default.png';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import PerfumeContent from './perfumeContent';
 import {getClovaPerfumeInfo} from '../api/getClovaPerfumeInfo';
-import {useRecoilState} from 'recoil';
-import {showPerfumeContentState} from '../recoil/recoilState';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {isLoggedInState, showPerfumeContentState} from '../recoil/recoilState';
+import LoginModal from './loginModal';
 
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
     isSaved: boolean | undefined,
-    saveClick: (id: number, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => Promise<void>,
+    saveClick: (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>) => void,
     _className: string,
 }
 const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _className}) => {
     const [showPerfumeContent, setShowPerfumeContent] = useRecoilState(showPerfumeContentState);
     const [content, setContent] = useState('');
     const [isLoading, setIsLoading] = useState(true);
-
     const numOfChar = perfumeData.name.length;
 
     const handleQuestionClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -100,6 +100,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                     </div>
                 </div>
             </div>
+
         </div>
     )
 };
