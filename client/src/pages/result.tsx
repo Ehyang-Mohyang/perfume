@@ -45,7 +45,7 @@ export default function Result() {
         savedCheck(ids);
     }, [mainPerfume, subPerfumes]);
 
-    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>) => {
         if (!isLoggedIn) {
             event.stopPropagation();
             setShowLoginModal(true);
@@ -61,7 +61,7 @@ export default function Result() {
                     이 <span className="font-bold">향수</span>를{" "}
                     <span className="font-bold">추천</span>드려요!
                 </div>
-                <PerfumeInfo perfumeData={mainPerfume} isSaved={perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists} saveClick={saveClick} _className='mt-[52px]' />
+                <PerfumeInfo perfumeData={mainPerfume} isSaved={perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists} saveClick={handleSaveClick} _className='mt-[52px]' />
 
                 {/* 비슷한 제품*/}
                 <div className="mt-0.5 text-left mx-auto w-[1180px] text-result-subtitle mt-40">
