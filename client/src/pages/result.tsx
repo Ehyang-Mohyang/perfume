@@ -18,7 +18,7 @@ const subPerfumePerPage = 3;
 export default function Result() {
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
     const setShowPerfumeContent = useSetRecoilState(showPerfumeContentState);
-    const isLogged = useRecoilValue(isLoggedInState);
+    const isLoggedIn = useRecoilValue(isLoggedInState);
     const [currentPage, setCurrentPage] = useState(0);
     const [showLoginModal, setShowLoginModal] = useState(false);
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
@@ -46,7 +46,7 @@ export default function Result() {
     }, [mainPerfume, subPerfumes]);
 
     const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-        if (!isLogged) {
+        if (!isLoggedIn) {
             event.stopPropagation();
             setShowLoginModal(true);
         } else {
@@ -112,7 +112,12 @@ export default function Result() {
             </div>
             {/* 저장 알림 모달 */}
             {saveAlert && <SaveAlert/>}
-            {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} messageType="result" />}
+            {showLoginModal &&
+                <LoginModal
+                    onClose={() => setShowLoginModal(false)}
+                    isLogin={!isLoggedIn}
+                    messageType="result"
+                />}
         </div>
     );
 }
