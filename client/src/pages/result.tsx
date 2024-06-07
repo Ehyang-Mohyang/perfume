@@ -5,19 +5,22 @@ import right from "../assets/icons/icon_right.png";
 import {useEffect, useState} from "react";
 import SaveAlert from "../components/saveAlert";
 import {useRecoilValue, useSetRecoilState} from "recoil";
-import {matchedPerfumesState, showPerfumeContentState} from "../recoil/recoilState";
+import {isLoggedInState, matchedPerfumesState, showPerfumeContentState} from "../recoil/recoilState";
 import {useNavigate} from 'react-router-dom';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import ResultPagination from '../components/resultPagination';
 import PerfumeInfo from '../components/perfumeInfo';
 import {useSavePerfume} from '../hooks/useSavePerfume';
+import LoginModal from '../components/loginModal';
 
 
 const subPerfumePerPage = 3;
 export default function Result() {
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
     const setShowPerfumeContent = useSetRecoilState(showPerfumeContentState);
+    const isLogged = useRecoilValue(isLoggedInState);
     const [currentPage, setCurrentPage] = useState(0);
+    const [showLoginModal, setShowLoginModal] = useState(false);
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
     const navigate = useNavigate();
     const { saveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
@@ -42,6 +45,13 @@ export default function Result() {
         savedCheck(ids);
     }, [mainPerfume, subPerfumes]);
 
+    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+        if (!isLogged) {
+            setShowLoginModal(true);
+        } else {
+            saveClick(id, event);
+        }
+    };
     return (
         <div className="w-screen h-[1600px] flex flex-col bg-result-bg bg-center bg-cover font-pretendard" onClick={()=>setShowPerfumeContent(() => false)}>
             <div className="flex flex-col w-full h-full mx-auto mt-0 border px-auto">
@@ -75,10 +85,9 @@ export default function Result() {
                                             <div className="w-[290px] h-[290px]">
                                                 <div className="flex justify-end">
                                                     {perfumesSaved && perfumesSaved.slice(1)[index]?.exists ?
-                                                        <img src={saveAfter} className='cursor-pointer'
-                                                             onClick={(event) => saveClick(data.id, event)}/>
-                                                        : <img src={subDef} className='cursor-pointer'
-                                                               onClick={(event) => saveClick(data.id, event)}/>}                                                </div>
+                                                        <img src={saveAfter} className='cursor-pointer' onClick={(event) => handleSaveClick(data.id, event)}/>
+                                                        : <img src={subDef} className='cursor-pointer' onClick={(event) => handleSaveClick(data.id, event)}/>}
+                                                </div>
                                                 <div
                                                     className="flex flex-col items-center justify-center mt-12 text-white">
                                                   <span className="font-bold text-center text-sub-brand">
@@ -102,6 +111,7 @@ export default function Result() {
             </div>
             {/* 저장 알림 모달 */}
             {saveAlert && <SaveAlert/>}
+            {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} messageType="result" />}
         </div>
     );
 }
