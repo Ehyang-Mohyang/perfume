@@ -240,6 +240,7 @@ module.exports = {
         'header-default': 'rgba(92, 92, 92, 1)',
         caption1: '#5C5C5C',
         subtitle1: '#3B3B3B',
+        'color-subtitle1': '#3B3B3B',
         body1: '#969696',
       },
       borderRadius: {

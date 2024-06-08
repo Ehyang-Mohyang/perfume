@@ -37,7 +37,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
             <div className="mb-3 font-semibold text-login-need">
               {messages.title}
             </div>
-            <div className="font-normal text-login-simple mb-14">
+            <div className="font-normal text-login-simple text-color-subtitle1 mb-14 ">
               {messages.description}
             </div>
 
