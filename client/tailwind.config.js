@@ -13,7 +13,7 @@ module.exports = {
           { lineHeight: '126.3%', letterSpacing: '-1.56px' },
         ],
         'home-button': [
-          '24px',
+          '26px',
           { lineHeight: '137%', letterSpacing: '-0.48px' },
         ],
         'home-sub': ['28px', { lineHeight: '146%', letterSpacing: '-0.56px' }],
@@ -105,6 +105,7 @@ module.exports = {
         520: '520px',
       },
       minHeight: {
+        90: '90px',
         126: '126px',
       },
       maxWidth: {
