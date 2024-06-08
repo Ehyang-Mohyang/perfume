@@ -30,7 +30,7 @@ export const useSavePerfume = (ids: number[]) => {
             setSaveAlert(true);
             setTimeout(() => {
                 setSaveAlert(false);
-            }, 2000);
+            }, 1500);
         } catch (error) {
             console.error("Error saving perfume:", error);
         }
