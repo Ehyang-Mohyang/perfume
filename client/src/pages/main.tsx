@@ -1,12 +1,8 @@
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { selectedItemsState, hashtagListState } from '../recoil/recoilState';
 import Carousel from '../components/carousel';
 import PickItemModal from '../components/pickItemModal';
 
 export default function Main() {
-  const selectedItems = useRecoilValue(selectedItemsState);
-  const hashtagList = useRecoilValue(hashtagListState);
   const [backgroundImage, setBackgroundImage] = useState(
     '/assets/images/bg_main_6.png',
   );
@@ -37,31 +33,26 @@ export default function Main() {
     setIsModalVisible(false);
   };
 
-  console.log('Selected Items:', selectedItems);
-  console.log('Hashtag List:', hashtagList);
-
   return (
-    <div className="w-[1920px] h-[1080px]">
-      <div
-        className="flex flex-col flex-1 bg-center bg-cover w-dvw h-dvh"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      >
-        <Carousel
-          onCategoryChange={handleCategoryChange}
-          onShowModal={handleShowModal}
-        />
-        <PickItemModal
-          title="취향을 선택해주세요!"
-          content={
-            <div>
-              <strong>1개 이상의 취향을</strong> 반드시 선택해주세요.
-            </div>
-          }
-          positiveAnswer="확인"
-          isVisible={isModalVisible}
-          onConfirm={handleConfirmModal}
-        />
-      </div>
+    <div
+      className="flex flex-col flex-1 h-full bg-center bg-cover w-dvw"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
+      <Carousel
+        onCategoryChange={handleCategoryChange}
+        onShowModal={handleShowModal}
+      />
+      <PickItemModal
+        title="취향을 선택해주세요!"
+        content={
+          <div>
+            <strong>1개 이상의 취향을</strong> 반드시 선택해주세요.
+          </div>
+        }
+        positiveAnswer="확인"
+        isVisible={isModalVisible}
+        onConfirm={handleConfirmModal}
+      />
     </div>
   );
 }

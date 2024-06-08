@@ -17,7 +17,7 @@ const CarouselButtons: React.FC<CarouselButtonsProps> = ({
   onSubmit,
 }) => {
   return (
-    <div className="flex justify-center mb-[111px]">
+    <div className="flex justify-center pb-[111px]">
       <div style={{ visibility: isFirstPage ? 'hidden' : 'visible' }}>
         <Button
           type="flex items-center text-modal-button justify-center w-[190px] h-[62px] rounded-30 text-gray176"
