@@ -14,7 +14,9 @@ export const getClovaPerfumeInfo = async (id: number) => {
 export const getClovaPerfumeInfo = (id: number, onData: (data: string) => void) => {
     try {
         console.log('getClovaPerfumeInfo id: ', id);
-        const eventSource = new EventSource(`https://perfume-bside.site/api/clova/perfume/${id}/explanation/stream`);
+        const eventSource = new EventSource(`https://perfume-bside.site/api/clova/perfume/${id}/explanation/stream`, {
+            withCredentials: true
+        });
 
         eventSource.onmessage = (event) => {
             const result = JSON.parse(event.data);
