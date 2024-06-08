@@ -28,9 +28,10 @@ export const useSavePerfume = (ids: number[]) => {
             await saveMyPerfume(id);
             await savedCheck(ids);
             setSaveAlert(true);
+            console.log('handleSaveClick saveAlert: ', saveAlert);
             setTimeout(() => {
                 setSaveAlert(false);
-            }, 2000);
+            }, 1500);
         } catch (error) {
             console.error("Error saving perfume:", error);
         }
