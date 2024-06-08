@@ -39,25 +39,28 @@ const CarouselButtons: React.FC<CarouselButtonsProps> = ({
         onClick={handlePrev}
         text="Back"
         isHidden={isFirstPage}
-        buttonClassName="text-modal-button text-gray176 bg-transparent"
+        buttonClassName="text-modal-button text-gray176"
         imgSrc={NextIcon}
-        imgClassName="mr-[14px]"
+        imgClassName="pr-[12px]"
       />
 
       <CarouselButton
         onClick={isLastPage ? handleSubmit : handleNext}
         text={isLastPage ? 'Submit' : 'Next'}
-        buttonClassName="text-modal-button text-white bg-black flex-row-reverse"
+        buttonClassName="text-white text-modal-button bg-black"
         imgSrc={NextIcon}
-        imgClassName="rotate-180 ml-[10px]"
+        imgClassName="rotate-180 pr-[12px]"
+        reverse
       />
 
-      {!isLastPage && (
+      {!isLastPage ? (
         <CarouselButton
           onClick={handleNext}
           text="Skip"
-          buttonClassName="text-modal-button text-gray176 bg-transparent"
+          buttonClassName="text-modal-button pr-9 text-gray176"
         />
+      ) : (
+        <div className="w-[190px] h-[62px] mx-3"></div>
       )}
     </div>
   );
