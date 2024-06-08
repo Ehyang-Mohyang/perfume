@@ -81,7 +81,7 @@ const Carousel: React.FC<CarouselProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center flex-1 w-full h-full">
+    <div className="flex flex-col items-center flex-1 w-full">
       <div className="flex flex-col items-center justify-center mt-[150px]">
         <span className="text-[20px] text-gray150">
           {activeIndex + 1} / {categories.length}
@@ -104,7 +104,7 @@ const Carousel: React.FC<CarouselProps> = ({
           index === activeIndex ? (
             <div
               key={category}
-              className="flex flex-col flex-1 w-full text-subtitle1 mt-[63px]"
+              className="flex flex-col flex-1 w-full text-black text-subtitle1 mt-[63px]"
             >
               <div className="text-center text-headline2">
                 {renderMessage(category)}
@@ -117,7 +117,7 @@ const Carousel: React.FC<CarouselProps> = ({
           ) : null,
         )}
       </div>
-      <div className="w-full mb-[150px]">
+      <div className="w-full">
         <CarouselButtons
           onPrev={handlePrev}
           onNext={handleNext}

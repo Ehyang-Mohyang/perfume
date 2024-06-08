@@ -1,4 +1,4 @@
-import Button from './button';
+import CarouselButton from './carouselButton';
 import NextIcon from '../assets/icons/icon_next.svg';
 
 type CarouselButtonsProps = {
@@ -16,34 +16,48 @@ const CarouselButtons: React.FC<CarouselButtonsProps> = ({
   isLastPage,
   onSubmit,
 }) => {
-  return (
-    <div className="flex justify-center mb-[111px]">
-      <div style={{ visibility: isFirstPage ? 'hidden' : 'visible' }}>
-        <Button
-          type="flex items-center text-modal-button justify-center w-[190px] h-[62px] rounded-30 text-gray176"
-          text="Back"
-          onClick={onPrev}
-          imgSrc={NextIcon}
-          imgClassName="mr-[14px]"
-        />
-      </div>
+  const handlePrev = () => {
+    window.scrollTo(0, 0);
+    onPrev();
+  };
 
-      <Button
-        type="flex flex-row-reverse text-modal-button items-center justify-center w-[190px] h-[62px] rounded-30 bg-black text-white"
-        onClick={isLastPage ? onSubmit : onNext}
-        text={isLastPage ? 'Submit' : 'Next'}
+  const handleNext = () => {
+    window.scrollTo(0, 0);
+    onNext();
+  };
+
+  const handleSubmit = () => {
+    window.scrollTo(0, 0);
+    if (onSubmit) {
+      onSubmit();
+    }
+  };
+
+  return (
+    <div className="flex justify-center pb-[111px]">
+      <CarouselButton
+        onClick={handlePrev}
+        text="Back"
+        isHidden={isFirstPage}
+        buttonClassName="text-modal-button text-gray176 bg-transparent"
         imgSrc={NextIcon}
-        imgClassName="rotate-180 ml-[10px] my"
+        imgClassName="mr-[14px]"
       />
 
-      {!isLastPage ? (
-        <Button
-          type="flex items-center text-modal-button justify-center w-[190px] h-[62px] rounded-30 text-gray176"
+      <CarouselButton
+        onClick={isLastPage ? handleSubmit : handleNext}
+        text={isLastPage ? 'Submit' : 'Next'}
+        buttonClassName="text-modal-button text-white bg-black flex-row-reverse"
+        imgSrc={NextIcon}
+        imgClassName="rotate-180 ml-[10px]"
+      />
+
+      {!isLastPage && (
+        <CarouselButton
+          onClick={handleNext}
           text="Skip"
-          onClick={onNext}
+          buttonClassName="text-modal-button text-gray176 bg-transparent"
         />
-      ) : (
-        <div className="w-[190px] h-[62px]"></div>
       )}
     </div>
   );

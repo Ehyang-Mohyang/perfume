@@ -10,10 +10,12 @@ import Layout from './layouts/layout';
 import NoHeaderLayout from './layouts/noHeaderLayout';
 import MatchingPage from './pages/matchingpage';
 import MatchFail from './pages/matchfail';
+import ScrollToTop from './components/scrollTop';
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
