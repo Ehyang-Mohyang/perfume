@@ -23,7 +23,7 @@ const GoToMain = () => {
 
   const isLogin = (
     <button
-        className="mt-[131px] mb-[244px] flex w-[372px] h-[90px] py-[27px] px-[90px] justify-center items-center gap-2.5 mx-auto rounded-2xl border-2 border-white font-pretendard text-home-button bg-home-button text-color-subtitle1 shadow-home-button hover:bg-white hover:shadow-home-button-hover"
+        className="mt-[131px] mb-[244px] flex w-[372px] h-[90px] py-[27px] px-[50px] justify-center items-center gap-2.5 mx-auto rounded-2xl border-2 border-white font-pretendard text-home-button bg-home-button text-color-subtitle1 shadow-home-button hover:bg-white hover:shadow-home-button-hover"
       onClick={toMain}
     >
       추천 받으러 가기

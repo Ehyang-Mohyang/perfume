@@ -12,10 +12,7 @@ module.exports = {
           '78px',
           { lineHeight: '126.3%', letterSpacing: '-1.56px' },
         ],
-        'home-button': [
-          '26px',
-          { lineHeight: '137%', letterSpacing: '-0.48px' },
-        ],
+        'home-button': ['26px', { lineHeight: '35.62px', letterSpacing: '-0.52px' },],
         'home-sub': ['28px', { lineHeight: '146%', letterSpacing: '-0.56px' }],
         'naver-button': ['26px', { lineHeight: '140%', letterSpacing: '-2px' }],
         main: ['26px', { lineHeight: '140%', letterSpacing: '-2px' }],
