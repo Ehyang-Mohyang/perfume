@@ -64,7 +64,12 @@ export default function Album() {
       setIsEditing(false);
 
       // 현재 페이지의 향수를 다시 가져옴
-      fetchPerfumes(currentPage);
+      const updatedPerfumes = await getPerfumes(
+        currentPage - 1,
+        perfumesPerPage,
+      );
+      setPerfumes(updatedPerfumes.content);
+      setTotalPages(updatedPerfumes.totalPages);
 
       // 현재 페이지가 비어 있으면 이전 페이지로 이동
       if (perfumes.length === 0 && currentPage > 1) {
