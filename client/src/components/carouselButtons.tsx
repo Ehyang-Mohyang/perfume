@@ -17,12 +17,12 @@ const CarouselButtons: React.FC<CarouselButtonsProps> = ({
   onSubmit,
 }) => {
   const handlePrev = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo(150, 0);
     onPrev();
   };
 
   const handleNext = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo(150, 0);
     onNext();
   };
 
