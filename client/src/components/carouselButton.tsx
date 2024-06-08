@@ -5,6 +5,7 @@ type CarouselButtonProps = {
   imgSrc?: string;
   imgClassName?: string;
   buttonClassName?: string;
+  reverse?: boolean;
 };
 
 const CarouselButton: React.FC<CarouselButtonProps> = ({
@@ -14,15 +15,23 @@ const CarouselButton: React.FC<CarouselButtonProps> = ({
   imgSrc,
   imgClassName,
   buttonClassName,
+  reverse = false,
 }) => {
   return (
     <div style={{ visibility: isHidden ? 'hidden' : 'visible' }}>
       <button
         onClick={onClick}
-        className={`flex items-center justify-center mx-3 w-[190px] h-[62px] rounded-30 ${buttonClassName}`}
+        className={`mx-3 w-[190px] h-[62px] rounded-30 ${buttonClassName}`}
       >
-        {imgSrc && <img src={imgSrc} alt="" className={imgClassName} />}
-        {text}
+        <span className="flex items-center justify-center">
+          {!reverse && imgSrc && (
+            <img src={imgSrc} alt="" className={`${imgClassName}`} />
+          )}
+          {text}
+          {reverse && imgSrc && (
+            <img src={imgSrc} alt="" className={`${imgClassName}`} />
+          )}
+        </span>
       </button>
     </div>
   );

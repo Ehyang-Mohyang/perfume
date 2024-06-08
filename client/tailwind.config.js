@@ -76,8 +76,14 @@ module.exports = {
           '33px',
           { lineHeight: '43.56px', letterSpacing: '3px' },
         ],
-        'question-mark': ['18px', { lineHeight: '136.3%', letterSpacing: '-0.36px' }],
-        'question-text': ['22px', { lineHeight: '136.3%', letterSpacing: '-0.44px' }],
+        'question-mark': [
+          '18px',
+          { lineHeight: '136.3%', letterSpacing: '-0.36px' },
+        ],
+        'question-text': [
+          '22px',
+          { lineHeight: '136.3%', letterSpacing: '-0.44px' },
+        ],
       },
       width: {
         1920: '1920px',
@@ -198,7 +204,7 @@ module.exports = {
         'white-50': 'rgba(255, 255, 255, 0.50)',
         question: '#BABABA',
         chatGPT: '#E9E9E9',
-
+        'white-40': 'rgba(255, 255, 255, 0.40)',
       },
       backgroundSize: {
         '99.9%': '99.9%',
@@ -247,8 +253,8 @@ module.exports = {
         180: '180deg',
       },
       inset: {
-        '755': '755px',
-        '451': '451px',
+        755: '755px',
+        451: '451px',
       },
       letterSpacing: {
         caption1: '-0.6px',
