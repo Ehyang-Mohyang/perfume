@@ -68,12 +68,12 @@ export default function Album() {
         currentPage - 1,
         perfumesPerPage,
       );
-      setPerfumes(updatedPerfumes.content);
-      setTotalPages(updatedPerfumes.totalPages);
-
-      // 현재 페이지가 비어 있으면 이전 페이지로 이동
-      if (perfumes.length === 0 && currentPage > 1) {
+      if (updatedPerfumes.content.length === 0 && currentPage > 1) {
+        // 현재 페이지가 비어 있으면 이전 페이지로 이동
         setCurrentPage((prevPage) => prevPage - 1);
+      } else {
+        setPerfumes(updatedPerfumes.content);
+        setTotalPages(updatedPerfumes.totalPages);
       }
     } catch (error) {
       setError('Failed to delete perfumes');
