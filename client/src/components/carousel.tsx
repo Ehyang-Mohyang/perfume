@@ -104,7 +104,7 @@ const Carousel: React.FC<CarouselProps> = ({
           index === activeIndex ? (
             <div
               key={category}
-              className="flex flex-col flex-1 w-full text-subtitle1 mt-[63px]"
+              className="flex flex-col flex-1 w-full text-black text-subtitle1 mt-[63px]"
             >
               <div className="text-center text-headline2">
                 {renderMessage(category)}
