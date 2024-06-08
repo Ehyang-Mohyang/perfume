@@ -20,7 +20,7 @@ const CarouselButtons: React.FC<CarouselButtonsProps> = ({
     <div className="flex justify-center pb-[111px]">
       <div style={{ visibility: isFirstPage ? 'hidden' : 'visible' }}>
         <Button
-          type="flex items-center text-modal-button justify-center w-[190px] h-[62px] rounded-30 text-gray176"
+          type="flex items-center text-modal-button justify-center mx-3 w-[190px] h-[62px] rounded-30 text-gray176"
           text="Back"
           onClick={onPrev}
           imgSrc={NextIcon}
@@ -29,16 +29,16 @@ const CarouselButtons: React.FC<CarouselButtonsProps> = ({
       </div>
 
       <Button
-        type="flex flex-row-reverse text-modal-button items-center justify-center w-[190px] h-[62px] rounded-30 bg-black text-white"
+        type="flex flex-row-reverse text-modal-button items-center mx-3 justify-center w-[190px] h-[62px] pl-[10px] rounded-30 bg-black text-white"
         onClick={isLastPage ? onSubmit : onNext}
         text={isLastPage ? 'Submit' : 'Next'}
         imgSrc={NextIcon}
-        imgClassName="rotate-180 ml-[10px] my"
+        imgClassName="rotate-180 ml-[10px]"
       />
 
       {!isLastPage ? (
         <Button
-          type="flex items-center text-modal-button justify-center w-[190px] h-[62px] rounded-30 text-gray176"
+          type="flex items-center text-modal-button justify-center mx-3 w-[190px] h-[62px] rounded-30 text-gray176"
           text="Skip"
           onClick={onNext}
         />
