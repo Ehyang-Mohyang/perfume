@@ -9,23 +9,30 @@ const PerfumeContent: FC<PerfumeContentProps> = ({id}) => {
     const [content, setContent] = useState('');
 
     useEffect(() => {
-        const eventSource = new EventSource(`https://perfume-bside.site/api/clova/perfume/${id}/explanation/stream`, {
-            withCredentials: true
-        });
+        try {
+            const eventSource = new EventSource(`https://perfume-bside.site/api/clova/perfume/${id}/explanation/stream`, {
+                withCredentials: true
+            });
 
-        eventSource.onmessage = (event) => {
-            const result = JSON.parse(event.data);
-            setContent((prevContent) => prevContent + result.message.content);
-        };
+            eventSource.onmessage = (event) => {
+                const result = JSON.parse(event.data);
+                const content = result.message.content;
+                setContent((prevContent) => prevContent + content);
+            };
 
-        eventSource.onerror = (error) => {
-            console.error('Error with SSE connection', error);
-            eventSource.close();
-        };
+            eventSource.onerror = (error) => {
+                console.error('Error with SSE connection', error);
+                eventSource.close();
+            };
 
-        return () => {
-            eventSource.close();
-        };
+            return () => {
+                eventSource.close();
+            };
+        } catch (error) {
+            console.error('Error getClovaPerfumeInfo', error);
+            throw error;
+        }
+
     }, [id]);
 
     const formattedContent = content.split('\n').map((str, index) => (
