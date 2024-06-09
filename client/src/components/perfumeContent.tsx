@@ -2,26 +2,32 @@ import polygon from '../assets/icons/polygon.png';
 import {FC, useEffect, useState} from 'react';
 
 interface PerfumeContentProps {
-    content: string;
+    id: number,
 }
 
-const PerfumeContent: FC<PerfumeContentProps> = ({ content }) => {
-    const [displayedContent, setDisplayedContent] = useState('');
+const PerfumeContent: FC<PerfumeContentProps> = ({id}) => {
+    const [content, setContent] = useState('');
 
     useEffect(() => {
-        let index = 0;
-        const intervalId = setInterval(() => {
-            if (index < content.length) {
-                setDisplayedContent((prev) => prev + content.charAt(index));
-                index++;
-            } else {
-                clearInterval(intervalId);
-            }
-        }, 200);
-        return () => clearInterval(intervalId);
-    }, [content]);
+        const eventSource = new EventSource(`https://perfume-bside.site/api/clova/perfume/${id}/explanation/stream`, {
+            withCredentials: true
+        });
 
-    const formattedContent = displayedContent.split('\n').map((str, index) => (
+        eventSource.onmessage = (event) => {
+            setContent((prevContent) => prevContent + event.data);
+        };
+
+        eventSource.onerror = (error) => {
+            console.error('Error with SSE connection', error);
+            eventSource.close();
+        };
+
+        return () => {
+            eventSource.close();
+        };
+    }, [id]);
+
+    const formattedContent = content.split('\n').map((str, index) => (
         <>
             {str}
             <br />
