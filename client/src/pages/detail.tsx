@@ -7,13 +7,15 @@ import {isLoggedInState, showPerfumeContentState} from '../recoil/recoilState';
 import React, {useEffect, useState} from 'react';
 import SaveAlert from '../components/saveAlert';
 import LoginModal from '../components/loginModal';
+
+const location = useLocation();
+const {perfume, ids, isSaved} = location.state;
 export default function Detail() {
     const setShowPerfumeContent = useSetRecoilState(showPerfumeContentState);
     const isLoggedIn = useRecoilValue(isLoggedInState);
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const location = useLocation();
+    const [isSavedDetail, setIsSavedDetail] = useState(false);
     const navigation = useNavigate();
-    const {perfume, ids, isSaved} = location.state;
     const { saveClick, saveAlert } = useSavePerfume(ids);
 
     const backToResult = () => {
@@ -25,12 +27,17 @@ export default function Detail() {
             setShowLoginModal(true);
         } else {
             saveClick(id, event);
+            setIsSavedDetail(true);
         }
     };
+
+    useEffect(() => {
+        setIsSavedDetail(isSaved);
+    }, []);
     return (
         <div className='w-screen h-screen flex flex-col bg-result-bg bg-center bg-cover font-pretendard' onClick={()=>setShowPerfumeContent(() => false)} >
             <div className='flex flex-col h-full w-full mx-auto px-auto'>
-                <PerfumeInfo perfumeData={perfume} isSaved={isSaved} saveClick={handleSaveClick} _className='mt-[225px]' />
+                <PerfumeInfo perfumeData={perfume} isSaved={isSavedDetail} saveClick={handleSaveClick} _className='mt-[225px]' />
                 <div className='cursor-pointer flex justify-center items-center mx-auto mt-20 text-body1 font-medium text-20' onClick={backToResult}>
                     <img className='w-5 h-5 mr-1.5' src={iconBack} />
                     <p className='mb-0 ml-1.5'>뒤로가기</p>
