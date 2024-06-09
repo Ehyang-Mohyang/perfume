@@ -67,7 +67,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                                 ?
                             </div>
                             <div className='ml-2 text-question-text font-medium'>
-                                어떤 향인지 알고 싶어요
+                                어떤 향인지 알고 싶어요.
                             </div>
                             {showPerfumeContent &&
                                 <PerfumeContent content={isLoading ? 'CLOVA X가 향수 설명을 입력하는 중입니다.' : content} />
@@ -78,13 +78,13 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                             className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[68px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
                             onClick={(event) => saveClick(perfumeData.id, event)}
                         >
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-center">
                                 {isSaved ? (
                                     <img src={saveAfter}/>
                                 ) : (
                                     <img src={saveDef}/>
                                 )}
-                                <p className="mb-0 text-2xl text-save-button">
+                                <p className="mb-0 ml-[14px] text-2xl text-save-button">
                                     내 향수 저장하기
                                 </p>
                             </div>
