@@ -17,6 +17,7 @@ const PerfumeContent: FC<PerfumeContentProps> = ({id}) => {
             eventSource.onmessage = (event) => {
                 const result = JSON.parse(event.data);
                 const content = result.message.content;
+                console.log('perfumeContent Clova Content: ');
                 setContent((prevContent) => prevContent + content);
             };
 
@@ -24,7 +25,6 @@ const PerfumeContent: FC<PerfumeContentProps> = ({id}) => {
                 console.error('Error with SSE connection', error);
                 eventSource.close();
             };
-
             return () => {
                 eventSource.close();
             };
