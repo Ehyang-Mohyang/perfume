@@ -67,7 +67,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                                 ?
                             </div>
                             <div className='ml-2 text-question-text font-medium'>
-                                어떤 향인지 알고 싶어요
+                                어떤 향인지 알고 싶어요.
                             </div>
                             {showPerfumeContent &&
                                 <PerfumeContent content={isLoading ? 'CLOVA X가 향수 설명을 입력하는 중입니다.' : content} />

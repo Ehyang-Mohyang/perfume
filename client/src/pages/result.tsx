@@ -65,7 +65,7 @@ export default function Result() {
 
                 {/* 비슷한 제품*/}
                 <div className="mt-0.5 text-left mx-auto w-[1180px] text-result-subtitle mt-40">
-                    내 향수와 <span className="font-semibold">비슷한 제품</span>들이에요
+                    내 향수와 <span className="font-semibold">비슷한 제품</span>들이에요.
                 </div>
                 <div className="h-full mx-auto ">
                     {/* 서브 향수 리스트 */}
