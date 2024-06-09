@@ -3,7 +3,6 @@ import saveAfter from '../assets/images/save_complete.png';
 import saveDef from '../assets/images/save_default.png';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import PerfumeContent from './perfumeContent';
-import {getClovaPerfumeInfo} from '../api/getClovaPerfumeInfo';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {showPerfumeContentState} from '../recoil/recoilState';
 
@@ -15,26 +14,12 @@ interface perfumeInfoProps {
 }
 const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _className}) => {
     const [showPerfumeContent, setShowPerfumeContent] = useRecoilState(showPerfumeContentState);
-    const [content, setContent] = useState('');
     const numOfChar = perfumeData.name.length;
 
     const handleQuestionClick = (event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation()
         setShowPerfumeContent(() => !showPerfumeContent);
     };
-
-    useEffect(() => {
-        const handleNewData = (data: string) => {
-            setContent(prevContent => prevContent + data);
-        };
-
-        const cleanup = getClovaPerfumeInfo(perfumeData.id, handleNewData);
-
-        // Cleanup the SSE connection on component unmount or when perfumeData.id changes
-        return () => {
-            if (cleanup) cleanup();
-        };
-    }, [perfumeData.id]);
 
     return (
         <div className="w-[1180px] mx-auto">
@@ -64,7 +49,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                                 어떤 향인지 알고 싶어요.
                             </div>
                             {showPerfumeContent &&
-                                <PerfumeContent content={content} />
+                                <PerfumeContent id={perfumeData.id} />
                             }
                         </div>
 
