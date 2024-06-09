@@ -21,7 +21,7 @@ export const getClovaPerfumeInfo = (id: number, onData: (data: string) => void) 
         eventSource.onmessage = (event) => {
             console.log('SSE connection :', event.data);
             const result = JSON.parse(event.data);
-            const content = result.result.message.content;
+            const content = result.message.content;
             onData(content);
         };
 
