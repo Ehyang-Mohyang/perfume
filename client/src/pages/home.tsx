@@ -13,7 +13,7 @@ export default function Home() {
               <p>찾아드릴게요!</p>
             </div>
           </div>
-          <div className="mt-[71px] text-home-sub text-subtitle1 font-pretendard">
+          <div className="mt-[71px] text-color-subtitle1 text-home-sub  font-pretendard">
             간단한 테스트로 나에게 어울리는 향수를 추천 받아 보세요.
           </div>
           <GoToMain />
