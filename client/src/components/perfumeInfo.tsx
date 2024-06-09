@@ -16,7 +16,6 @@ interface perfumeInfoProps {
 const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _className}) => {
     const [showPerfumeContent, setShowPerfumeContent] = useRecoilState(showPerfumeContentState);
     const [content, setContent] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
     const numOfChar = perfumeData.name.length;
 
     const handleQuestionClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -25,11 +24,8 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
     };
 
     useEffect(() => {
-        setIsLoading(true);
-
         const handleNewData = (data: string) => {
             setContent(prevContent => prevContent + data);
-            setIsLoading(false);
         };
 
         const cleanup = getClovaPerfumeInfo(perfumeData.id, handleNewData);
@@ -37,7 +33,6 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
         // Cleanup the SSE connection on component unmount or when perfumeData.id changes
         return () => {
             if (cleanup) cleanup();
-            setIsLoading(false);
         };
     }, [perfumeData.id]);
 

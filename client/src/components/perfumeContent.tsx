@@ -1,12 +1,27 @@
 import polygon from '../assets/icons/polygon.png';
-import {FC} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 interface PerfumeContentProps {
     content: string;
 }
 
 const PerfumeContent: FC<PerfumeContentProps> = ({ content }) => {
-    const formattedContent = content.split('\n').map((str, index) => (
+    const [displayedContent, setDisplayedContent] = useState('');
+
+    useEffect(() => {
+        let index = 0;
+        const intervalId = setInterval(() => {
+            if (index < content.length) {
+                setDisplayedContent((prev) => prev + content.charAt(index));
+                index++;
+            } else {
+                clearInterval(intervalId);
+            }
+        }, 200);
+        return () => clearInterval(intervalId);
+    }, [content]);
+
+    const formattedContent = displayedContent.split('\n').map((str, index) => (
         <>
             {str}
             <br />
