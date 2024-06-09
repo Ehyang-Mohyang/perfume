@@ -14,7 +14,8 @@ const PerfumeContent: FC<PerfumeContentProps> = ({id}) => {
         });
 
         eventSource.onmessage = (event) => {
-            setContent((prevContent) => prevContent + event.data);
+            const result = JSON.parse(event.data);
+            setContent((prevContent) => prevContent + result.message.content);
         };
 
         eventSource.onerror = (error) => {
