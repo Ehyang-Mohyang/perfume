@@ -14,8 +14,7 @@ export default function Detail() {
     const location = useLocation();
     const navigation = useNavigate();
     const {perfume, ids, isSaved} = location.state;
-    const saveClick = useSavePerfume(ids).saveClick;
-    const saveAlert = useSavePerfume(ids).saveAlert;
+    const { saveClick, saveAlert } = useSavePerfume(ids);
 
     const backToResult = () => {
         navigation(-1);
