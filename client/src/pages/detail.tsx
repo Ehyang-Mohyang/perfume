@@ -8,9 +8,10 @@ import React, {useEffect, useState} from 'react';
 import SaveAlert from '../components/saveAlert';
 import LoginModal from '../components/loginModal';
 
-const location = useLocation();
-const {perfume, ids, isSaved} = location.state;
+
 export default function Detail() {
+    const location = useLocation();
+    const {perfume, ids, isSaved} = location.state;
     const setShowPerfumeContent = useSetRecoilState(showPerfumeContentState);
     const isLoggedIn = useRecoilValue(isLoggedInState);
     const [showLoginModal, setShowLoginModal] = useState(false);
