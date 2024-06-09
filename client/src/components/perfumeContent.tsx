@@ -7,7 +7,7 @@ interface PerfumeContentProps {
 
 const PerfumeContent: FC<PerfumeContentProps> = ({id}) => {
     const [content, setContent] = useState('');
-
+    const [displayedContent, setDisplayedContent] = useState('');
     useEffect(() => {
         try {
             const eventSource = new EventSource(`https://perfume-bside.site/api/clova/perfume/${id}/explanation/stream`, {
@@ -32,10 +32,23 @@ const PerfumeContent: FC<PerfumeContentProps> = ({id}) => {
             console.error('Error getClovaPerfumeInfo', error);
             throw error;
         }
-
     }, [id]);
 
-    const formattedContent = content.split('\n').map((str, index) => (
+    useEffect(() => {
+        let index = 0;
+        const intervalId = setInterval(() => {
+            if (index < content.length) {
+                setDisplayedContent((prev) => prev + content.charAt(index));
+                index++;
+            } else {
+                clearInterval(intervalId);
+            }
+        }, 20);
+        return () => clearInterval(intervalId);
+    }, [content]);
+
+
+    const formattedContent = displayedContent.split('\n').map((str, index) => (
         <>
             {str}
             <br />
