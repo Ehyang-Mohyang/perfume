@@ -6,8 +6,9 @@ interface PerfumeContentProps {
 }
 
 const PerfumeContent: FC<PerfumeContentProps> = ({id}) => {
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState(' ');
     const [displayedContent, setDisplayedContent] = useState('');
+
     useEffect(() => {
         try {
             const eventSource = new EventSource(`https://perfume-bside.site/api/clova/perfume/${id}/explanation/stream`, {
