@@ -56,7 +56,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                                 {perfumeData.name}
                             </span>
                         </div>
-                        <div className="ml-1 mt-1.5 text-caption1 font-normal leading-tight text-[28px]">
+                        <div className="ml-1 mt-2 text-caption1 font-normal leading-tight text-[26px]">
                             {perfumeData.ename}
                         </div>
                         <div className='mt-[41px] flex items-center'>
