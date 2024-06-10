@@ -44,7 +44,7 @@ export default function Detail() {
                     <p className='mb-0 ml-1.5'>뒤로가기</p>
                 </div>
             </div>
-            {saveAlert && <SaveAlert/>}
+            {saveAlert && <SaveAlert isSaved={isSavedDetail} />}
             {showLoginModal &&
                 <LoginModal
                     onClose={() => setShowLoginModal(false)}
