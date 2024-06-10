@@ -19,14 +19,11 @@ export default function Result() {
     const {mainPerfume, subPerfumes} = useRecoilValue(matchedPerfumesState);
     const setShowPerfumeContent = useSetRecoilState(showPerfumeContentState);
     const isLoggedIn = useRecoilValue(isLoggedInState);
-
     const [currentPage, setCurrentPage] = useState(0);
     const [showLoginModal, setShowLoginModal] = useState(false);
-
-    const navigate = useNavigate();
-
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
-    const {saveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
+    const navigate = useNavigate();
+    const { saveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
     const mainSaved = perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists;
     const prevClick = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
