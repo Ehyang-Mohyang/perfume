@@ -26,7 +26,7 @@ export default function Result() {
     const navigate = useNavigate();
 
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
-    const {saveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
+    const {mainSaveAlert, subSaveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
     const mainSaved = perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists;
     const prevClick = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
@@ -48,12 +48,12 @@ export default function Result() {
         savedCheck(ids);
     }, [mainPerfume, subPerfumes]);
 
-    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>) => {
+    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>, from: string) => {
         if (!isLoggedIn) {
             event.stopPropagation();
             setShowLoginModal(true);
         } else {
-            saveClick(id, event);
+            saveClick(id, event, from);
         }
     };
     return (
@@ -89,8 +89,8 @@ export default function Result() {
                                             <div className="w-[290px] h-[290px]">
                                                 <div className="flex justify-end">
                                                     {perfumesSaved && perfumesSaved.slice(1).find((p) => p.id === data.id)?.exists ?
-                                                        <img src={saveAfter} className='cursor-pointer' onClick={(event) => handleSaveClick(data.id, event)}/>
-                                                        : <img src={subDef} className='cursor-pointer' onClick={(event) => handleSaveClick(data.id, event)}/>}
+                                                        <img src={saveAfter} className='cursor-pointer' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>
+                                                        : <img src={subDef} className='cursor-pointer' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>}
                                                 </div>
                                                 <div
                                                     className="flex flex-col items-center justify-center mt-12 text-white">
@@ -106,7 +106,7 @@ export default function Result() {
                                                 </div>
                                             </div>
                                         </div>
-                                        {saveAlert && <SaveAlert isSaved={perfumesSaved.slice(1).find((p) => p.id === data.id)?.exists}/>}
+                                        {subSaveAlert && <SaveAlert isSaved={perfumesSaved.slice(1).find((p) => p.id === data.id)?.exists}/>}
                                     </div>
                                 ))}
                         </div>
@@ -115,7 +115,7 @@ export default function Result() {
                 </div>
             </div>
             {/* 저장 알림 모달 */}
-            {saveAlert && <SaveAlert isSaved={mainSaved} />}
+            {mainSaveAlert && <SaveAlert isSaved={mainSaved} />}
             {showLoginModal &&
                 <LoginModal
                     onClose={() => setShowLoginModal(false)}
