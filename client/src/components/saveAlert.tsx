@@ -14,9 +14,9 @@ const SaveAlert: FC<SaveAlertProps> = ({isSaved}) => {
             <div className='flex justify-center items-center w-[600px] h-[100px] bg-black opacity-40 rounded-[50px] text-white'>
                 <img src={check} />
                 { isSaved ?
-                    <p className='text-save-alert mb-0'><span className='font-semibold'>MY PAGE</span>에 내 향수가 <span className='font-semibold'>저장</span>되었어요</p>
-                    :
                     <p className='text-save-alert mb-0'>이미 저장된 향수예요</p>
+                    :
+                    <p className='text-save-alert mb-0'><span className='font-semibold'>MY PAGE</span>에 내 향수가 <span className='font-semibold'>저장</span>되었어요</p>
                 }
             </div>
         </div>
