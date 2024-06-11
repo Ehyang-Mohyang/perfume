@@ -56,9 +56,11 @@ export default function Result() {
             saveClick(id, event, from);
             if(from === 'main') {
                 setClickPerfumeSaved(() => perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists);
+                console.log('main:', clickPerfumeSaved);
             }
             if(from === 'sub') {
                 setClickPerfumeSaved(() => perfumesSaved.slice(1).find((p) => p.id === id)?.exists);
+                console.log('sub:', clickPerfumeSaved);
             }
         }
     };
@@ -70,7 +72,7 @@ export default function Result() {
                     이 <span className="font-bold">향수</span>를{" "}
                     <span className="font-bold">추천</span>드려요!
                 </div>
-                <PerfumeInfo perfumeData={mainPerfume} isSaved={clickPerfumeSaved} saveClick={handleSaveClick} _className='mt-[52px]' />
+                <PerfumeInfo perfumeData={mainPerfume} isSaved={perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists} saveClick={handleSaveClick} _className='mt-[52px]' />
 
                 {/* 비슷한 제품*/}
                 <div className="mt-0.5 text-left mx-auto w-[1180px] text-result-subtitle mt-40">
@@ -121,6 +123,7 @@ export default function Result() {
             </div>
             {/* 저장 알림 모달 */}
             {mainSaveAlert && <SaveAlert isSaved={clickPerfumeSaved} />}
+            {subSaveAlert && <SaveAlert isSaved={clickPerfumeSaved} />}
             {showLoginModal &&
                 <LoginModal
                     onClose={() => setShowLoginModal(false)}
