@@ -9,7 +9,7 @@ import {showPerfumeContentState} from '../recoil/recoilState';
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
     isSaved: boolean | undefined,
-    saveClick: (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>) => void,
+    saveClick: (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>, from: string) => void,
     _className: string,
 }
 const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _className}) => {
@@ -55,7 +55,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
 
                         <div
                             className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[68px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
-                            onClick={(event) => saveClick(perfumeData.id, event)}
+                            onClick={(event) => saveClick(perfumeData.id, event, 'main')}
                         >
                             <div className="flex items-center justify-center">
                                 {isSaved ? (

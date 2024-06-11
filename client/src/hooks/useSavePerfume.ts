@@ -9,7 +9,8 @@ export interface perfumesSavedType {
 }
 export const useSavePerfume = (ids: number[]) => {
     const [saveClick, setSaveClick] = useRecoilState(saveClickState);
-    const [saveAlert, setSaveAlert] = useState(false);
+    const [mainSaveAlert, setMainSaveAlert] = useState(false);
+    const [subSaveAlert, setSubSaveAlert] = useState(false);
     const [perfumesSaved, setPerfumesSaved] = useState<perfumesSavedType[]>([]);
 
     const savedCheck = async (ids: number[]) => {
@@ -21,7 +22,7 @@ export const useSavePerfume = (ids: number[]) => {
             console.error("Error fetching saved check:", error);
         }
     };
-    const handleSaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>) => {
+    const handleSaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>, from: string) => {
         console.log('click id: ', id);
         event.stopPropagation();
         try {
@@ -30,12 +31,18 @@ export const useSavePerfume = (ids: number[]) => {
         } catch (error) {
             console.error("Error saving perfume:", error);
         } finally {
-            console.log('handleSaveClick saveAlert: ', saveAlert);
-            
-            setSaveAlert(()=> true);
-            setTimeout(() => {
-                setSaveAlert(false);
-            }, 1000);
+            if (from === 'sub') {
+                setSubSaveAlert(()=> true);
+                setTimeout(() => {
+                    setSubSaveAlert(false);
+                }, 1000);
+            }
+            if (from === 'main') {
+                setMainSaveAlert(()=> true);
+                setTimeout(() => {
+                    setMainSaveAlert(false);
+                }, 1000);
+            }
         }
     };
     useEffect(() => {
@@ -43,7 +50,8 @@ export const useSavePerfume = (ids: number[]) => {
     }, [setSaveClick]);
 
     return {
-        saveAlert,
+        mainSaveAlert,
+        subSaveAlert,
         perfumesSaved,
         saveClick: handleSaveClick,
         savedCheck,

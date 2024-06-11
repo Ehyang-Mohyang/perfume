@@ -72,12 +72,17 @@ export const checkLoginStatus = async () => {
   }
 };
 
-export const saveClickState = atom<(id: number, event: React.MouseEvent<HTMLDivElement>) => Promise<void>>({
+export const saveClickState = atom<(id: number, event: React.MouseEvent<HTMLDivElement>, from: string) => Promise<void>>({
   key: 'saveClickState',
   default: async () => {},
 });
 
 export const showPerfumeContentState = atom({
   key: 'showPerfumeContentState',
+  default: false,
+});
+
+export const saveAlertState = atom<boolean>({
+  key: 'saveAlertState',
   default: false,
 });

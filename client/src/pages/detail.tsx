@@ -17,7 +17,7 @@ export default function Detail() {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [isSavedDetail, setIsSavedDetail] = useState(false);
     const navigation = useNavigate();
-    const { saveClick, saveAlert } = useSavePerfume(ids);
+    const { mainSaveAlert, subSaveAlert, saveClick  } = useSavePerfume(ids);
 
     const backToResult = () => {
         navigation(-1);
@@ -27,7 +27,7 @@ export default function Detail() {
             event.stopPropagation();
             setShowLoginModal(true);
         } else {
-            saveClick(id, event);
+            saveClick(id, event, 'main');
             setIsSavedDetail(true);
         }
     };
@@ -44,7 +44,7 @@ export default function Detail() {
                     <p className='mb-0 ml-1.5'>뒤로가기</p>
                 </div>
             </div>
-            {saveAlert && <SaveAlert isSaved={isSavedDetail} />}
+            {mainSaveAlert && <SaveAlert isSaved={isSavedDetail} />}
             {showLoginModal &&
                 <LoginModal
                     onClose={() => setShowLoginModal(false)}
