@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { matchedPerfumesState } from '../recoil/recoilState';
-import perfumIMG from '../assets/images/matching.gif';
+import perfumIMG from '/assets/images/matching.gif';
 
 export default function MatchingPage() {
   const [matchSuccess, setMatchSuccess] = useState<boolean | null>(null);

@@ -43,7 +43,7 @@ export default function Mypage() {
 
   return (
     <div
-      className={`flex flex-col h-full w-dvw bg-cover ${getBackgroundClass()}`}
+      className={`flex flex-col flex-1 h-full w-dvw bg-cover bg-center ${getBackgroundClass()}`}
     >
       <div className="flex flex-col items-center">
         <span className="mt-[161px] mb-[32px] font-medium text-mypage-title">

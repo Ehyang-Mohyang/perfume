@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import naverDefault from '../assets/images/logo_green.png';
 import naverHover from '../assets/images/logo_white.png';
+import { useLocation } from 'react-router-dom';
 
 const NaverLogin = () => {
   const [isHover, setIsHover] = useState(false);
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  const loginUrl = `https://perfume-bside.site/oauth2/authorization/naver?redirect_uri=${encodeURIComponent(
+    currentPath,
+  )}`;
 
   return (
     <div className={'flex justify-center items-center mb-[15px]'}>
@@ -14,7 +21,7 @@ const NaverLogin = () => {
       >
         {isHover ? (
           <a
-            href="https://perfume-bside.site/oauth2/authorization/naver"
+            href={loginUrl}
             className="no-underline cursor-pointer inline-flex flex-col w-[460px] h-[94px] px-[103px] py-[27px] items-start gap-2.5 rounded-[15px] bg-naver-default border-2 border-naver-default"
           >
             <div className="flex flex-row justify-between w-full h-full">
@@ -30,7 +37,7 @@ const NaverLogin = () => {
           </a>
         ) : (
           <a
-            href="https://perfume-bside.site/oauth2/authorization/naver"
+            href={loginUrl}
             className="no-underline cursor-pointer inline-flex flex-col w-[460px] h-[94px] px-[103px] py-[27px] items-start gap-2.5 rounded-[15px] border-2 border-naver-default"
           >
             <div className="flex flex-row justify-between w-full h-full">
