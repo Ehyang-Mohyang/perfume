@@ -26,7 +26,7 @@ export default function Result() {
     const navigate = useNavigate();
 
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
-    const {mainSaveAlert, subSaveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
+    const {mainSaveAlert, setMainSaveAlert, subSaveAlert, setSubSaveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
 
     const prevClick = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
@@ -42,6 +42,10 @@ export default function Result() {
         navigate(`/detail/${data.id}`, { state: { perfume: data, ids: ids, isSaved: perfumesSaved.find(p => p.id === data.id)?.exists} });
     }
 
+    const clickDiv = () => {
+        setShowPerfumeContent(() => false);
+        setMainSaveAlert(() => false);
+    }
     useEffect(() => {
         console.log('result 페이지 ids: ', ids);
         console.log('result 페이지 perfumesSaved: ', perfumesSaved);
@@ -65,7 +69,7 @@ export default function Result() {
         }
     };
     return (
-        <div className="w-screen h-[1600px] flex flex-col bg-result-bg bg-center bg-cover font-pretendard" onClick={()=>setShowPerfumeContent(() => false)}>
+        <div className="w-screen h-[1600px] flex flex-col bg-result-bg bg-center bg-cover font-pretendard" onClick={clickDiv}>
             <div className="flex flex-col w-full h-full mx-auto mt-0 border px-auto">
                 {/* 메인 제품 */}
                 <div className="text-center mt-[187px] text-result-title font-normal not-italic">
