@@ -51,7 +51,9 @@ export const useSavePerfume = (ids: number[]) => {
 
     return {
         mainSaveAlert,
+        setMainSaveAlert,
         subSaveAlert,
+        setSubSaveAlert,
         perfumesSaved,
         saveClick: handleSaveClick,
         savedCheck,

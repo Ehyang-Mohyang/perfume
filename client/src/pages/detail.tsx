@@ -17,7 +17,7 @@ export default function Detail() {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [isSavedDetail, setIsSavedDetail] = useState(false);
     const navigation = useNavigate();
-    const { mainSaveAlert, subSaveAlert, saveClick  } = useSavePerfume(ids);
+    const { mainSaveAlert, setMainSaveAlert, saveClick  } = useSavePerfume(ids);
 
     const backToResult = () => {
         navigation(-1);
@@ -32,11 +32,16 @@ export default function Detail() {
         }
     };
 
+    const clickDiv = () => {
+        setShowPerfumeContent(() => false);
+        setMainSaveAlert(() => false);
+    }
+
     useEffect(() => {
         setIsSavedDetail(isSaved);
     }, []);
     return (
-        <div className='w-screen h-screen flex flex-col bg-result-bg bg-center bg-cover font-pretendard' onClick={()=>setShowPerfumeContent(() => false)} >
+        <div className='w-screen h-screen flex flex-col bg-result-bg bg-center bg-cover font-pretendard' onClick={clickDiv} >
             <div className='flex flex-col h-full w-full mx-auto px-auto'>
                 <PerfumeInfo perfumeData={perfume} isSaved={isSavedDetail} saveClick={handleSaveClick} _className='mt-[225px]' />
                 <div className='cursor-pointer flex justify-center items-center mx-auto mt-20 mb-[100px] text-body1 font-medium text-20' onClick={backToResult}>
