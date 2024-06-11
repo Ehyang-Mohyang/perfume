@@ -22,12 +22,12 @@ export default function Result() {
 
     const [currentPage, setCurrentPage] = useState(0);
     const [showLoginModal, setShowLoginModal] = useState(false);
-
+    const [clickPerfumeSaved, setClickPerfumeSaved] = useState<boolean>();
     const navigate = useNavigate();
 
     const ids = [mainPerfume.id, ...subPerfumes.map(v => v.id)];
     const {mainSaveAlert, subSaveAlert, perfumesSaved, saveClick, savedCheck } = useSavePerfume(ids);
-    const mainSaved = perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists;
+
     const prevClick = () => {
         setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
     };
@@ -54,6 +54,12 @@ export default function Result() {
             setShowLoginModal(true);
         } else {
             saveClick(id, event, from);
+            if(from === 'main') {
+                setClickPerfumeSaved(() => perfumesSaved?.find(p => p.id === mainPerfume.id)?.exists);
+            }
+            if(from === 'sub') {
+                setClickPerfumeSaved(() => perfumesSaved.slice(1).find((p) => p.id === id)?.exists);
+            }
         }
     };
     return (
@@ -64,7 +70,7 @@ export default function Result() {
                     이 <span className="font-bold">향수</span>를{" "}
                     <span className="font-bold">추천</span>드려요!
                 </div>
-                <PerfumeInfo perfumeData={mainPerfume} isSaved={mainSaved} saveClick={handleSaveClick} _className='mt-[52px]' />
+                <PerfumeInfo perfumeData={mainPerfume} isSaved={clickPerfumeSaved} saveClick={handleSaveClick} _className='mt-[52px]' />
 
                 {/* 비슷한 제품*/}
                 <div className="mt-0.5 text-left mx-auto w-[1180px] text-result-subtitle mt-40">
@@ -106,7 +112,6 @@ export default function Result() {
                                                 </div>
                                             </div>
                                         </div>
-                                        {subSaveAlert && <SaveAlert isSaved={perfumesSaved.slice(1).find((p) => p.id === data.id)?.exists}/>}
                                     </div>
                                 ))}
                         </div>
@@ -115,7 +120,7 @@ export default function Result() {
                 </div>
             </div>
             {/* 저장 알림 모달 */}
-            {mainSaveAlert && <SaveAlert isSaved={mainSaved} />}
+            {mainSaveAlert && <SaveAlert isSaved={clickPerfumeSaved} />}
             {showLoginModal &&
                 <LoginModal
                     onClose={() => setShowLoginModal(false)}
