@@ -2,7 +2,7 @@ import saveAfter from "../assets/images/save_complete.png";
 import subDef from "../assets/icons/sub_def.png";
 import left from "../assets/icons/icon_left.png";
 import right from "../assets/icons/icon_right.png";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import SaveAlert from "../components/saveAlert";
 import {useRecoilValue, useSetRecoilState} from "recoil";
 import {isLoggedInState, matchedPerfumesState, showPerfumeContentState} from "../recoil/recoilState";
@@ -12,6 +12,7 @@ import ResultPagination from '../components/resultPagination';
 import PerfumeInfo from '../components/perfumeInfo';
 import {useSavePerfume} from '../hooks/useSavePerfume';
 import LoginModal from '../components/loginModal';
+import ImgBtn from '../components/imgBtn';
 
 
 const subPerfumePerPage = 3;
@@ -52,7 +53,7 @@ export default function Result() {
         savedCheck(ids);
     }, [mainPerfume, subPerfumes]);
 
-    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>, from: string) => {
+    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>, from: string) => {
         if (!isLoggedIn) {
             event.stopPropagation();
             setShowLoginModal(true);
@@ -90,20 +91,21 @@ export default function Result() {
                             {subPerfumes
                                 .slice(currentPage, currentPage + subPerfumePerPage)
                                 .map((data, index) => (
-                                    <div
+                                    <button
                                         key={data.id}
                                         className="relative group mx-[21px] w-[360px] h-[360px] flex-shrink-0 rounded-[20px] bg-white shadow-subPerfume-div flex justify-center items-center"
                                         onClick={toInfo(data)}
-                                        role='button'
+                                        aria-label=''
                                     >
-                                        <img className="" src={data.imageURL} alt={data.name}/>
+                                        <img src={data.imageURL} alt={data.name}/>
                                         <div
                                             className="absolute inset-0 hidden justify-center group-hover:flex group-hover:bg-black group-hover:bg-opacity-40 rounded-[20px] flex justify-center items-center">
                                             <div className="w-[290px] h-[290px]">
                                                 <div className="flex justify-end">
                                                     {perfumesSaved && perfumesSaved.slice(1).find((p) => p.id === data.id)?.exists ?
-                                                        <img role='button' src={saveAfter} className='cursor-pointer' alt='이미 저장된 향수' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>
-                                                        : <img role='button' src={subDef} className='cursor-pointer' alt='저장하기' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>}
+                                                        <ImgBtn onClick={(event) => handleSaveClick(data.id, event, 'sub')} btnName='이미 저장된 향수' imgSrc={saveAfter} />
+                                                        : <ImgBtn onClick={(event) => handleSaveClick(data.id, event, 'sub')} btnName='저장하기' imgSrc={subDef} />
+                                                    }
                                                 </div>
                                                 <div
                                                     className="flex flex-col items-center justify-center mt-12 text-white">
@@ -119,7 +121,7 @@ export default function Result() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </button>
                                 ))}
                         </div>
                         <ResultPagination style="ml-[42px]" onClick={nextClick} imgSrc={right} currentPage={currentPage} disabledCondition={currentPage >= subPerfumes.length - 3} btnName='다음 향수 이동' />

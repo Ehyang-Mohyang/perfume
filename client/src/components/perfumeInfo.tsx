@@ -5,11 +5,12 @@ import {resultPerfumeData} from '../data/resultPerfumeData';
 import PerfumeContent from './perfumeContent';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {showPerfumeContentState} from '../recoil/recoilState';
+import button from './button';
 
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
     isSaved: boolean | undefined,
-    saveClick: (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>, from: string) => void,
+    saveClick: (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>, from: string) => void,
     _className: string,
 }
 const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _className}) => {
@@ -57,6 +58,13 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                             role='button'
                             className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[68px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
                             onClick={(event) => saveClick(perfumeData.id, event, 'main')}
+                            tabIndex={0}
+                            aria-pressed={isSaved}
+                            onKeyUp={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                if (event.key === 'Enter' || event.key === ' ') {
+                                    saveClick(perfumeData.id, event, 'main');
+                                }
+                            }}
                         >
                             <div className="flex items-center justify-center">
                                 {isSaved ? (

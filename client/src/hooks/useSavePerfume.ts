@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {getSavedCheck} from '../api/getSavedCheck';
 import {saveMyPerfume} from '../api/saveMyPerfume';
 import {useRecoilState} from 'recoil';
@@ -22,7 +22,7 @@ export const useSavePerfume = (ids: number[]) => {
             console.error("Error fetching saved check:", error);
         }
     };
-    const handleSaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement>, from: string) => {
+    const handleSaveClick = async (id: number, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>, from: string) => {
         console.log('click id: ', id);
         event.stopPropagation();
         try {
