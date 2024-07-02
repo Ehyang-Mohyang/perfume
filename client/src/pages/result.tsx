@@ -94,6 +94,7 @@ export default function Result() {
                                         key={data.id}
                                         className="relative group mx-[21px] w-[360px] h-[360px] flex-shrink-0 rounded-[20px] bg-white shadow-subPerfume-div flex justify-center items-center"
                                         onClick={toInfo(data)}
+                                        role='button'
                                     >
                                         <img className="" src={data.imageURL} alt={data.name}/>
                                         <div
@@ -101,8 +102,8 @@ export default function Result() {
                                             <div className="w-[290px] h-[290px]">
                                                 <div className="flex justify-end">
                                                     {perfumesSaved && perfumesSaved.slice(1).find((p) => p.id === data.id)?.exists ?
-                                                        <img src={saveAfter} className='cursor-pointer' alt='이미 저장된 향수' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>
-                                                        : <img src={subDef} className='cursor-pointer' alt='저장하기' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>}
+                                                        <img role='button' src={saveAfter} className='cursor-pointer' alt='이미 저장된 향수' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>
+                                                        : <img role='button' src={subDef} className='cursor-pointer' alt='저장하기' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>}
                                                 </div>
                                                 <div
                                                     className="flex flex-col items-center justify-center mt-12 text-white">

@@ -54,6 +54,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                         </div>
 
                         <div
+                            role='button'
                             className="w-[300px] h-20 bg-white-50 cursor-pointer border border-white rounded-[100px] pl-10 pr-10 mt-[68px] mb-20 pt-6 pb-[26px] shadow-home-button-hover"
                             onClick={(event) => saveClick(perfumeData.id, event, 'main')}
                         >
