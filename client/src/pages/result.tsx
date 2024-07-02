@@ -85,7 +85,7 @@ export default function Result() {
                 <div className="h-full mx-auto ">
                     {/* 서브 향수 리스트 */}
                     <div className="flex justify-between mt-14">
-                        <ResultPagination style="mr-[42px]" onClick={prevClick} imgSrc={left} currentPage={currentPage} disabledCondition={currentPage === 0}/>
+                        <ResultPagination style="mr-[42px]" onClick={prevClick} imgSrc={left} currentPage={currentPage} disabledCondition={currentPage === 0} btnName='이전 향수 이동' />
                         <div className="flex justify-center w-[1180px]">
                             {subPerfumes
                                 .slice(currentPage, currentPage + subPerfumePerPage)
@@ -101,8 +101,8 @@ export default function Result() {
                                             <div className="w-[290px] h-[290px]">
                                                 <div className="flex justify-end">
                                                     {perfumesSaved && perfumesSaved.slice(1).find((p) => p.id === data.id)?.exists ?
-                                                        <img src={saveAfter} className='cursor-pointer' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>
-                                                        : <img src={subDef} className='cursor-pointer' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>}
+                                                        <img src={saveAfter} className='cursor-pointer' alt='이미 저장된 향수' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>
+                                                        : <img src={subDef} className='cursor-pointer' alt='저장하기' onClick={(event) => handleSaveClick(data.id, event, 'sub')}/>}
                                                 </div>
                                                 <div
                                                     className="flex flex-col items-center justify-center mt-12 text-white">
@@ -121,7 +121,7 @@ export default function Result() {
                                     </div>
                                 ))}
                         </div>
-                        <ResultPagination style="ml-[42px]" onClick={nextClick} imgSrc={right} currentPage={currentPage} disabledCondition={currentPage >= subPerfumes.length - 3} />
+                        <ResultPagination style="ml-[42px]" onClick={nextClick} imgSrc={right} currentPage={currentPage} disabledCondition={currentPage >= subPerfumes.length - 3} btnName='다음 향수 이동' />
                     </div>
                 </div>
             </div>

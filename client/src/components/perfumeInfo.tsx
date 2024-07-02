@@ -59,9 +59,9 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                         >
                             <div className="flex items-center justify-center">
                                 {isSaved ? (
-                                    <img src={saveAfter}/>
+                                    <img src={saveAfter} alt='이미 저장된 향수' />
                                 ) : (
-                                    <img src={saveDef}/>
+                                    <img src={saveDef} alt='저장하지 않은 향수' />
                                 )}
                                 <p className="mb-0 ml-[14px] text-2xl text-save-button">
                                     내 향수 저장하기
@@ -73,6 +73,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                         <div className="flex items-center justify-center h-full">
                             <img
                                 src={perfumeData.imageURL}
+                                alt={perfumeData.name}
                                 className="max-w-full max-h-full"
                             />
                         </div>
