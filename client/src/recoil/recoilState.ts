@@ -2,6 +2,7 @@ import { atom, selector } from 'recoil';
 import { getCookie } from '../util/getCookie';
 import axiosInstance from '../api/axiosConfig';
 import {recoilPersist} from 'recoil-persist';
+import React from 'react';
 
 const { persistAtom } = recoilPersist();
 
@@ -72,7 +73,7 @@ export const checkLoginStatus = async () => {
   }
 };
 
-export const saveClickState = atom<(id: number, event: React.MouseEvent<HTMLDivElement>, from: string) => Promise<void>>({
+export const saveClickState = atom<(id: number, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>, from: string) => Promise<void>>({
   key: 'saveClickState',
   default: async () => {},
 });

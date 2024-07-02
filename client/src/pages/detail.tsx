@@ -22,7 +22,7 @@ export default function Detail() {
     const backToResult = () => {
         navigation(-1);
     }
-    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent>) => {
+    const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => {
         if (!isLoggedIn) {
             event.stopPropagation();
             setShowLoginModal(true);
@@ -45,7 +45,7 @@ export default function Detail() {
             <div className='flex flex-col h-full w-full mx-auto px-auto'>
                 <PerfumeInfo perfumeData={perfume} isSaved={isSavedDetail} saveClick={handleSaveClick} _className='mt-[225px]' />
                 <div className='cursor-pointer flex justify-center items-center mx-auto mt-20 mb-[100px] text-body1 font-medium text-20' onClick={backToResult}>
-                    <img className='w-5 h-5 mr-1.5' src={iconBack} />
+                    <img className='w-5 h-5 mr-1.5' src={iconBack} alt='뒤로가기 화살표' />
                     <p className='mb-0 ml-1.5'>뒤로가기</p>
                 </div>
             </div>
