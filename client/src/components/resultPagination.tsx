@@ -1,4 +1,4 @@
-import {FC, MouseEventHandler} from 'react';
+import {FC, MouseEventHandler, useState} from 'react';
 
 interface ResultPaginationProps {
     style: string;
@@ -6,16 +6,19 @@ interface ResultPaginationProps {
     imgSrc: string;
     currentPage: number;
     disabledCondition: boolean;
+    btnName: string;
 }
 
-const ResultPagination: FC<ResultPaginationProps> =({style, onClick, imgSrc, disabledCondition}) => {
-    return (
+const ResultPagination: FC<ResultPaginationProps> =({style, onClick, imgSrc, disabledCondition, btnName}) => {
+        return (
         <button
             className={style}
             onClick={onClick}
             disabled={disabledCondition}
+            aria-label={btnName}
+            aria-disabled={disabledCondition}
         >
-            <img src={imgSrc}/>
+            <img src={imgSrc} alt={btnName} />
         </button>
     )
 }
