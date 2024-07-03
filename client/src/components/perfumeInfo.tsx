@@ -1,11 +1,10 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import saveAfter from '../assets/images/save_complete.png';
 import saveDef from '../assets/images/save_default.png';
 import {resultPerfumeData} from '../data/resultPerfumeData';
 import PerfumeContent from './perfumeContent';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState} from 'recoil';
 import {showPerfumeContentState} from '../recoil/recoilState';
-import button from './button';
 
 interface perfumeInfoProps {
     perfumeData: resultPerfumeData,
@@ -17,7 +16,7 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
     const [showPerfumeContent, setShowPerfumeContent] = useRecoilState(showPerfumeContentState);
     const numOfChar = perfumeData.name.length;
 
-    const handleQuestionClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const handleQuestionClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation()
         setShowPerfumeContent(() => !showPerfumeContent);
     };
@@ -40,12 +39,15 @@ const PerfumeInfo: FC<perfumeInfoProps> = ({perfumeData, isSaved, saveClick, _cl
                             {perfumeData.ename}
                         </div>
                         <div className='mt-[41px] flex items-center'>
-                            <div
+                            <button
                                 className='w-[22px] h-[22px] font-semibold rounded-3xl bg-question text-questionmark text-caption1 text-center hover:text-white hover:bg-caption1'
                                 onClick={handleQuestionClick}
+                                aria-expanded={showPerfumeContent}
+                                aria-controls={`perfume-content-${perfumeData.id}`}
+                                aria-label='상세설명'
                             >
                                 ?
-                            </div>
+                            </button>
                             <div className='ml-2 text-question-text font-medium'>
                                 어떤 향인지 알고 싶어요.
                             </div>
