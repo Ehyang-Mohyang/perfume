@@ -51,6 +51,7 @@ export default function Result() {
         console.log('result 페이지 ids: ', ids);
         console.log('result 페이지 perfumesSaved: ', perfumesSaved);
         savedCheck(ids);
+        document.title = mainPerfume.name + ' | 이향모향';
     }, [mainPerfume, subPerfumes]);
 
     const handleSaveClick = (id: number, event: React.MouseEvent<HTMLImageElement | HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>, from: string) => {

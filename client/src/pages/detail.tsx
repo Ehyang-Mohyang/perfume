@@ -39,6 +39,7 @@ export default function Detail() {
 
     useEffect(() => {
         setIsSavedDetail(isSaved);
+        document.title = perfume.name + ' | 이향모향';
     }, []);
     return (
         <div className='w-screen h-screen flex flex-col bg-result-bg bg-center bg-cover font-pretendard' onClick={clickDiv} >
